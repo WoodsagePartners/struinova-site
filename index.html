@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Struinova Innovation | Your Innovator in Residence</title><!-- v3 -->
+<meta name="description" content="Struinova Innovation. Structured creative problem-solving, design thinking, and business design. Your Innovator in Residence.">
+<link rel="icon" type="image/svg+xml" href="Struinova.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --orange:#f8991d;
+  --burnt:#c2571b;
+  --navy:#2c3e50;
+  --navy-deep:#16222e;
+  --ink:#0a1119;
+  --text:#e6edf3;
+  --muted:#93a5b6;
+  --line:rgba(148,180,210,0.14);
+  --panel:rgba(44,62,80,0.32);
+  --panel-hi:rgba(64,90,116,0.30);
+  --radius:18px;
+  --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:var(--ink);color:var(--text);overflow-x:hidden;line-height:1.65}
+canvas#net{position:fixed;inset:0;z-index:-1;opacity:.55}
+.bg{position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(1000px 700px at 80% -15%, rgba(44,62,80,0.55), transparent 60%),
+  radial-gradient(800px 600px at -10% 60%, rgba(44,62,80,0.4), transparent 65%),
+  radial-gradient(600px 500px at 70% 105%, rgba(194,87,27,0.08), transparent 60%),
+  linear-gradient(165deg,#0a1119 0%,#0d1621 50%,#0a1119 100%);}
+
+.panel{
+  background:linear-gradient(150deg,var(--panel-hi),var(--panel) 55%,rgba(22,34,46,0.5));
+  backdrop-filter:blur(16px) saturate(130%);
+  -webkit-backdrop-filter:blur(16px) saturate(130%);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.console{position:relative;overflow:hidden}
+.console::before{content:"";position:absolute;top:0;left:0;right:0;height:38px;background:rgba(10,17,25,.5);border-bottom:1px solid var(--line)}
+.console::after{content:"";position:absolute;top:14px;left:18px;width:10px;height:10px;border-radius:50%;background:var(--orange);box-shadow:18px 0 0 rgba(148,180,210,.5), 36px 0 0 rgba(148,180,210,.25)}
+.console .console-tag{position:absolute;top:9px;right:18px;font-family:var(--mono);font-size:.66rem;color:var(--muted);letter-spacing:.14em;z-index:2}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+section{padding:100px 0}
+h1,h2,h3{font-weight:600;line-height:1.22}
+.kicker{font-family:var(--mono);color:var(--orange);letter-spacing:.24em;font-size:.72rem;font-weight:500;margin-bottom:14px;text-transform:uppercase}
+.sub{color:var(--muted);font-weight:300;max-width:660px}
+.center{text-align:center}
+.center .sub{margin-left:auto;margin-right:auto}
+
+/* ---------- STEP BADGES (prominent) ---------- */
+.stepbar{display:flex;align-items:center;gap:18px;justify-content:center;margin-bottom:20px}
+.stepnum{
+  font-family:var(--mono);font-weight:500;font-size:1.9rem;color:#0a1119;
+  background:linear-gradient(135deg,var(--orange),var(--burnt));
+  width:76px;height:76px;border-radius:16px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 12px 34px rgba(248,153,29,.45), inset 0 1px 0 rgba(255,255,255,.4);
+}
+.steplabel{font-family:var(--mono);text-align:left}
+.steplabel b{display:block;color:var(--orange);letter-spacing:.3em;font-size:.8rem;font-weight:500}
+.steplabel span{color:#fff;font-family:'Poppins',sans-serif;font-size:1.7rem;font-weight:600;letter-spacing:.04em;text-shadow:0 0 28px rgba(255,255,255,.35)}
+.steprule{flex:0 0 60px;height:1px;background:linear-gradient(90deg,transparent,rgba(248,153,29,.6))}
+.steprule.r{background:linear-gradient(90deg,rgba(248,153,29,.6),transparent)}
+
+.btn{
+  display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+  padding:14px 30px;border-radius:10px;border:1px solid rgba(248,153,29,.55);
+  background:linear-gradient(135deg,rgba(248,153,29,.95),rgba(194,87,27,.9));
+  color:#fff;font-family:inherit;font-size:.98rem;font-weight:500;
+  box-shadow:0 10px 30px rgba(194,87,27,.3), inset 0 1px 0 rgba(255,255,255,.3);
+  transition:transform .2s,box-shadow .2s;text-decoration:none;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(194,87,27,.45), inset 0 1px 0 rgba(255,255,255,.3)}
+.btn.ghost{background:rgba(148,180,210,.06);border:1px solid var(--line);box-shadow:none;color:var(--text)}
+.btn.ghost:hover{border-color:var(--orange);color:var(--orange)}
+.btn:disabled{opacity:.3;cursor:not-allowed;transform:none}
+
+/* ---------- nav + logo chip ---------- */
+nav{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(1080px,94vw);
+  display:flex;align-items:center;gap:14px;padding:8px 18px;border-radius:14px;
+}
+.logo-chip{
+  display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;
+  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.16), rgba(248,153,29,.10) 55%, rgba(148,180,210,.05));
+  border:1px solid rgba(248,153,29,.35);
+  box-shadow:0 6px 18px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.15);
+}
+.logo-chip img{height:34px;width:34px;filter:drop-shadow(0 0 6px rgba(248,153,29,.45))}
+nav .brand{font-weight:600;letter-spacing:.1em;font-size:.92rem}
+nav .navlinks{display:flex;gap:24px;margin-left:auto}
+nav a{color:var(--muted);text-decoration:none;font-size:.84rem;transition:color .2s;font-family:var(--mono)}
+nav a:hover{color:var(--orange)}
+@media(max-width:760px){nav .navlinks{display:none}}
+
+/* ---------- hero ---------- */
+.hero{min-height:92vh;display:flex;align-items:center;padding-top:130px}
+.hero h1{font-size:clamp(2.1rem,5vw,3.7rem);font-weight:700;max-width:820px}
+.hero h1 em{font-style:normal;background:linear-gradient(100deg,var(--orange),#ffc46b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dentist{font-family:'Caveat',cursive;font-size:1.65rem;color:var(--orange);display:inline-block;transform:rotate(-1.2deg);margin-bottom:12px}
+.hero .sub{margin:24px 0 34px;font-size:1.06rem}
+.statline{display:flex;flex-wrap:wrap;gap:26px;margin-top:44px;font-family:var(--mono)}
+.stat b{display:block;color:var(--orange);font-size:1.4rem;font-weight:500}
+.stat span{font-size:.7rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+
+/* ---------- intake console ---------- */
+.intake{padding:64px 34px 34px;border-radius:22px}
+.wall{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;position:relative;z-index:1}
+.sticky{
+  width:200px;min-height:118px;padding:16px 15px 14px;cursor:pointer;user-select:none;position:relative;
+  font-family:'Caveat',cursive;font-size:1.24rem;line-height:1.25;color:#f4e9dc;
+  background:linear-gradient(150deg,rgba(64,90,116,.5),rgba(44,62,80,.32));
+  border:1px solid var(--line);border-radius:10px;
+  box-shadow:0 10px 24px rgba(0,0,0,.4);
+  transition:transform .22s,box-shadow .22s,border-color .22s;
+}
+.sticky::after{content:"";position:absolute;bottom:10px;right:12px;width:8px;height:8px;border-radius:50%;background:rgba(148,180,210,.35);transition:background .2s,box-shadow .2s}
+.sticky:nth-child(3n){transform:rotate(1.6deg)}
+.sticky:nth-child(3n+1){transform:rotate(-1.8deg)}
+.sticky:hover{transform:rotate(0) translateY(-6px);z-index:2;border-color:rgba(248,153,29,.5)}
+.sticky.sel{border-color:var(--orange);transform:rotate(0) translateY(-4px);box-shadow:0 0 0 1px var(--orange),0 14px 30px rgba(248,153,29,.22)}
+.sticky.sel::after{background:var(--orange);box-shadow:0 0 10px var(--orange)}
+.sticky.custom{background:rgba(148,180,210,.05);border-style:dashed}
+.sticky.custom textarea{width:100%;margin-top:8px;background:transparent;border:none;outline:none;resize:none;font-family:'Caveat',cursive;font-size:1.18rem;color:#ffd9a8;height:64px}
+.sticky.custom textarea::placeholder{color:rgba(255,255,255,.35)}
+.intake-foot{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;margin-top:30px;padding-top:22px;border-top:1px solid var(--line)}
+.queue{font-family:var(--mono);font-size:.78rem;color:var(--muted);letter-spacing:.12em}
+.queue b{color:var(--orange);font-weight:500}
+.console.has-tabs::after{display:none}
+.dot-tabs{position:absolute;top:13px;left:16px;display:flex;gap:8px;align-items:center;z-index:3}
+.dot-tab{width:12px;height:12px;border-radius:50%;border:1px solid rgba(148,180,210,.5);background:rgba(148,180,210,.2);cursor:pointer;padding:0;transition:all .2s}
+.dot-tab:hover{background:rgba(248,153,29,.5)}
+.dot-tab.active{background:var(--orange);border-color:var(--orange);box-shadow:0 0 12px rgba(248,153,29,.8)}
+.dot-name{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.16em;margin-left:8px}
+.disc-panel{padding:56px 34px 28px;margin-top:26px}
+.disc-panel .dlabel{font-family:var(--mono);font-size:.7rem;color:var(--orange);letter-spacing:.2em;margin-bottom:14px;position:relative;z-index:1}
+.disc-row{display:flex;flex-wrap:wrap;gap:10px;position:relative;z-index:1}
+.disc{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;padding:8px 14px;border-radius:8px;border:1px solid var(--line);color:rgba(147,165,182,.5);background:rgba(148,180,210,.03)}
+.disc.on{color:#ffd9a8;border-color:rgba(248,153,29,.6);background:rgba(248,153,29,.08)}
+.disc.on::before{content:"\2713  ";color:var(--orange)}
+
+/* ---------- engine ---------- */
+#engine{display:none;padding-top:0}
+.engine-shell{padding:56px 20px 20px;border-radius:22px;position:relative}
+.engine-body{display:grid;grid-template-columns:216px 1fr;gap:6px;align-items:center;position:relative;z-index:1}
+@media(max-width:820px){.engine-body{grid-template-columns:1fr}}
+.instack{display:flex;flex-direction:column;gap:10px;padding:10px 0 10px 12px}
+.instack .in-label{font-family:var(--mono);font-size:.64rem;color:var(--orange);letter-spacing:.2em;margin-bottom:2px}
+.incard{
+  position:relative;font-family:'Caveat',cursive;font-size:1.02rem;line-height:1.2;color:#f4e9dc;
+  background:linear-gradient(150deg,rgba(64,90,116,.55),rgba(44,62,80,.35));
+  border:1px solid var(--line);border-left:3px solid var(--orange);border-radius:8px;
+  padding:9px 26px 9px 12px;box-shadow:0 8px 18px rgba(0,0,0,.4);
+}
+.incard::after{content:"\2192";position:absolute;right:8px;top:50%;transform:translateY(-50%);color:var(--orange);font-family:var(--mono);font-size:.8rem}
+.engine-svg{width:100%;height:auto;display:block}
+.engine-svg text{font-family:var(--mono)}
+.flow{stroke-dasharray:6 10;animation:flow 1.2s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-16}}
+.hub-ring{transform-origin:500px 250px;animation:spin 14s linear infinite}
+.hub-ring2{transform-origin:500px 250px;animation:spin 9s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.chip-run{
+  position:absolute;font-family:'Caveat',cursive;font-size:1rem;color:#fff;padding:6px 12px;border-radius:6px;
+  background:linear-gradient(140deg,rgba(64,90,116,.85),rgba(44,62,80,.7));border:1px solid rgba(248,153,29,.5);
+  white-space:nowrap;max-width:230px;overflow:hidden;text-overflow:ellipsis;
+  animation:runIn 2s cubic-bezier(.45,0,.6,1) forwards;box-shadow:0 6px 18px rgba(0,0,0,.5);
+}
+@keyframes runIn{
+  0%{opacity:0;transform:translate(-42vw,var(--dy)) scale(1)}
+  20%{opacity:1}
+  100%{opacity:0;transform:translate(0,0) scale(.1) rotate(360deg)}
+}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s,transform .9s}
+.reveal.on{opacity:1;transform:none}
+.hmw-card{padding:44px 48px;margin:30px 0 24px}
+.hmw-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+.hmw{font-size:clamp(1.35rem,2.8vw,1.9rem);font-weight:600;line-height:1.38}
+.proof-blurb{padding:30px 40px;border-left:3px solid var(--orange);margin-bottom:0}
+.proof-blurb .tag{font-family:var(--mono);font-size:.7rem;color:var(--orange);letter-spacing:.18em;text-transform:uppercase}
+.proof-blurb p{color:var(--muted);font-weight:300;margin-top:10px;font-size:.95rem}
+
+/* ---------- chat spill ---------- */
+#spill{display:none}
+.spill-connector{display:flex;flex-direction:column;align-items:center;gap:6px;padding:26px 0 20px}
+.spill-connector .vline{width:1px;height:44px;background:repeating-linear-gradient(180deg,var(--orange) 0 6px,transparent 6px 14px)}
+.spill-connector .slabel{font-family:var(--mono);font-size:.68rem;color:var(--orange);letter-spacing:.22em}
+.chat{max-width:780px;margin:0 auto;padding:64px 40px 40px;border-radius:22px}
+.msg{display:flex;gap:14px;margin-bottom:22px;animation:msgIn .5s ease both;position:relative;z-index:1}
+@keyframes msgIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.msg .bubble{padding:15px 22px;border-radius:14px;max-width:82%;font-weight:300;font-size:.96rem}
+.msg.ron .bubble{background:rgba(148,180,210,.07);border:1px solid var(--line);border-top-left-radius:4px}
+.msg.you{justify-content:flex-end}
+.msg.you .bubble{background:linear-gradient(135deg,rgba(248,153,29,.35),rgba(194,87,27,.25));border:1px solid rgba(248,153,29,.4);border-top-right-radius:4px}
+.ron-ava{flex:0 0 44px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--navy));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 18px 58px;position:relative;z-index:1}
+.chip{cursor:pointer;padding:10px 18px;border-radius:8px;font-size:.86rem;color:var(--text);background:rgba(148,180,210,.05);border:1px solid var(--line);transition:all .2s;font-family:inherit}
+.chip:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-2px)}
+.freeline{display:flex;gap:10px;margin-left:58px;margin-bottom:10px;position:relative;z-index:1}
+.freeline input{flex:1;background:rgba(148,180,210,.05);border:1px solid var(--line);border-radius:8px;padding:11px 18px;color:var(--text);font-family:inherit;font-size:.9rem;outline:none}
+.freeline input:focus{border-color:var(--orange)}
+.typing{display:inline-flex;gap:5px;padding:14px 20px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:tp 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes tp{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:1;transform:translateY(-4px)}}
+
+/* ---------- brief / booking ---------- */
+#brief{display:none}
+.brief-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:start}
+@media(max-width:880px){.brief-grid{grid-template-columns:1fr}}
+.brief-card{padding:60px 40px 40px}
+.brief-card h3{margin-bottom:18px;font-size:1.25rem;position:relative;z-index:1}
+.brief-card ul{list-style:none;position:relative;z-index:1}
+.brief-card li{padding:11px 0;border-bottom:1px solid var(--line);font-weight:300;font-size:.93rem;color:var(--muted)}
+.brief-card li b{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:4px;color:var(--orange);font-weight:500}
+.form-card{padding:60px 40px 40px}
+.form-card h3{position:relative;z-index:1}
+.form-card label{display:block;font-family:var(--mono);font-size:.7rem;color:var(--muted);margin:16px 0 6px;letter-spacing:.14em;text-transform:uppercase}
+.form-card input,.form-card textarea{width:100%;background:rgba(148,180,210,.05);border:1px solid var(--line);border-radius:10px;padding:12px 16px;color:var(--text);font-family:inherit;font-size:.92rem;outline:none}
+.form-card input:focus,.form-card textarea:focus{border-color:var(--orange)}
+.form-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
+.tiny{font-size:.76rem;color:var(--muted);margin-top:14px;font-weight:300}
+
+/* ---------- mindmap ---------- */
+.mindmap-shell{padding:56px 16px 16px;border-radius:22px;margin-top:44px}
+.mindmap{width:100%;height:auto;display:block}
+.mindmap text{font-family:var(--mono)}
+.mm-link{fill:none;stroke:rgba(148,180,210,.4);stroke-width:1.4}
+.mm-link.hot{stroke:rgba(248,153,29,.6)}
+
+/* ---------- practice / stories ---------- */
+.practice-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center}
+@media(max-width:880px){.practice-grid{grid-template-columns:1fr}}
+.stories{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:44px}
+.story{padding:36px;display:flex;flex-direction:column;transition:transform .25s}
+.story:hover{transform:translateY(-6px)}
+.story .where{font-family:var(--mono);font-size:.68rem;color:var(--orange);letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px}
+.story h3{font-size:1.18rem;margin-bottom:12px}
+.story p{color:var(--muted);font-weight:300;font-size:.92rem;flex:1}
+.story .result{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:.9rem}
+.story .result b{color:var(--orange)}
+.quotebar{margin-top:48px;padding:40px 48px;font-weight:300;font-style:italic;font-size:1.04rem}
+.quotebar .attr{font-style:normal;color:var(--muted);font-size:.84rem;margin-top:12px;font-family:var(--mono)}
+.creds{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cred{padding:18px 20px;border-radius:14px;background:rgba(148,180,210,.04);border:1px solid var(--line)}
+.cred b{display:block;color:var(--orange);font-size:1.3rem;font-weight:600;font-family:var(--mono)}
+.cred span{font-size:.78rem;color:var(--muted);font-weight:300}
+
+footer{padding:60px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem;font-weight:300}
+footer .frow{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+footer a{color:var(--orange);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<canvas id="net"></canvas>
+
+<nav class="panel">
+  <span class="logo-chip"><img src="Struinova-dark.svg" alt="Struinova"></span>
+  <span class="brand">STRUINOVA</span>
+  <span class="navlinks">
+    <a href="#wall">start_here</a>
+    <a href="#why">why_resident</a>
+    <a href="#stories">field_notes</a>
+    <a href="#about">the_practice</a>
+    <a href="https://cal.com/brumbarger" target="_blank" rel="noopener">book_call</a>
+  </span>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <span class="dentist">"You can't be your own dentist."</span>
+    <h1>Every organization goes blind to its own possibilities.<br><em>We restore the seeing.</em></h1>
+    <p class="sub">Struinova is your Innovator in Residence. We embed with your team, bring a proven creative problem-solving method, and train your people until innovation is a muscle they own, not a memo they file. Don't take our word for it. Run your real problem through our process, right now.</p>
+    <a class="btn" href="#wall">Show us what's stuck &darr;</a>
+  </div>
+</header>
+
+<!-- ================= STEP 1: INTAKE ================= -->
+<section id="wall">
+  <div class="wrap">
+    <div class="stepbar">
+      <span class="steprule"></span>
+      <div class="stepnum">01</div>
+      <div class="steplabel"><b>STEP_01</b><span>Name it</span></div>
+      <span class="steprule r"></span>
+    </div>
+    <div class="center" style="margin-bottom:30px">
+      <h2>What does "stuck" look like at your place?</h2>
+      <p class="sub" style="margin:14px auto 0">Grab every note that sounds familiar, or scribble your own. No judgment here; deferral of judgment is literally the first skill we teach.</p>
+    </div>
+    <div class="panel console has-tabs intake">
+      <span class="console-tag">STRUINOVA // INTAKE_CONSOLE</span>
+      <div class="dot-tabs" id="dotTabs">
+        <button class="dot-tab active" data-set="0" aria-label="What's stuck"></button>
+        <button class="dot-tab" data-set="1" aria-label="New products and services"></button>
+        <button class="dot-tab" data-set="2" aria-label="Tech, AI and robotics"></button>
+        <span class="dot-name" id="dotName">SET_01 // WHAT'S STUCK</span>
+      </div>
+      <div class="wall" id="stickyWall"></div>
+      <div class="intake-foot">
+        <div class="queue">SIGNALS_QUEUED: <b id="qCount">0</b> &nbsp;&middot;&nbsp; STATUS: <b id="qStatus">AWAITING INPUT</b></div>
+        <button class="btn" id="engineBtn" disabled>Feed the Reframe Engine &rarr;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 2: ENGINE + SPILL ================= -->
+<section id="engine">
+  <div class="wrap">
+    <div class="stepbar">
+      <span class="steprule"></span>
+      <div class="stepnum">02</div>
+      <div class="steplabel"><b>STEP_02</b><span>Reframe it</span></div>
+      <span class="steprule r"></span>
+    </div>
+    <div class="center" style="margin-bottom:26px">
+      <h2>When you change how you see a problem,<br>you change the problem you see.</h2>
+      <p class="sub" style="margin:14px auto 0">Your challenges enter from the left. Seven Struinova disciplines pour in from above. The junk gets exhausted off to the right, and what flows out the bottom is a conversation worth having.</p>
+    </div>
+    <div class="panel console engine-shell" id="engineShell">
+      <span class="console-tag">STRUINOVA // REFRAME_ENGINE</span>
+      <div class="engine-body">
+        <div class="instack" id="inputStack"></div>
+        <svg class="engine-svg" viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg" aria-label="The Reframe Engine">
+          <!-- ingredient streams (top) -->
+          <g stroke="rgba(148,180,210,.5)" fill="none" stroke-width="1.3">
+            <path class="flow" d="M95,84 C95,175 330,185 450,222"/>
+            <path class="flow" d="M230,84 C235,165 380,180 466,212"/>
+            <path class="flow" d="M365,84 C370,155 440,175 486,198"/>
+            <path class="flow" d="M500,84 L500,184"/>
+            <path class="flow" d="M635,84 C630,155 560,175 514,198"/>
+            <path class="flow" d="M770,84 C765,165 620,180 534,212"/>
+            <path class="flow" d="M905,84 C905,175 670,185 550,222"/>
+          </g>
+          <g font-size="14" fill="#c6d6e4" text-anchor="middle" letter-spacing="1.5">
+            <text x="95" y="38">EXPERIENCE</text>
+            <text x="230" y="66">PROCESS</text>
+            <text x="365" y="38">INNOVATION</text>
+            <text x="500" y="66">TRAINING</text>
+            <text x="635" y="38">ENTREPRENEURSHIP</text>
+            <text x="770" y="66">CREATIVE PROBLEM-SOLVING</text>
+            <text x="905" y="38">APPLIED AI</text>
+          </g>
+          <g fill="#f8991d">
+            <circle cx="95" cy="76" r="3.4"/><circle cx="230" cy="76" r="3.4"/><circle cx="365" cy="76" r="3.4"/><circle cx="500" cy="76" r="3.4"/><circle cx="635" cy="76" r="3.4"/><circle cx="770" cy="76" r="3.4"/><circle cx="905" cy="76" r="3.4"/>
+          </g>
+          <!-- input path (left) -->
+          <path class="flow" d="M8,250 L428,250" stroke="rgba(248,153,29,.8)" stroke-width="2" fill="none"/>
+          <text x="14" y="230" font-size="13" fill="#f8991d" letter-spacing="2">YOUR CHALLENGES</text>
+          <!-- hub -->
+          <g class="hub-ring"><circle cx="500" cy="250" r="66" fill="none" stroke="rgba(248,153,29,.55)" stroke-width="1.6" stroke-dasharray="10 14"/></g>
+          <g class="hub-ring2"><circle cx="500" cy="250" r="50" fill="none" stroke="rgba(148,180,210,.5)" stroke-width="1.2" stroke-dasharray="4 10"/></g>
+          <circle cx="500" cy="250" r="36" fill="rgba(248,153,29,.12)" stroke="rgba(248,153,29,.7)" stroke-width="1.6" id="hubCore"/>
+          <text x="500" y="246" font-size="11" fill="#f8991d" text-anchor="middle" letter-spacing="2">THE</text>
+          <text x="500" y="262" font-size="11" fill="#f8991d" text-anchor="middle" letter-spacing="2">REFRAME</text>
+          <!-- exhaust to the right: trash stack -->
+          <path d="M566,250 L716,250" stroke="rgba(148,180,210,.3)" stroke-width="1.2" fill="none" stroke-dasharray="2 8"/>
+          <text x="845" y="120" font-size="10" fill="rgba(147,165,182,.5)" text-anchor="middle" letter-spacing="2">EXHAUST // LEFT AT THE CURB</text>
+          <g font-size="10" letter-spacing="1">
+            <g transform="rotate(-2 813 151)">
+              <rect x="724" y="136" width="178" height="30" rx="3" fill="rgba(148,180,210,.05)" stroke="rgba(148,180,210,.35)"/>
+              <text x="813" y="155" fill="#93a5b6" text-anchor="middle">"HOW WE'VE ALWAYS DONE IT"</text>
+            </g>
+            <g transform="rotate(2 815 196)">
+              <rect x="760" y="181" width="110" height="30" rx="3" fill="rgba(148,180,210,.06)" stroke="rgba(148,180,210,.4)"/>
+              <text x="815" y="200" fill="#93a5b6" text-anchor="middle">JUDGMENT</text>
+            </g>
+            <g transform="rotate(-2 793 241)">
+              <rect x="738" y="226" width="110" height="30" rx="3" fill="rgba(148,180,210,.06)" stroke="rgba(148,180,210,.4)"/>
+              <text x="793" y="245" fill="#93a5b6" text-anchor="middle">POLITICS</text>
+            </g>
+            <g transform="rotate(2 816 286)">
+              <rect x="768" y="271" width="96" height="30" rx="3" fill="rgba(148,180,210,.05)" stroke="rgba(148,180,210,.35)"/>
+              <text x="816" y="290" fill="#93a5b6" text-anchor="middle">SILOS</text>
+            </g>
+            <g transform="rotate(-1 798 331)">
+              <rect x="744" y="316" width="108" height="30" rx="3" fill="rgba(148,180,210,.05)" stroke="rgba(148,180,210,.35)"/>
+              <text x="798" y="335" fill="#93a5b6" text-anchor="middle">SCARCITY</text>
+            </g>
+          </g>
+          <!-- outputs flow downward into the conversation -->
+          <g stroke="rgba(248,153,29,.8)" fill="none" stroke-width="1.6">
+            <path class="flow" d="M484,282 C420,340 320,370 300,404"/>
+            <path class="flow" d="M500,286 L500,404"/>
+            <path class="flow" d="M516,282 C580,340 680,370 700,404"/>
+          </g>
+          <g fill="#f8991d">
+            <circle cx="300" cy="410" r="3.4"/><circle cx="500" cy="410" r="3.4"/><circle cx="700" cy="410" r="3.4"/>
+          </g>
+          <g font-size="13" fill="#e6edf3" text-anchor="middle" letter-spacing="1.2">
+            <text x="300" y="436">A PROBLEM WORTH SOLVING</text>
+            <text x="500" y="436">A FIRST 90 DAYS</text>
+            <text x="700" y="436">SKILLS THAT STAY</text>
+          </g>
+          <text x="500" y="468" font-size="10" fill="rgba(147,165,182,.5)" text-anchor="middle" letter-spacing="2">OUTPUT_STREAM // CONTINUES BELOW</text>
+        </svg>
+      </div>
+      <div id="chipLayer" style="position:absolute;left:50%;top:50%;pointer-events:none"></div>
+    </div>
+
+    <div class="reveal" id="hmwWrap">
+      <div class="panel console disc-panel">
+        <span class="console-tag">DIAGNOSTICS</span>
+        <div class="dlabel">APPLIED_DISCIPLINES // WHAT THE ENGINE USED ON YOUR SIGNALS</div>
+        <div class="disc-row" id="discRow"></div>
+      </div>
+
+      <!-- chat spills out of the engine -->
+      <div id="spill">
+        <div class="spill-connector">
+          <div class="vline"></div>
+          <div class="slabel">OUTPUT_STREAM // FIRST_CONVERSATION</div>
+          <div class="vline"></div>
+        </div>
+        <div class="chat panel console" id="chatShell">
+          <span class="console-tag">STRUINOVA // RON_IS_TYPING</span>
+          <div id="chatBox"></div>
+        </div>
+        <div class="panel proof-blurb" style="margin-top:26px">
+          <span class="tag" id="proofTag"></span>
+          <p id="proofText"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 3: BRIEF + BOOKING ================= -->
+<section id="brief">
+  <div class="wrap">
+    <div class="stepbar">
+      <span class="steprule"></span>
+      <div class="stepnum">03</div>
+      <div class="steplabel"><b>STEP_03</b><span>Make it real</span></div>
+      <span class="steprule r"></span>
+    </div>
+    <div class="center" style="margin-bottom:30px">
+      <h2>Your challenge brief</h2>
+      <p class="sub" style="margin:14px auto 0">This is what a first conversation starts from. Send it over, or put thirty minutes straight on Ron's calendar.</p>
+    </div>
+    <div class="brief-grid">
+      <div class="panel console brief-card">
+        <span class="console-tag">CHALLENGE_BRIEF</span>
+        <h3>What you told us</h3>
+        <ul id="briefList"></ul>
+      </div>
+      <div class="panel console form-card" id="book">
+        <span class="console-tag">DISCOVERY_CALL</span>
+        <h3>Let's find thirty minutes</h3>
+        <label>Your name</label>
+        <input id="fName" type="text" placeholder="Jane Founder">
+        <label>Email</label>
+        <input id="fEmail" type="email" placeholder="jane@company.com">
+        <label>Organization</label>
+        <input id="fOrg" type="text" placeholder="Acme Industries">
+        <label>Anything else we should know?</label>
+        <textarea id="fNote" rows="3" placeholder="Optional"></textarea>
+        <div class="form-actions">
+          <button class="btn" id="sendBrief">Send my brief</button>
+          <a class="btn ghost" href="https://cal.com/brumbarger" target="_blank" rel="noopener">Book on cal.com &rarr;</a>
+        </div>
+        <div class="tiny">Your brief goes straight to ron@struinova.com. No lists, no drip campaigns, just a reply from a human.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY A RESIDENT (MINDMAP) ================= -->
+<section id="why">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker">Why an Innovator in Residence?</div>
+      <h2>Consultants leave decks.<br>Residents leave capability.</h2>
+    </div>
+    <div class="panel console mindmap-shell">
+      <span class="console-tag" id="mmTag">STRUINOVA // WHY_RESIDENT_MAP</span>
+      <svg class="mindmap" id="mindmapSvg" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg" aria-label="Why an Innovator in Residence mindmap"></svg>
+      <div class="tiny" style="text-align:center;padding:6px 0 14px">This map redraws itself based on what you name in Step 01. Go ahead, change your answers.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STORIES ================= -->
+<section id="stories">
+  <div class="wrap">
+    <div class="kicker">Field notes</div>
+    <h2>Three rooms where seeing changed everything</h2>
+    <div class="stories">
+      <div class="panel story">
+        <div class="where">Manitou Springs, Colorado</div>
+        <h3>A community in crisis, and one walkout</h3>
+        <p>Homelessness, drug abuse, and a mental health crisis were draining the city. Twenty-five stakeholders arrived with competing agendas; one walked out during the first icebreaker. Two days of co-design, improv, analogous thinking, and Simplexity later, former adversaries had a shared vision and their own action plan.</p>
+        <div class="result"><b>Result:</b> The Hive, a community wellness and behavioral health center, opened within two months. Funded, staffed, and governed by people who could barely share a room on day one.</div>
+      </div>
+      <div class="panel story">
+        <div class="where">Team Monocles &times; IMPD</div>
+        <h3>Fresh eyes on a 25-year-old cold case</h3>
+        <p>Could creative problem-solving and AI surface new leads in a quarter-century-old homicide? We built and led two teams alongside the Indianapolis Metropolitan Police Department to find out, designing an iterative workflow of discovery and theory testing.</p>
+        <div class="result"><b>Result:</b> New facts and leads for investigators, a published whitepaper, and an invitation to present the method to the International Homicide Investigators Association. If it works on a cold case, it works on your market.</div>
+      </div>
+      <div class="panel story">
+        <div class="where">Wycliffe USA</div>
+        <h3>Seven months stuck. Three days to an MVP.</h3>
+        <p>A cross-departmental innovation team had been meeting for seven months with little to show. We spent four days building trust, a shared vocabulary, and a half-dozen innovation skills, then aimed the team at their real challenge: reimagining how they attract future staff.</p>
+        <div class="result"><b>Result:</b> A draft MVP presented to astonished executives on day four. The team kept the skills and kept using them long after we left the building.</div>
+      </div>
+    </div>
+    <div class="panel quotebar">
+      "The training provided and process used by Struinova reframed the needs, created community support, made everyone feel like stakeholders, and built confidence among community members that they would accomplish their shared vision and goals."
+      <div class="attr">BRIAN CHURCHILL &middot; CHIEF OF POLICE, MANITOU SPRINGS, CO</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE PRACTICE ================= -->
+<section id="about">
+  <div class="wrap">
+    <div class="practice-grid">
+      <div>
+        <div class="kicker">The practice</div>
+        <h2>Sometimes it's Ron.<br>Sometimes it's a team.<br>The method is constant.</h2>
+        <p class="sub" style="margin-top:18px">Struinova was founded by Ron Brumbarger, who spent 27 years building Bitwise Solutions into an enterprise digital firm serving ~1,100 clients before its sale, then founded and sold Apprentice University. He is a Senior Research Fellow with Basadur Innovation, a certified creative problem-solving facilitator, co-founder of the How Might We Collective, a patent holder, and author of <i>You're Always Being Interviewed</i>.</p>
+        <p class="sub" style="margin-top:14px">Engagements are led by Ron and scaled with a trusted bench of facilitators and partners. Whether it is one facilitator or five, you get the same methodology, the same vocabulary, and the same standard: your team leaves stronger than we found it.</p>
+      </div>
+      <div class="creds">
+        <div class="cred"><b>27y</b><span>Built and sold Bitwise Solutions, ~1,100 clients worldwide</span></div>
+        <div class="cred"><b>3000+</b><span>Client engagements delivered</span></div>
+        <div class="cred"><b>3</b><span>Continents of workshops: US, Africa, Europe</span></div>
+        <div class="cred"><b>11y</b><span>Founded, led, and sold Apprentice University</span></div>
+        <div class="cred"><b>SRF</b><span>Senior Research Fellow, Basadur Innovation</span></div>
+        <div class="cred"><b>HMW</b><span>Co-founder, How Might We Collective</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap frow">
+    <div>&copy; <span id="yr"></span> Struinova Innovation &middot; Indianapolis, IN</div>
+    <div><a href="mailto:ron@struinova.com">ron@struinova.com</a> &middot; <a href="tel:+13174904376">317.490.4376</a> &middot; <a href="https://linkedin.com/in/brumbarger" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://cal.com/brumbarger" target="_blank" rel="noopener">cal.com/brumbarger</a></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* =============== NETWORK BACKGROUND =============== */
+(function(){
+  const cv = document.getElementById('net'), ctx = cv.getContext('2d');
+  let W,H,nodes=[];
+  function size(){W=cv.width=innerWidth;H=cv.height=innerHeight;}
+  size(); addEventListener('resize',size);
+  const N = Math.min(70, Math.floor(innerWidth/22));
+  for(let i=0;i<N;i++)nodes.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.6+.6,o:Math.random()});
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    for(const n of nodes){
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1;
+      if(n.y<0||n.y>H)n.vy*=-1;
+    }
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
+      const a=nodes[i],b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d=dx*dx+dy*dy;
+      if(d<15000){
+        ctx.strokeStyle='rgba(148,180,210,'+(0.09*(1-d/15000))+')';
+        ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+      }
+    }
+    for(const n of nodes){
+      ctx.fillStyle = n.o>0.86 ? 'rgba(248,153,29,.6)' : 'rgba(148,180,210,.4)';
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,7);ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+/* =============== DATA =============== */
+const SET1 = [
+  {id:'imagine',  text:'Our team can’t seem to imagine new ideas', cat:'imagine'},
+  {id:'ownway',   text:'We have the answers but can’t get out of our own way', cat:'blind'},
+  {id:'paradigm', text:'We’re stuck in how we’ve always worked', cat:'paradigm'},
+  {id:'silos',    text:'Silos and politics kill every good idea', cat:'silos'},
+  {id:'gtm',      text:'Our go-to-market feels stale', cat:'gtm'},
+  {id:'judge',    text:'Our meetings run on judgment, not exploration', cat:'mindset'},
+  {id:'spaghetti',text:'No method, no shared vocabulary. Just spaghetti.', cat:'method'},
+  {id:'knot',     text:'One big, daunting knot nobody can untie', cat:'knot'},
+  {id:'fresh',    text:'We need fresh eyes on an old problem', cat:'blind'},
+  {id:'busy',     text:'Our best people are too busy to innovate', cat:'method'},
+  {id:'copy',     text:'We follow competitors instead of leading them', cat:'gtm'},
+  {id:'committee',text:'Great ideas go to committee and never return', cat:'silos'},
+  {id:'customer', text:'We’ve stopped truly listening to our customers', cat:'imagine'},
+  {id:'mindsetE', text:'Our team lacks an entrepreneurial mindset', cat:'mindset'}
+];
+const SET2 = [
+  {id:'p1', text:'We don’t know what to build next', cat:'product'},
+  {id:'p2', text:'Our idea pipeline is empty', cat:'imagine'},
+  {id:'p3', text:'Every new offering looks like our last one', cat:'paradigm'},
+  {id:'p4', text:'We can’t tell which ideas deserve a bet', cat:'product'},
+  {id:'p5', text:'Our customers’ needs moved. We didn’t.', cat:'gtm'},
+  {id:'p6', text:'One aging product carries all the revenue', cat:'product'},
+  {id:'p7', text:'Startups are eating our niche', cat:'gtm'},
+  {id:'p8', text:'Launches fizzle after the ribbon cutting', cat:'method'}
+];
+const SET3 = [
+  {id:'t1', text:'Everyone talks AI. Nobody has a plan.', cat:'tech'},
+  {id:'t2', text:'We don’t know where AI actually fits', cat:'tech'},
+  {id:'t3', text:'Automation feels like a threat to our people', cat:'tech'},
+  {id:'t4', text:'We pilot forever and deploy never', cat:'method'},
+  {id:'t5', text:'Our tech stack dictates our strategy', cat:'paradigm'},
+  {id:'t6', text:'Robotics could change our operations. Where to start?', cat:'tech'},
+  {id:'t7', text:'Our data is everywhere and tells us nothing', cat:'tech'},
+  {id:'t8', text:'IT and the business speak different languages', cat:'silos'}
+];
+const CHALLENGE_SETS = [
+  {name:"SET_01 // WHAT'S STUCK", items:SET1},
+  {name:'SET_02 // NEW PRODUCTS & SERVICES', items:SET2},
+  {name:'SET_03 // TECH, AI & ROBOTICS', items:SET3}
+];
+const ALL_ITEMS = SET1.concat(SET2, SET3);
+
+const REFRAMES = {
+  imagine:  'How might we rebuild your team’s imagination muscle, so new ideas stop being a talent problem and start being a method problem?',
+  blind:    'How might we get you out of your own line of sight? You can’t be your own dentist, and inattentional blindness never announces itself.',
+  paradigm: 'How might we make the old way of working feel more expensive than the new way of seeing?',
+  silos:    'How might we abstract the challenge onto the wall, so your people attack the problem instead of each other?',
+  gtm:      'How might we reimagine your go-to-market as a design problem instead of a sales problem?',
+  mindset:  'How might we replace judgment with deferral of judgment, so exploration gets a fighting chance in your meetings?',
+  method:   'How might we give your team one shared vocabulary and one structured process, so energy becomes output instead of spaghetti?',
+  knot:     'How might we loosen the first strand of the knot this quarter, instead of admiring the whole tangle for another year?',
+  product:  'How might we design your next offering around a ripe, unserved customer problem, instead of around what you already know how to build?',
+  tech:     'How might we put AI, automation, and robotics to work as your team’s new eyes and hands, instead of a trophy on the shelf or a threat in the breakroom?',
+  custom:   'How might we change how your team sees this problem, so they change the problem they see?'
+};
+
+const RONTAKES = {
+  imagine:  'Here is the good news: I have never met a team that lacked imagination. I have met plenty that lacked permission and process. Divergent thinking is a trainable skill. Within one workshop your people will generate more raw ideas than they have in the past year, and we will show them how to converge on the ones worth building.',
+  blind:    'This one is my favorite, because it describes almost every smart leadership team we have worked with. You are not stuck because you lack answers. You are stuck because you keep looking where you have always looked. Fresh, structured eyes change what is visible. That is the entire job of an Innovator in Residence.',
+  paradigm: 'Old paradigms are comfortable because they used to pay the bills. We will not ask your team to abandon what they know. We teach lateral and analogous thinking so they can borrow patterns from other worlds, and suddenly the old way just looks like one option among many.',
+  silos:    'In Manitou Springs I watched 25 stakeholders with competing agendas, some openly hostile, co-design a solution in two days. The trick is to put the challenge on the wall as a shared target, so people stop defending turf and start aiming together. Politics thins out fast when the problem stops being personal.',
+  gtm:      'I spent 27 years at Bitwise helping clients turn a website into an impactful online solution, and the difference was never the technology. It was reframing go-to-market as a design problem. We will map your model, find the assumption nobody has questioned in years, and prototype around it.',
+  mindset:  'Scarcity, timidity, and judging arrive at meetings before your people do. So we start with the mindsets: diverge first, converge later, and defer judgment in between. It sounds simple. Done with discipline, it changes the temperature of every room your team sits in.',
+  method:   'Unstructured teams running unstructured processes produce spaghetti, every time. Structure is not bureaucracy; it is freedom with a map. We bring Simplexity, design thinking, and a shared vocabulary your team keeps long after we leave. The skills stay. That is the point.',
+  knot:     'Big daunting knots are our home turf. We will not attack the whole thing at once. Month one, we pick the low-hanging fruit, get your team up to altitude with a shared vocabulary, and bank an early win. Momentum unties knots faster than brilliance does.',
+  product:  'New offerings do not come from brainstorms; they come from ripe problems. I founded Apprentice University because firms across Indiana could not find talent. The shortage was the ripe problem; the university was the product. We will hunt your ripe problem first, then design the offering that answers it.',
+  tech:     'My degree is in robotics, so I have loved this frontier since before it was fashionable. Three decades taught me one thing: technology amplifies method, it never replaces it. We will map your workflow, find where AI and automation genuinely fit, and skip the expensive trophies.',
+  custom:   'I read every one of these personally, and here is what I can tell you before we even talk: the problem you just described is probably not the problem we will end up solving. That is not a criticism. It is how seeing works. Let’s look at it together.'
+};
+
+const PROOFS = {
+  silos:   {tag:'Field note: Manitou Springs, CO', text:'A community in crisis, 25 stakeholders with self-serving agendas, and one walkout during the icebreaker. Two days later they had a shared vision. Six months later The Hive, their community wellness center, was open and serving neighbors. Former adversaries sat on its board together.'},
+  knot:    {tag:'Field note: Manitou Springs, CO', text:'The city’s knot included homelessness, drug abuse, declining tourism, and failed past attempts. We loosened it strand by strand: shared vocabulary first, then co-design, then ownership. The Hive opened within two months of the workshop.'},
+  blind:   {tag:'Field note: Team Monocles × IMPD', text:'Investigators had stared at the same cold case file for 25 years. Our teams applied creative problem-solving and AI to surface new facts and leads, then presented the method to the International Homicide Investigators Association. Fresh eyes are not a luxury. They are a method.'},
+  imagine: {tag:'Field note: Wycliffe USA', text:'An innovation team met for seven months with little to show. After three days of trust-building, skills onboarding, and structured problem-solving, they presented a draft MVP that left their own executives in awe. Imagination was never missing. Method was.'},
+  method:  {tag:'Field note: Wycliffe USA', text:'Ten people, varied departments, no shared vocabulary. We onboarded a half-dozen innovation skills and one common language. Result: an MVP in days after months of drift, and a team that kept using the skills long after the engagement ended.'},
+  mindset: {tag:'Field note: Wycliffe USA', text:'The team called their own topic tedious and boring. Trust-building, laughter, and deferral of judgment turned it into the most productive four days of their year, ending in an MVP their executives did not see coming.'},
+  paradigm:{tag:'Field note: Bitwise Solutions', text:'Ron did not just preach design thinking; he ran his own firm on it. Implementing it as Bitwise’s operating model generated recurring revenue covering roughly 60% of monthly operating expenses and changed how 1,100 clients were served.'},
+  gtm:     {tag:'Field note: Bitwise Solutions', text:'Across ~3,000 engagements, the wins never came from shipping a website. They came from reframing the client’s go-to-market as a design problem first. That reframe built a 27-year firm and it still works today.'},
+  product: {tag:'Field note: Apprentice University', text:'A regional talent shortage was the ripe problem. Ron designed a new institution as the answer: an award-winning, competency-based university serving ~250 students across eleven years before its sale in 2023. New offerings start with problems worth solving.'},
+  tech:    {tag:'Field note: Team Monocles × IMPD', text:'Ron’s teams combined AI with structured creative problem-solving on a 25-year-old cold case, surfacing new facts and leads for investigators and presenting the method to the International Homicide Investigators Association. That is applied AI: method first, tools second.'},
+  custom:  {tag:'Field note: three continents', text:'From a city hall in Colorado to mission organizations in Ethiopia to a homicide unit in Indianapolis, the pattern holds: structured creative problem-solving finds doors in walls people have stared at for years.'}
+};
+
+/* =============== INTAKE CONSOLE =============== */
+const wallEl = document.getElementById('stickyWall');
+const btn = document.getElementById('engineBtn');
+let selected = [];
+let curSet = 0;
+const selectedIds = new Set();
+let customText = '';
+
+function renderWall(){
+  wallEl.innerHTML = '';
+  CHALLENGE_SETS[curSet].items.forEach(c=>{
+    const d = document.createElement('div');
+    d.className = 'sticky' + (selectedIds.has(c.id) ? ' sel' : '');
+    d.dataset.id = c.id;
+    d.innerHTML = '<span>'+c.text+'</span>';
+    d.onclick = ()=>{
+      selectedIds.has(c.id) ? selectedIds.delete(c.id) : selectedIds.add(c.id);
+      d.classList.toggle('sel');
+      syncSel();
+    };
+    wallEl.appendChild(d);
+  });
+  const custom = document.createElement('div');
+  custom.className = 'sticky custom' + (customText.trim().length>2 ? ' sel' : '');
+  custom.innerHTML = '<span style="font-size:.95rem;color:#ffd9a8">Something else is stuck…</span><textarea placeholder="scribble it here" maxlength="140"></textarea>';
+  const ta = custom.querySelector('textarea');
+  ta.value = customText;
+  ta.addEventListener('input', e=>{
+    customText = e.target.value;
+    custom.classList.toggle('sel', customText.trim().length>2);
+    syncSel();
+  });
+  wallEl.appendChild(custom);
+}
+document.querySelectorAll('.dot-tab').forEach(t=>{
+  t.onclick = ()=>{
+    document.querySelectorAll('.dot-tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    curSet = +t.dataset.set;
+    document.getElementById('dotName').textContent = CHALLENGE_SETS[curSet].name;
+    renderWall();
+  };
+});
+renderWall();
+
+function syncSel(){
+  selected = ALL_ITEMS.filter(c => selectedIds.has(c.id));
+  if(customText.trim().length>2) selected = selected.concat([{id:'custom', text:customText.trim(), cat:'custom'}]);
+  btn.disabled = selected.length===0;
+  document.getElementById('qCount').textContent = selected.length;
+  document.getElementById('qStatus').textContent = selected.length ? 'READY TO REFRAME' : 'AWAITING INPUT';
+  renderMindmap();
+}
+
+/* =============== APPLIED DISCIPLINES =============== */
+const ALLDISC = ['EXPERIENCE','PROCESS','INNOVATION','TRAINING','ENTREPRENEURSHIP','CREATIVE PROBLEM-SOLVING','APPLIED AI'];
+const DISC_MAP = {
+  imagine:['TRAINING','CREATIVE PROBLEM-SOLVING','INNOVATION'],
+  blind:['EXPERIENCE','CREATIVE PROBLEM-SOLVING','APPLIED AI'],
+  paradigm:['INNOVATION','TRAINING','EXPERIENCE'],
+  silos:['PROCESS','TRAINING','EXPERIENCE'],
+  gtm:['ENTREPRENEURSHIP','EXPERIENCE','INNOVATION'],
+  mindset:['TRAINING','PROCESS','CREATIVE PROBLEM-SOLVING'],
+  method:['PROCESS','TRAINING','CREATIVE PROBLEM-SOLVING'],
+  knot:['CREATIVE PROBLEM-SOLVING','PROCESS','EXPERIENCE'],
+  product:['ENTREPRENEURSHIP','INNOVATION','CREATIVE PROBLEM-SOLVING'],
+  tech:['APPLIED AI','EXPERIENCE','INNOVATION'],
+  custom:['CREATIVE PROBLEM-SOLVING','EXPERIENCE','APPLIED AI']
+};
+function renderDisciplines(){
+  const row = document.getElementById('discRow');
+  if(!row) return;
+  const used = new Set();
+  selected.forEach(s=> (DISC_MAP[s.cat]||DISC_MAP.custom).forEach(d=>used.add(d)) );
+  row.innerHTML = '';
+  ALLDISC.forEach(d=>{
+    const c = document.createElement('span');
+    c.className = 'disc' + (used.has(d) ? ' on' : '');
+    c.textContent = d;
+    row.appendChild(c);
+  });
+}
+
+/* =============== DYNAMIC MINDMAP =============== */
+const MM_BRANCHES = [
+  {t:'SEEING', leaves:["You can't be your own dentist","Blind spots are physics, not flaws"],
+   per:{blind:'Fresh eyes on your old problem', paradigm:'Borrow patterns from other worlds'}},
+  {t:'CAPABILITY', leaves:['Muscle trained on real work','Skills stay when we leave'],
+   per:{imagine:'Imagination is method, not talent', method:'One shared vocabulary, one process', tech:'Tech serves method, not the reverse'}},
+  {t:'TRUST', leaves:['Connection before content','Laughter lowers the walls'],
+   per:{mindset:'Deferral of judgment, taught', silos:'The problem goes on the wall, not people'}},
+  {t:'ECONOMICS', leaves:['A fraction of a CINO hire','A visible win in month one'],
+   per:{gtm:'Go-to-market as a design problem', knot:'The first strand, untied this quarter', product:'Your next offering, designed on purpose'}}
+];
+function renderMindmap(){
+  const svg = document.getElementById('mindmapSvg');
+  if(!svg) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const cats = new Set(selected.map(s=>s.cat));
+  svg.innerHTML = '';
+  function el(name, attrs, txt){
+    const e = document.createElementNS(NS, name);
+    for(const k in attrs) e.setAttribute(k, attrs[k]);
+    if(txt != null) e.textContent = txt;
+    svg.appendChild(e);
+    return e;
+  }
+  /* root, far left */
+  const rootX=16, rootW=212, rootCy=320;
+  el('rect',{x:rootX,y:rootCy-44,width:rootW,height:88,rx:14,fill:'rgba(248,153,29,.14)',stroke:'rgba(248,153,29,.75)','stroke-width':1.6});
+  el('text',{x:rootX+rootW/2,y:rootCy-8,'font-size':13,fill:'#f8991d','text-anchor':'middle','letter-spacing':2},'WHY AN INNOVATOR');
+  el('text',{x:rootX+rootW/2,y:rootCy+12,'font-size':13,fill:'#f8991d','text-anchor':'middle','letter-spacing':2},'IN RESIDENCE?');
+  /* branches fan out to the right */
+  const bx=360, bw=172, bh=36;
+  const bys=[80,230,380,530];
+  MM_BRANCHES.forEach((br,i)=>{
+    const bcy = bys[i]+bh/2;
+    el('path',{d:'M'+(rootX+rootW)+','+rootCy+' C300,'+rootCy+' 290,'+bcy+' '+bx+','+bcy,class:'mm-link hot'});
+    el('rect',{x:bx,y:bys[i],width:bw,height:bh,rx:10,fill:'rgba(64,90,116,.45)',stroke:'rgba(148,180,210,.5)'});
+    el('text',{x:bx+bw/2,y:bys[i]+23,'font-size':12,fill:'#e6edf3','text-anchor':'middle','letter-spacing':2},br.t);
+    /* leaves: defaults plus branches tuned to the visitor's signals */
+    const leaves = br.leaves.map(t=>({t:t,hot:false}));
+    for(const cat in br.per){ if(cats.has(cat)) leaves.push({t:br.per[cat],hot:true}); }
+    if(cats.has('custom') && br.t==='SEEING' && leaves.length<4) leaves.push({t:'Your problem, seen fresh',hot:true});
+    if(leaves.length>4) leaves.length = 4;
+    const n = leaves.length, lx0 = bx+bw+58;
+    leaves.forEach((lf,j)=>{
+      const ly = bcy - (n-1)*22 + j*44;
+      const lx = lx0 + (j%2)*14;
+      const w = Math.min(lf.t.length*6.7+26, 330);
+      el('path',{d:'M'+(bx+bw)+','+bcy+' C'+(bx+bw+34)+','+bcy+' '+(lx-30)+','+ly+' '+lx+','+ly,class:'mm-link'+(lf.hot?' hot':'')});
+      el('rect',{x:lx,y:ly-15,width:w,height:30,rx:8,
+        fill:lf.hot?'rgba(248,153,29,.10)':'rgba(148,180,210,.05)',
+        stroke:lf.hot?'rgba(248,153,29,.7)':'rgba(148,180,210,.3)'});
+      el('text',{x:lx+w/2,y:ly+4,'font-size':11,fill:lf.hot?'#ffd9a8':'#93a5b6','text-anchor':'middle'},lf.t);
+    });
+  });
+  const tag = document.getElementById('mmTag');
+  if(tag) tag.textContent = cats.size ? 'STRUINOVA // WHY_MAP // TUNED_TO_YOUR_SIGNALS' : 'STRUINOVA // WHY_RESIDENT_MAP';
+}
+renderMindmap();
+
+/* =============== ENGINE RUN =============== */
+btn.onclick = ()=>{
+  const eng = document.getElementById('engine');
+  eng.style.display='block';
+  eng.scrollIntoView({behavior:'smooth'});
+  /* populate the left input stack */
+  const stack = document.getElementById('inputStack');
+  stack.innerHTML = '<div class="in-label">FEEDING_IN &darr;</div>';
+  selected.forEach(c=>{
+    const card = document.createElement('div');
+    card.className='incard';
+    card.textContent=c.text;
+    stack.appendChild(card);
+  });
+  /* fly chips into the hub */
+  const layer = document.getElementById('chipLayer');
+  layer.innerHTML='';
+  selected.forEach((c,i)=>{
+    const chip = document.createElement('div');
+    chip.className='chip-run';
+    chip.textContent=c.text;
+    chip.style.setProperty('--dy',(i%5-2)*36+'px');
+    chip.style.animationDelay=(i*0.32)+'s';
+    layer.appendChild(chip);
+  });
+  const hub = document.getElementById('hubCore');
+  hub.style.transition='fill .4s';
+  setTimeout(()=>{ hub.setAttribute('fill','rgba(248,153,29,.35)'); }, 800);
+  const primary = selected[0].cat;
+  setTimeout(()=>{
+    hub.setAttribute('fill','rgba(248,153,29,.12)');
+    renderDisciplines();
+    const proof = PROOFS[primary] || PROOFS.custom;
+    document.getElementById('proofTag').textContent = proof.tag;
+    document.getElementById('proofText').textContent = proof.text;
+    document.getElementById('hmwWrap').classList.add('on');
+    /* the conversation spills out of the engine */
+    setTimeout(startSpill, 1400);
+  }, selected.length*320 + 1600);
+};
+
+/* =============== CONVERSATION (spill) =============== */
+const QS = [
+  {q:'', chips:[], key:'', react:{}} /* placeholder replaced below */
+];
+QS.length = 0;
+QS.push(
+  {q:'First question. What have you already tried?',
+   chips:['Workshops or offsites','New hires or consultants','A reorg (or two)','Honestly? Nothing yet'],
+   key:'tried',
+   react:{
+     'Workshops or offsites':'Good. That tells me your team is willing. Most offsites fail on follow-through, not intent. The skills have to outlive the whiteboard.',
+     'New hires or consultants':'Fresh people help, but if they inherit the old way of seeing, the organization digests them fast. New eyes need a new method to look through.',
+     'A reorg (or two)':'A reorg moves the boxes. It rarely moves the blindness. Same people, same paradigms, new reporting lines.',
+     'Honestly? Nothing yet':'Then you are ahead of most, because you have not burned your team’s trust on a false start. First moves matter.',
+     _:'Noted. Whatever you have tried is data, not failure. We will use it.'
+   }},
+  {q:'And when you tried, what actually happened?',
+   chips:['A brief spark, then it faded','Resistance from the team','Leadership lost interest','We never really started'],
+   key:'result',
+   react:{
+     'A brief spark, then it faded':'Sparks fade when there is no shared vocabulary to keep them lit. That is a method gap, and method gaps are very fixable.',
+     'Resistance from the team':'Resistance is usually fear wearing a costume. Trust comes before content, always. That is where we start every engagement.',
+     'Leadership lost interest':'Leaders lose interest when they cannot see progress. We fix that by banking an early, visible win in month one.',
+     'We never really started':'Starting is a skill too. We will pick low-hanging fruit first, so momentum does the heavy lifting.',
+     _:'That outcome makes sense given what you described. It also tells me exactly where to begin.'
+   }},
+  {q:'Last one. Where does it hurt the most right now?',
+   chips:['Leadership alignment','Team energy and morale','Growth has flatlined','One specific decision we keep circling'],
+   key:'pain',
+   react:{
+     'Leadership alignment':'Alignment problems are almost always seeing problems. Get leaders looking at the same reframed target and agendas start to dissolve.',
+     'Team energy and morale':'Energy returns fast when people feel their ideas have a fighting chance. Laughter and structure, together, do more than any pep talk.',
+     'Growth has flatlined':'Flat growth is usually a stale frame, not a stale market. Infinite market thinking starts by questioning the assumption everyone stopped noticing.',
+     'One specific decision we keep circling':'Circling means the problem is misdefined. Nail the problem definition and the decision usually makes itself.',
+     _:'Thank you for the honesty. That is precisely the kind of pain a first conversation should dig into.'
+   }}
+);
+let answers = {};
+let qIdx = 0;
+let spillStarted = false;
+
+function startSpill(){
+  if(spillStarted) return;
+  spillStarted = true;
+  const sp = document.getElementById('spill');
+  sp.style.display='block';
+  const primary = selected.length ? selected[0].cat : 'custom';
+  ronSay('Here is your challenge, reframed: ' + (REFRAMES[primary] || REFRAMES.custom), ()=>{
+    ronSay((RONTAKES[primary] || RONTAKES.custom), ()=>{
+      setTimeout(askNext, 700);
+    });
+  });
+  setTimeout(()=>sp.scrollIntoView({behavior:'smooth',block:'center'}), 400);
+}
+
+function ronSay(text, cb){
+  const box = document.getElementById('chatBox');
+  const tp = document.createElement('div');
+  tp.className='msg ron';
+  tp.innerHTML='<div class="ron-ava">RB</div><div class="bubble typing"><i></i><i></i><i></i></div>';
+  box.appendChild(tp);
+  tp.scrollIntoView({behavior:'smooth',block:'end'});
+  setTimeout(()=>{
+    tp.querySelector('.bubble').classList.remove('typing');
+    tp.querySelector('.bubble').textContent=text;
+    tp.scrollIntoView({behavior:'smooth',block:'end'});
+    if(cb) cb();
+  }, 900 + Math.min(text.length*5, 1600));
+}
+function youSay(text){
+  const box = document.getElementById('chatBox');
+  const m = document.createElement('div');
+  m.className='msg you';
+  m.innerHTML='<div class="bubble"></div>';
+  m.querySelector('.bubble').textContent=text;
+  box.appendChild(m);
+  m.scrollIntoView({behavior:'smooth',block:'end'});
+}
+function askNext(){
+  if(qIdx >= QS.length){ finishChat(); return; }
+  const item = QS[qIdx];
+  ronSay(item.q, ()=>{
+    const box = document.getElementById('chatBox');
+    const chips = document.createElement('div');
+    chips.className='chips';
+    const free = document.createElement('div');
+    free.className='freeline';
+    item.chips.forEach(c=>{
+      const b=document.createElement('button');
+      b.className='chip'; b.textContent=c;
+      b.onclick=()=>answer(item,c,chips,free,false);
+      chips.appendChild(b);
+    });
+    free.innerHTML='<input type="text" placeholder="or type your own answer and press Enter" maxlength="200">';
+    free.querySelector('input').addEventListener('keydown',e=>{
+      if(e.key==='Enter' && e.target.value.trim()) answer(item, e.target.value.trim(), chips, free, true);
+    });
+    box.appendChild(chips); box.appendChild(free);
+    free.scrollIntoView({behavior:'smooth',block:'end'});
+  });
+}
+function answer(item, val, chips, free, isFree){
+  chips.remove(); free.remove();
+  youSay(val);
+  answers[item.key]=val;
+  const react = isFree ? item.react._ : (item.react[val] || item.react._);
+  ronSay(react, ()=>{ qIdx++; setTimeout(askNext, 500); });
+}
+function finishChat(){
+  ronSay('That is enough for a real first conversation. Your challenge brief is ready below. Send it our way, or put thirty minutes straight on my calendar.', ()=>{
+    const br = document.getElementById('brief');
+    br.style.display='block';
+    buildBrief();
+    setTimeout(()=>br.scrollIntoView({behavior:'smooth'}), 600);
+  });
+}
+
+/* =============== BRIEF =============== */
+function buildBrief(){
+  const list = document.getElementById('briefList');
+  const primary = selected.length ? selected[0].cat : 'custom';
+  list.innerHTML='';
+  const rows = [
+    ['What’s stuck', selected.map(s=>s.text).join(' · ') || 'Not specified'],
+    ['Reframed as', REFRAMES[primary] || REFRAMES.custom],
+    ['Already tried', answers.tried || 'Not discussed'],
+    ['What happened', answers.result || 'Not discussed'],
+    ['Where it hurts', answers.pain || 'Not discussed']
+  ];
+  rows.forEach(r=>{
+    const li=document.createElement('li');
+    const b=document.createElement('b'); b.textContent=r[0];
+    li.appendChild(b); li.appendChild(document.createTextNode(r[1]));
+    list.appendChild(li);
+  });
+}
+document.getElementById('sendBrief').onclick = ()=>{
+  const name=document.getElementById('fName').value.trim();
+  const email=document.getElementById('fEmail').value.trim();
+  const org=document.getElementById('fOrg').value.trim();
+  const note=document.getElementById('fNote').value.trim();
+  const primary = selected.length ? selected[0].cat : 'custom';
+  const body = [
+    'Challenge brief from struinova.com','',
+    'Name: '+(name||'(not given)'),
+    'Email: '+(email||'(not given)'),
+    'Organization: '+(org||'(not given)'),'',
+    'What’s stuck: '+(selected.map(s=>s.text).join('; ')||'n/a'),
+    'Reframed as: '+(REFRAMES[primary]||REFRAMES.custom),
+    'Already tried: '+(answers.tried||'n/a'),
+    'What happened: '+(answers.result||'n/a'),
+    'Where it hurts: '+(answers.pain||'n/a'),'',
+    'Notes: '+(note||'none')
+  ].join('\n');
+  window.location.href='mailto:ron@struinova.com?subject='+encodeURIComponent('Challenge brief: '+(org||name||'new visitor'))+'&body='+encodeURIComponent(body);
+};
+</script>
+</body>
+</html>
