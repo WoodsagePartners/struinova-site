@@ -86,14 +86,14 @@ nav{
   display:flex;align-items:center;gap:14px;padding:14px 18px 14px 128px;border-radius:14px;
 }
 .logo-chip{
-  position:absolute;left:16px;top:5px;
-  display:flex;align-items:center;justify-content:center;width:94px;height:94px;border-radius:22px;
-  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.16), rgba(248,153,29,.12) 55%, rgba(16,26,38,.92));
-  border:1px solid rgba(248,153,29,.4);
-  box-shadow:0 16px 36px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.15);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  position:absolute;left:14px;top:-1px;
+  display:flex;align-items:center;justify-content:center;width:100px;height:108px;
+  border:1px solid var(--line);border-top:none;border-radius:0 0 26px 26px;
+  background:linear-gradient(150deg,var(--panel-hi),var(--panel) 55%,rgba(22,34,46,0.5));
+  backdrop-filter:blur(16px) saturate(130%);-webkit-backdrop-filter:blur(16px) saturate(130%);
+  box-shadow:0 18px 34px rgba(0,0,0,.5);
 }
-.logo-chip img{height:70px;width:70px;filter:drop-shadow(0 0 10px rgba(248,153,29,.5))}
+.logo-chip img{height:74px;width:74px;filter:drop-shadow(0 0 10px rgba(248,153,29,.5))}
 nav .brand{font-weight:600;letter-spacing:.1em;font-size:.92rem}
 nav .navlinks{display:flex;gap:24px;margin-left:auto}
 nav a{color:var(--muted);text-decoration:none;font-size:.84rem;transition:color .2s;font-family:var(--mono)}
@@ -142,6 +142,10 @@ nav a:hover{color:var(--orange)}
 .disc-panel{padding:56px 34px 28px;margin-top:26px}
 .disc-panel .dlabel{font-family:var(--mono);font-size:.7rem;color:var(--orange);letter-spacing:.2em;margin-bottom:14px;position:relative;z-index:1}
 .disc-row{display:flex;flex-wrap:wrap;gap:10px;position:relative;z-index:1}
+.outrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:26px}
+.outcard{padding:24px 26px;border-top:2px solid rgba(248,153,29,.6)}
+.outcard .olabel{font-family:var(--mono);font-size:.66rem;color:var(--orange);letter-spacing:.16em;margin-bottom:10px}
+.outcard p{font-size:.92rem;color:var(--text);font-weight:300}
 .disc{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;padding:8px 14px;border-radius:8px;border:1px solid var(--line);color:rgba(147,165,182,.5);background:rgba(148,180,210,.03)}
 .disc.on{color:#ffd9a8;border-color:rgba(248,153,29,.6);background:rgba(248,153,29,.08)}
 .disc.on::before{content:"\2713  ";color:var(--orange)}
@@ -264,7 +268,7 @@ footer a{color:var(--orange);text-decoration:none}
 
 <nav class="panel">
   <span class="logo-chip"><img src="Struinova-dark.svg" alt="Struinova"></span>
-  <span class="brand">STRUINOVA</span>
+  <span class="brand">STRUINOVA INNOVATION</span>
   <span class="navlinks">
     <a href="#wall">start_here</a>
     <a href="#why">why_resident</a>
@@ -334,25 +338,25 @@ footer a{color:var(--orange);text-decoration:none}
         <svg class="engine-svg" viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg" aria-label="The Reframe Engine">
           <!-- ingredient streams (top) -->
           <g stroke="rgba(148,180,210,.5)" fill="none" stroke-width="1.3">
-            <path class="flow" d="M95,84 C95,175 330,185 450,222"/>
-            <path class="flow" d="M230,84 C235,165 380,180 466,212"/>
-            <path class="flow" d="M365,84 C370,155 440,175 486,198"/>
+            <path class="flow" d="M215,84 C215,165 350,185 455,220"/>
+            <path class="flow" d="M310,84 C313,160 400,180 470,210"/>
+            <path class="flow" d="M405,84 C408,150 452,172 487,197"/>
             <path class="flow" d="M500,84 L500,184"/>
-            <path class="flow" d="M635,84 C630,155 560,175 514,198"/>
-            <path class="flow" d="M770,84 C765,165 620,180 534,212"/>
-            <path class="flow" d="M905,84 C905,175 670,185 550,222"/>
+            <path class="flow" d="M595,84 C592,150 548,172 513,197"/>
+            <path class="flow" d="M690,84 C687,160 600,180 530,210"/>
+            <path class="flow" d="M785,84 C785,165 650,185 545,220"/>
           </g>
           <g font-size="14" fill="#c6d6e4" text-anchor="middle" letter-spacing="1.5">
-            <text x="95" y="38">EXPERIENCE</text>
-            <text x="230" y="66">PROCESS</text>
-            <text x="365" y="38">INNOVATION</text>
+            <text x="215" y="38">EXPERIENCE</text>
+            <text x="310" y="66">PROCESS</text>
+            <text x="405" y="38">INNOVATION</text>
             <text x="500" y="66">TRAINING</text>
-            <text x="635" y="38">ENTREPRENEURSHIP</text>
-            <text x="770" y="66">CREATIVE PROBLEM-SOLVING</text>
-            <text x="905" y="38">APPLIED AI</text>
+            <text x="595" y="38">ENTREPRENEURSHIP</text>
+            <text x="690" y="66">CREATIVE PROBLEM-SOLVING</text>
+            <text x="785" y="38">APPLIED AI</text>
           </g>
           <g fill="#f8991d">
-            <circle cx="95" cy="76" r="3.4"/><circle cx="230" cy="76" r="3.4"/><circle cx="365" cy="76" r="3.4"/><circle cx="500" cy="76" r="3.4"/><circle cx="635" cy="76" r="3.4"/><circle cx="770" cy="76" r="3.4"/><circle cx="905" cy="76" r="3.4"/>
+            <circle cx="215" cy="76" r="3.4"/><circle cx="310" cy="76" r="3.4"/><circle cx="405" cy="76" r="3.4"/><circle cx="500" cy="76" r="3.4"/><circle cx="595" cy="76" r="3.4"/><circle cx="690" cy="76" r="3.4"/><circle cx="785" cy="76" r="3.4"/>
           </g>
           <!-- input path (left) -->
           <path class="flow" d="M8,250 L428,250" stroke="rgba(248,153,29,.8)" stroke-width="2" fill="none"/>
@@ -409,6 +413,11 @@ footer a{color:var(--orange);text-decoration:none}
     </div>
 
     <div class="reveal" id="hmwWrap">
+      <div class="outrow">
+        <div class="panel outcard"><div class="olabel">OUTPUT_01 // A PROBLEM WORTH SOLVING</div><p id="outProblem"></p></div>
+        <div class="panel outcard"><div class="olabel">OUTPUT_02 // YOUR FIRST 90 DAYS</div><p id="outNinety"></p></div>
+        <div class="panel outcard"><div class="olabel">OUTPUT_03 // SKILLS THAT STAY</div><p id="outSkills"></p></div>
+      </div>
       <div class="panel console disc-panel">
         <span class="console-tag">DIAGNOSTICS</span>
         <div class="dlabel">APPLIED_DISCIPLINES // WHAT THE ENGINE USED ON YOUR SIGNALS</div>
@@ -736,6 +745,40 @@ const DISC_MAP = {
   tech:['APPLIED AI','EXPERIENCE','INNOVATION'],
   custom:['CREATIVE PROBLEM-SOLVING','EXPERIENCE','APPLIED AI']
 };
+const NINETY = {
+  imagine:  'Train the imagination muscle on a small real target first, then aim it at this challenge and bank a visible win.',
+  blind:    'A fresh-eyes audit and a shared vocabulary, then one reframe workshop aimed squarely at the spot you cannot see.',
+  paradigm: 'Analogous-thinking sessions that borrow patterns from other industries, applied to your one most stubborn assumption.',
+  silos:    'The challenge goes on the wall as a shared target; cross-silo co-design replaces turf defense by month two.',
+  gtm:      'Map the business model, find the assumption nobody has questioned in years, prototype a new go-to-market around it.',
+  mindset:  'Onboard diverge, converge, and deferral of judgment; the temperature of your meetings changes in month one.',
+  method:   'One shared vocabulary and one structured process, installed while your team solves a real problem, not a toy one.',
+  knot:     'Pick the low-hanging fruit first; momentum loosens the first strand of the knot this quarter.',
+  product:  'Hunt the ripe, unserved customer problem first; then design and test the offering that answers it.',
+  tech:     'Map your workflow, find where AI and automation genuinely fit, and skip the expensive trophies.',
+  custom:   'Low-hanging fruit, a shared vocabulary, and an early visible win aimed directly at what you named.'
+};
+const SKILL_MAP = {
+  imagine:['divergent thinking','deferral of judgment'],
+  blind:['problem reframing','challenge mapping'],
+  paradigm:['analogous thinking','lateral thinking'],
+  silos:['co-design','shared-target framing'],
+  gtm:['business model design','design thinking'],
+  mindset:['diverge/converge discipline','yes-and exploration'],
+  method:['the Simplexity process','a shared vocabulary'],
+  knot:['problem definition','telescoping'],
+  product:['ripe-problem hunting','rapid prototyping'],
+  tech:['applied AI literacy','workflow mapping'],
+  custom:['creative problem-solving','problem reframing']
+};
+function renderOutputs(){
+  const primary = selected.length ? selected[0].cat : 'custom';
+  document.getElementById('outProblem').textContent = REFRAMES[primary] || REFRAMES.custom;
+  document.getElementById('outNinety').textContent = NINETY[primary] || NINETY.custom;
+  const sk = new Set();
+  selected.forEach(s=> (SKILL_MAP[s.cat]||SKILL_MAP.custom).forEach(x=>sk.add(x)) );
+  document.getElementById('outSkills').textContent = 'Your team keeps: ' + Array.from(sk).join(', ') + '. Long after we leave.';
+}
 function renderDisciplines(){
   const row = document.getElementById('discRow');
   if(!row) return;
@@ -841,6 +884,7 @@ btn.onclick = ()=>{
   setTimeout(()=>{
     hub.setAttribute('fill','rgba(248,153,29,.12)');
     renderDisciplines();
+    renderOutputs();
     document.getElementById('hmwWrap').classList.add('on');
     /* the conversation spills out of the engine */
     setTimeout(startSpill, 1400);
