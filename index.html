@@ -83,15 +83,17 @@ h1,h2,h3{font-weight:600;line-height:1.22}
 /* ---------- nav + logo chip ---------- */
 nav{
   position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(1080px,94vw);
-  display:flex;align-items:center;gap:14px;padding:8px 18px;border-radius:14px;
+  display:flex;align-items:center;gap:14px;padding:14px 18px 14px 128px;border-radius:14px;
 }
 .logo-chip{
-  display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;
-  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.16), rgba(248,153,29,.10) 55%, rgba(148,180,210,.05));
-  border:1px solid rgba(248,153,29,.35);
-  box-shadow:0 6px 18px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.15);
+  position:absolute;left:16px;top:5px;
+  display:flex;align-items:center;justify-content:center;width:94px;height:94px;border-radius:22px;
+  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.16), rgba(248,153,29,.12) 55%, rgba(16,26,38,.92));
+  border:1px solid rgba(248,153,29,.4);
+  box-shadow:0 16px 36px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.15);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
 }
-.logo-chip img{height:34px;width:34px;filter:drop-shadow(0 0 6px rgba(248,153,29,.45))}
+.logo-chip img{height:70px;width:70px;filter:drop-shadow(0 0 10px rgba(248,153,29,.5))}
 nav .brand{font-weight:600;letter-spacing:.1em;font-size:.92rem}
 nav .navlinks{display:flex;gap:24px;margin-left:auto}
 nav a{color:var(--muted);text-decoration:none;font-size:.84rem;transition:color .2s;font-family:var(--mono)}
@@ -276,7 +278,7 @@ footer a{color:var(--orange);text-decoration:none}
 <header class="hero">
   <div class="wrap">
     <span class="dentist">"You can't be your own dentist."</span>
-    <h1>Every organization goes blind to its own possibilities.<br><em>We restore the seeing.</em></h1>
+    <h1>Every organization goes blind to its own <em>possibilities.</em></h1>
     <p class="sub">Struinova is your Innovator in Residence. We embed with your team, bring a proven creative problem-solving method, and train your people until innovation is a muscle they own, not a memo they file. Don't take our word for it. Run your real problem through our process, right now.</p>
     <a class="btn" href="#wall">Show us what's stuck &darr;</a>
   </div>
@@ -362,9 +364,9 @@ footer a{color:var(--orange);text-decoration:none}
           <text x="500" y="246" font-size="11" fill="#f8991d" text-anchor="middle" letter-spacing="2">THE</text>
           <text x="500" y="262" font-size="11" fill="#f8991d" text-anchor="middle" letter-spacing="2">REFRAME</text>
           <!-- exhaust to the right: trash stack -->
-          <path d="M566,250 L716,250" stroke="rgba(148,180,210,.3)" stroke-width="1.2" fill="none" stroke-dasharray="2 8"/>
-          <text x="845" y="120" font-size="10" fill="rgba(147,165,182,.5)" text-anchor="middle" letter-spacing="2">EXHAUST // LEFT AT THE CURB</text>
-          <g font-size="10" letter-spacing="1">
+          <path d="M566,250 L786,250" stroke="rgba(148,180,210,.3)" stroke-width="1.2" fill="none" stroke-dasharray="2 8"/>
+          <text x="905" y="120" font-size="10" fill="rgba(147,165,182,.5)" text-anchor="middle" letter-spacing="2">EXHAUST // LEFT AT THE CURB</text>
+          <g font-size="10" letter-spacing="1" transform="translate(70 0)">
             <g transform="rotate(-2 813 151)">
               <rect x="724" y="136" width="178" height="30" rx="3" fill="rgba(148,180,210,.05)" stroke="rgba(148,180,210,.35)"/>
               <text x="813" y="155" fill="#93a5b6" text-anchor="middle">"HOW WE'VE ALWAYS DONE IT"</text>
@@ -424,11 +426,22 @@ footer a{color:var(--orange);text-decoration:none}
           <span class="console-tag">STRUINOVA // RON_IS_TYPING</span>
           <div id="chatBox"></div>
         </div>
-        <div class="panel proof-blurb" style="margin-top:26px">
-          <span class="tag" id="proofTag"></span>
-          <p id="proofText"></p>
-        </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY A RESIDENT (MINDMAP) ================= -->
+<section id="why" style="padding-top:30px">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker">Why an Innovator in Residence?</div>
+      <h2>Consultants leave decks.<br>Residents leave capability.</h2>
+    </div>
+    <div class="panel console mindmap-shell">
+      <span class="console-tag" id="mmTag">STRUINOVA // WHY_RESIDENT_MAP</span>
+      <svg class="mindmap" id="mindmapSvg" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg" aria-label="Why an Innovator in Residence mindmap"></svg>
+      <div class="tiny" style="text-align:center;padding:6px 0 14px">This map redraws itself based on what you name in Step 01. Go ahead, change your answers.</div>
     </div>
   </div>
 </section>
@@ -465,25 +478,10 @@ footer a{color:var(--orange);text-decoration:none}
         <textarea id="fNote" rows="3" placeholder="Optional"></textarea>
         <div class="form-actions">
           <button class="btn" id="sendBrief">Send my brief</button>
-          <a class="btn ghost" href="https://cal.com/brumbarger" target="_blank" rel="noopener">Book on cal.com &rarr;</a>
+          <a class="btn ghost" id="calBrief" href="https://cal.com/brumbarger" target="_blank" rel="noopener">Book on cal.com &rarr;</a>
         </div>
         <div class="tiny">Your brief goes straight to ron@struinova.com. No lists, no drip campaigns, just a reply from a human.</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= WHY A RESIDENT (MINDMAP) ================= -->
-<section id="why">
-  <div class="wrap">
-    <div class="center">
-      <div class="kicker">Why an Innovator in Residence?</div>
-      <h2>Consultants leave decks.<br>Residents leave capability.</h2>
-    </div>
-    <div class="panel console mindmap-shell">
-      <span class="console-tag" id="mmTag">STRUINOVA // WHY_RESIDENT_MAP</span>
-      <svg class="mindmap" id="mindmapSvg" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg" aria-label="Why an Innovator in Residence mindmap"></svg>
-      <div class="tiny" style="text-align:center;padding:6px 0 14px">This map redraws itself based on what you name in Step 01. Go ahead, change your answers.</div>
     </div>
   </div>
 </section>
@@ -843,9 +841,6 @@ btn.onclick = ()=>{
   setTimeout(()=>{
     hub.setAttribute('fill','rgba(248,153,29,.12)');
     renderDisciplines();
-    const proof = PROOFS[primary] || PROOFS.custom;
-    document.getElementById('proofTag').textContent = proof.tag;
-    document.getElementById('proofText').textContent = proof.text;
     document.getElementById('hmwWrap').classList.add('on');
     /* the conversation spills out of the engine */
     setTimeout(startSpill, 1400);
@@ -892,19 +887,84 @@ QS.push(
 let answers = {};
 let qIdx = 0;
 let spillStarted = false;
+let transcript = [];
+let aiHistory = [];
+let userTurns = 0;
 
-function startSpill(){
+async function callRon(){
+  const r = await fetch('/api/reframe', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({history: aiHistory, challenges: selected.map(s=>s.text), wrapUp: userTurns>=4})});
+  if(!r.ok) throw new Error('api');
+  const j = await r.json();
+  if(!j.reply) throw new Error('empty');
+  return j.reply;
+}
+function showTyping(){
+  const box = document.getElementById('chatBox');
+  const tp = document.createElement('div');
+  tp.className='msg ron';
+  tp.innerHTML='<div class="ron-ava">RB</div><div class="bubble typing"><i></i><i></i><i></i></div>';
+  box.appendChild(tp);
+  tp.scrollIntoView({behavior:'smooth',block:'end'});
+  return tp;
+}
+function fillTyping(tp, text){
+  tp.querySelector('.bubble').classList.remove('typing');
+  tp.querySelector('.bubble').textContent = text;
+  transcript.push(['Ron', text]);
+  tp.scrollIntoView({behavior:'smooth',block:'end'});
+}
+function showInput(){
+  const box = document.getElementById('chatBox');
+  const line = document.createElement('div');
+  line.className='freeline'; line.id='aiLine';
+  line.innerHTML='<input type="text" placeholder="reply to Ron and press Enter" maxlength="300"><button class="chip">I\'m ready to book &rarr;</button>';
+  line.querySelector('input').addEventListener('keydown', e=>{
+    if(e.key==='Enter' && e.target.value.trim()) sendUser(e.target.value.trim());
+  });
+  line.querySelector('button').onclick = ()=>{ line.remove(); finishChat(); };
+  box.appendChild(line);
+  line.scrollIntoView({behavior:'smooth',block:'end'});
+  line.querySelector('input').focus();
+}
+async function sendUser(val){
+  const line = document.getElementById('aiLine');
+  if(line) line.remove();
+  youSay(val);
+  aiHistory.push({role:'user', content:val});
+  userTurns++;
+  const tp = showTyping();
+  try{
+    const reply = await callRon();
+    fillTyping(tp, reply);
+    aiHistory.push({role:'assistant', content:reply});
+    if(userTurns>=5){ setTimeout(finishChat, 900); } else showInput();
+  }catch(e){
+    tp.remove();
+    ronSay('Let us pick this up in person. Your brief is ready below.', ()=>{ finishChat(); });
+  }
+}
+async function startSpill(){
   if(spillStarted) return;
   spillStarted = true;
   const sp = document.getElementById('spill');
   sp.style.display='block';
-  const primary = selected.length ? selected[0].cat : 'custom';
-  ronSay('Here is your challenge, reframed: ' + (REFRAMES[primary] || REFRAMES.custom), ()=>{
-    ronSay((RONTAKES[primary] || RONTAKES.custom), ()=>{
-      setTimeout(askNext, 700);
-    });
-  });
   setTimeout(()=>sp.scrollIntoView({behavior:'smooth',block:'center'}), 400);
+  const tp = showTyping();
+  try{
+    const reply = await callRon();
+    fillTyping(tp, reply);
+    aiHistory.push({role:'assistant', content:reply});
+    showInput();
+  }catch(e){
+    tp.remove();
+    const primary = selected.length ? selected[0].cat : 'custom';
+    ronSay('Here is your challenge, reframed: ' + (REFRAMES[primary] || REFRAMES.custom), ()=>{
+      ronSay((RONTAKES[primary] || RONTAKES.custom), ()=>{
+        setTimeout(askNext, 700);
+      });
+    });
+  }
 }
 
 function ronSay(text, cb){
@@ -917,6 +977,7 @@ function ronSay(text, cb){
   setTimeout(()=>{
     tp.querySelector('.bubble').classList.remove('typing');
     tp.querySelector('.bubble').textContent=text;
+    transcript.push(['Ron', text]);
     tp.scrollIntoView({behavior:'smooth',block:'end'});
     if(cb) cb();
   }, 900 + Math.min(text.length*5, 1600));
@@ -927,6 +988,7 @@ function youSay(text){
   m.className='msg you';
   m.innerHTML='<div class="bubble"></div>';
   m.querySelector('.bubble').textContent=text;
+  transcript.push(['You', text]);
   box.appendChild(m);
   m.scrollIntoView({behavior:'smooth',block:'end'});
 }
@@ -987,6 +1049,18 @@ function buildBrief(){
     li.appendChild(b); li.appendChild(document.createTextNode(r[1]));
     list.appendChild(li);
   });
+  if(transcript.length){
+    const li=document.createElement('li');
+    const b=document.createElement('b'); b.textContent='Conversation with Ron';
+    li.appendChild(b);
+    li.appendChild(document.createTextNode(transcript.map(t=>t[0]+': '+t[1]).join('   ')));
+    list.appendChild(li);
+  }
+  const cal=document.getElementById('calBrief');
+  if(cal){
+    const notes=('Challenges: '+selected.map(s=>s.text).join('; ')+'\n'+transcript.map(t=>t[0]+': '+t[1]).join('\n')).slice(0,700);
+    cal.href='https://cal.com/brumbarger?notes='+encodeURIComponent(notes);
+  }
 }
 document.getElementById('sendBrief').onclick = ()=>{
   const name=document.getElementById('fName').value.trim();
@@ -1004,7 +1078,9 @@ document.getElementById('sendBrief').onclick = ()=>{
     'Already tried: '+(answers.tried||'n/a'),
     'What happened: '+(answers.result||'n/a'),
     'Where it hurts: '+(answers.pain||'n/a'),'',
-    'Notes: '+(note||'none')
+    'Notes: '+(note||'none'),'',
+    'Conversation:',
+    transcript.map(t=>t[0]+': '+t[1]).join('\n').slice(0,1400)
   ].join('\n');
   window.location.href='mailto:ron@struinova.com?subject='+encodeURIComponent('Challenge brief: '+(org||name||'new visitor'))+'&body='+encodeURIComponent(body);
 };
