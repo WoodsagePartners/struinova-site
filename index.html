@@ -441,8 +441,8 @@ footer a{color:var(--orange);text-decoration:none}
           </g>
           <g font-size="13" fill="#e6edf3" text-anchor="middle" letter-spacing="1.2">
             <text x="300" y="436">A PROBLEM WORTH SOLVING</text>
-            <text x="500" y="436">A FIRST 90 DAYS</text>
-            <text x="700" y="436">SKILLS THAT STAY</text>
+            <text x="500" y="436">THE FIRST 90 DAYS</text>
+            <text x="700" y="436">SKILLS YOUR TEAM KEEPS</text>
           </g>
           <text x="500" y="468" font-size="10" fill="rgba(147,165,182,.5)" text-anchor="middle" letter-spacing="2">OUTPUT_STREAM // CONTINUES BELOW</text>
           </g>
@@ -454,8 +454,8 @@ footer a{color:var(--orange);text-decoration:none}
     <div class="reveal" id="hmwWrap">
       <div class="outrow">
         <div class="panel outcard"><div class="olabel">OUTPUT_01 // A PROBLEM WORTH SOLVING</div><p id="outProblem"></p></div>
-        <div class="panel outcard"><div class="olabel">OUTPUT_02 // YOUR FIRST 90 DAYS</div><p id="outNinety"></p></div>
-        <div class="panel outcard"><div class="olabel">OUTPUT_03 // SKILLS THAT STAY</div><p id="outSkills"></p></div>
+        <div class="panel outcard"><div class="olabel">OUTPUT_02 // THE FIRST 90 DAYS</div><p id="outNinety"></p></div>
+        <div class="panel outcard"><div class="olabel">OUTPUT_03 // SKILLS YOUR TEAM KEEPS</div><p id="outSkills"></p></div>
       </div>
       <div class="panel console disc-panel">
         <span class="console-tag">DIAGNOSTICS</span>
@@ -816,7 +816,8 @@ function renderOutputs(){
   document.getElementById('outNinety').textContent = NINETY[primary] || NINETY.custom;
   const sk = new Set();
   selected.forEach(s=> (SKILL_MAP[s.cat]||SKILL_MAP.custom).forEach(x=>sk.add(x)) );
-  document.getElementById('outSkills').textContent = 'Your team keeps: ' + Array.from(sk).join(', ') + '. Long after we leave.';
+  const skl = Array.from(sk).join(', ');
+  document.getElementById('outSkills').textContent = skl.charAt(0).toUpperCase() + skl.slice(1) + '. Long after we leave.';
 }
 function renderDisciplines(){
   const row = document.getElementById('discRow');
