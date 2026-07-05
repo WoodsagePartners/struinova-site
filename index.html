@@ -486,7 +486,7 @@ footer a{color:var(--orange);text-decoration:none}
           <div class="vline"></div>
         </div>
         <div class="chat panel console" id="chatShell">
-          <span class="console-tag">STRUINOVA // RON_IS_TYPING</span>
+          <span class="console-tag">STRUINOVA // REFRAMING_ENGINE</span>
           <div id="chatBox"></div>
         </div>
       </div>
@@ -588,7 +588,7 @@ footer a{color:var(--orange);text-decoration:none}
       <div>
         <div class="kicker">The practice</div>
         <h2>Sometimes it's Ron.<br>Sometimes it's a team.<br>The method is constant.</h2>
-        <p class="sub" style="margin-top:18px">Struinova was founded by Ron Brumbarger, who spent 27 years building Bitwise Solutions into an enterprise digital firm serving ~1,100 clients before its sale, then founded and sold Apprentice University. He is a Senior Research Fellow with Basadur Innovation, a certified creative problem-solving facilitator, co-founder of the How Might We Collective, a patent holder, and author of <i>You're Always Being Interviewed</i>.</p>
+        <p class="sub" style="margin-top:18px">Struinova was founded by Ron Brumbarger, who spent 27 years building Bitwise Solutions into an enterprise digital firm serving ~1,100 clients before its sale, then founded and sold Apprentice University. He is a Senior Research Fellow with Basadur Innovation, a certified creative problem-solving facilitator, co-founder of the How Might We Collective, a patent holder, and author of <i>You're Always Being Interviewed</i>. He has twice applied creative problem-solving and AI to cold case homicides alongside law enforcement.</p>
         <p class="sub" style="margin-top:14px">Engagements are led by Ron and scaled with a trusted bench of facilitators and partners. Whether it is one facilitator or five, you get the same methodology, the same vocabulary, and the same standard: your team leaves stronger than we found it.</p>
       </div>
       <div class="creds">
@@ -1078,7 +1078,7 @@ function showTyping(){
   const box = document.getElementById('chatBox');
   const tp = document.createElement('div');
   tp.className='msg ron';
-  tp.innerHTML='<div class="ron-ava">RB</div><div class="bubble typing"><i></i><i></i><i></i></div>';
+  tp.innerHTML='<div class="ron-ava">S</div><div class="bubble typing"><i></i><i></i><i></i></div>';
   box.appendChild(tp);
   tp.scrollIntoView({behavior:'smooth',block:'end'});
   return tp;
@@ -1093,7 +1093,7 @@ function showInput(){
   const box = document.getElementById('chatBox');
   const line = document.createElement('div');
   line.className='freeline'; line.id='aiLine';
-  line.innerHTML='<input type="text" placeholder="reply to Ron and press Enter" maxlength="300"><button class="chip">I\'m ready to book &rarr;</button>';
+  line.innerHTML='<input type="text" placeholder="type your reply and press Enter" maxlength="300"><button class="chip">I\'m ready to book &rarr;</button>';
   line.querySelector('input').addEventListener('keydown', e=>{
     if(e.key==='Enter' && e.target.value.trim()) sendUser(e.target.value.trim());
   });
@@ -1152,7 +1152,7 @@ function ronSay(text, cb){
   const box = document.getElementById('chatBox');
   const tp = document.createElement('div');
   tp.className='msg ron';
-  tp.innerHTML='<div class="ron-ava">RB</div><div class="bubble typing"><i></i><i></i><i></i></div>';
+  tp.innerHTML='<div class="ron-ava">S</div><div class="bubble typing"><i></i><i></i><i></i></div>';
   box.appendChild(tp);
   tp.scrollIntoView({behavior:'smooth',block:'end'});
   setTimeout(()=>{
@@ -1204,7 +1204,7 @@ function answer(item, val, chips, free, isFree){
   ronSay(react, ()=>{ qIdx++; setTimeout(askNext, 500); });
 }
 function finishChat(){
-  ronSay('That is enough for a real first conversation. Your challenge brief is ready below. Send it our way, or put thirty minutes straight on my calendar.', ()=>{
+  ronSay('That is enough for a real first conversation. Your challenge brief is ready below. Send it our way, or put thirty minutes straight on Ron\'s calendar.', ()=>{
     const br = document.getElementById('brief');
     br.style.display='block';
     buildBrief();
