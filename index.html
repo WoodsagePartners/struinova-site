@@ -833,19 +833,41 @@ function renderDisciplines(){
   });
 }
 
-/* =============== DYNAMIC MINDMAP =============== */
-const CAT_BRANCH = {
-  imagine:{t:'IMAGINATION', leaves:['Imagination is method, not talent','Divergent thinking is trainable']},
-  blind:{t:'BLIND SPOTS', leaves:["You can't be your own dentist",'Fresh eyes on your old problem']},
-  paradigm:{t:'OLD PARADIGMS', leaves:['Borrow patterns from other worlds','The old way becomes one option']},
-  silos:{t:'SILOS & POLITICS', leaves:['The problem goes on the wall, not people','Co-design replaces turf defense']},
-  gtm:{t:'GO-TO-MARKET', leaves:['GTM as a design problem','Question the unquestioned assumption']},
-  mindset:{t:'MINDSET', leaves:['Deferral of judgment, taught','Exploration gets a fighting chance']},
-  method:{t:'METHOD', leaves:['One shared vocabulary','Structure is freedom with a map']},
-  knot:{t:'THE KNOT', leaves:['The first strand, this quarter','Momentum beats brilliance']},
-  product:{t:'NEW OFFERINGS', leaves:['Ripe problems before brainstorms','Designed on purpose, not by accident']},
-  tech:{t:'TECH, AI & ROBOTICS', leaves:['Technology amplifies method','Applied AI, not trophies']},
-  custom:{t:'YOUR OWN WORDS', leaves:['The problem you see is rarely the problem','We look at it together']}
+/* =============== DYNAMIC MINDMAP: disciplines × selected problems =============== */
+const DISC_COMBO = {
+  'EXPERIENCE|blind':'We have watched 100 smart teams miss this',
+  'EXPERIENCE|paradigm':'We ran our own firm on the new way first',
+  'EXPERIENCE|silos':'25 rival agendas aligned in Manitou Springs',
+  'EXPERIENCE|gtm':'27 years of go-to-market reframes at Bitwise',
+  'EXPERIENCE|knot':'Big knots untied on three continents',
+  'EXPERIENCE|tech':'A robotics degree, zero trophy projects',
+  'EXPERIENCE|custom':'Odds are we have met your problem before',
+  'PROCESS|silos':'Simplexity puts the problem on the wall',
+  'PROCESS|mindset':'Structure makes exploration feel safe',
+  'PROCESS|method':'Simplexity replaces spaghetti with steps',
+  'PROCESS|knot':'Problem definition before solutions, always',
+  'INNOVATION|imagine':'Idea fluency drills unlock stuck teams',
+  'INNOVATION|paradigm':'Analogous thinking borrows other worlds',
+  'INNOVATION|gtm':'Your market, mapped as a design problem',
+  'INNOVATION|product':'Ripe problems become new offerings',
+  'INNOVATION|tech':'AI aimed at real workflow, not hype',
+  'TRAINING|imagine':'Divergent thinking is a trainable rep',
+  'TRAINING|paradigm':'Lateral thinking taught on your real work',
+  'TRAINING|silos':'A shared vocabulary dissolves turf lines',
+  'TRAINING|mindset':'Deferral of judgment, drilled until easy',
+  'TRAINING|method':'Skills onboarded while solving, not after',
+  'ENTREPRENEURSHIP|gtm':'Founder eyes on your revenue model',
+  'ENTREPRENEURSHIP|product':'We built new offerings from ripe problems',
+  'CREATIVE PROBLEM-SOLVING|imagine':'Fluency first: volume beats brilliance',
+  'CREATIVE PROBLEM-SOLVING|blind':'Challenge mapping finds the unseen frame',
+  'CREATIVE PROBLEM-SOLVING|mindset':'Yes-and replaces judge-and-kill',
+  'CREATIVE PROBLEM-SOLVING|method':'One certified method: Basadur Simplexity',
+  'CREATIVE PROBLEM-SOLVING|knot':'Telescoping finds the first loose strand',
+  'CREATIVE PROBLEM-SOLVING|product':'HMW ladders from complaint to concept',
+  'CREATIVE PROBLEM-SOLVING|custom':'Your words become a workable challenge',
+  'APPLIED AI|blind':'AI as fresh eyes on stale facts',
+  'APPLIED AI|tech':'Method first, then the right tools',
+  'APPLIED AI|custom':'AI probes the angles humans skip'
 };
 function renderMindmap(){
   const svg = document.getElementById('mindmapSvg');
@@ -865,30 +887,37 @@ function renderMindmap(){
   ['WHY AN INNOVATOR','IN RESIDENCE MIGHT','FIT YOUR SITUATION'].forEach((ln,i)=>{
     el('text',{x:rootX+rootW/2,y:rootCy-14+i*20,'font-size':13,fill:'#f8991d','text-anchor':'middle','letter-spacing':2},ln);
   });
-  /* branches generated entirely from the visitor's selections */
+  /* branches = applied disciplines; limbs = how each maps to their actual problems */
   const seen = new Set();
-  const cats = [];
-  selected.forEach(s=>{ if(!seen.has(s.cat)){ seen.add(s.cat); cats.push(s.cat); } });
-  if(cats.length===0){
+  const catsSel = [];
+  selected.forEach(s=>{ if(!seen.has(s.cat)){ seen.add(s.cat); catsSel.push(s.cat); } });
+  if(catsSel.length===0){
     el('path',{d:'M'+(rootX+rootW)+','+rootCy+' C320,'+rootCy+' 340,'+rootCy+' 380,'+rootCy,class:'mm-link'});
     el('rect',{x:380,y:rootCy-22,width:340,height:44,rx:10,fill:'rgba(148,180,210,.04)',stroke:'rgba(148,180,210,.3)','stroke-dasharray':'6 6'});
     el('text',{x:550,y:rootCy+4,'font-size':12,fill:'#93a5b6','text-anchor':'middle'},'Name your challenges in Step 01 and this map builds itself');
   }
-  const shown = cats.slice(0,5);
+  const discOrder = [];
+  catsSel.forEach(c=>{ (DISC_MAP[c]||DISC_MAP.custom).forEach(d=>{ if(discOrder.indexOf(d)<0) discOrder.push(d); }); });
+  const shown = discOrder.slice(0,5);
   const n = shown.length;
   const spacing = n>0 ? Math.min(150, 520/n) : 0;
-  const bx=340, bw=190, bh=36;
-  shown.forEach((cat,i)=>{
-    const br = CAT_BRANCH[cat] || CAT_BRANCH.custom;
+  const bx=330, bw=200, bh=34;
+  shown.forEach((disc,i)=>{
+    const limbs = catsSel
+      .filter(c=>(DISC_MAP[c]||DISC_MAP.custom).indexOf(disc)>=0)
+      .map(c=>DISC_COMBO[disc+'|'+c])
+      .filter(Boolean)
+      .slice(0,3);
     const bcy = 320 + (i-(n-1)/2)*spacing;
-    el('path',{d:'M'+(rootX+rootW)+','+rootCy+' C300,'+rootCy+' 280,'+bcy+' '+bx+','+bcy,class:'mm-link hot'});
+    el('path',{d:'M'+(rootX+rootW)+','+rootCy+' C290,'+rootCy+' 270,'+bcy+' '+bx+','+bcy,class:'mm-link hot'});
     el('rect',{x:bx,y:bcy-bh/2,width:bw,height:bh,rx:10,fill:'rgba(64,90,116,.45)',stroke:'rgba(248,153,29,.55)'});
-    el('text',{x:bx+bw/2,y:bcy+4,'font-size':11,fill:'#e6edf3','text-anchor':'middle','letter-spacing':1.5},br.t);
-    br.leaves.forEach((lf,j)=>{
-      const ly = bcy + (j===0?-24:24);
-      const lx = bx+bw+56 + (j%2)*14;
+    el('text',{x:bx+bw/2,y:bcy+4,'font-size':11,fill:'#e6edf3','text-anchor':'middle','letter-spacing':1.5},disc);
+    limbs.forEach((lf,j)=>{
+      const m = limbs.length;
+      const ly = bcy + (j-(m-1)/2)*38;
+      const lx = bx+bw+52 + (j%2)*12;
       const w = Math.min(lf.length*6.7+26, 330);
-      el('path',{d:'M'+(bx+bw)+','+bcy+' C'+(bx+bw+30)+','+bcy+' '+(lx-26)+','+ly+' '+lx+','+ly,class:'mm-link hot'});
+      el('path',{d:'M'+(bx+bw)+','+bcy+' C'+(bx+bw+28)+','+bcy+' '+(lx-24)+','+ly+' '+lx+','+ly,class:'mm-link hot'});
       el('rect',{x:lx,y:ly-15,width:w,height:30,rx:8,fill:'rgba(248,153,29,.10)',stroke:'rgba(248,153,29,.7)'});
       el('text',{x:lx+w/2,y:ly+4,'font-size':11,fill:'#ffd9a8','text-anchor':'middle'},lf);
     });
@@ -991,8 +1020,10 @@ function nameVal(){
   return el ? el.value.trim() : '';
 }
 async function callRon(){
+  const discs = new Set();
+  selected.forEach(s=> (DISC_MAP[s.cat]||DISC_MAP.custom).forEach(d=>discs.add(d)) );
   const r = await fetch('/api/reframe', {method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({history: aiHistory, challenges: selected.map(s=>s.text), wrapUp: userTurns>=4, site: siteVal(), homework: aiHomework, name: nameVal()})});
+    body: JSON.stringify({history: aiHistory, challenges: selected.map(s=>s.text), wrapUp: userTurns>=4, site: siteVal(), homework: aiHomework, name: nameVal(), disciplines: Array.from(discs)})});
   if(!r.ok) throw new Error('api');
   const j = await r.json();
   if(j.homework) aiHomework = j.homework;
