@@ -394,17 +394,18 @@ footer a{color:var(--orange);text-decoration:none}
             <path class="flow" d="M690,84 C687,160 600,180 530,210"/>
             <path class="flow" d="M785,84 C785,165 650,185 545,220"/>
           </g>
-          <g font-size="14" fill="#c6d6e4" text-anchor="middle" letter-spacing="1.5">
-            <text x="215" y="38">EXPERIENCE</text>
-            <text x="310" y="66">PROCESS</text>
-            <text x="405" y="38">INNOVATION</text>
-            <text x="500" y="66">TRAINING</text>
-            <text x="595" y="38">ENTREPRENEURSHIP</text>
-            <text x="690" y="66">CREATIVE PROBLEM-SOLVING</text>
-            <text x="785" y="38">APPLIED AI</text>
+          <g font-size="13" fill="#c6d6e4" text-anchor="middle" letter-spacing="1">
+            <text x="215" y="40">EXPERIENCE</text>
+            <text x="310" y="68">PROCESS</text>
+            <text x="405" y="40">INNOVATION</text>
+            <text x="500" y="68">TRAINING</text>
+            <text x="595" y="40">ENTREPRENEURSHIP</text>
+            <text x="690" y="54">CREATIVE</text>
+            <text x="690" y="70">PROBLEM-SOLVING</text>
+            <text x="785" y="40">APPLIED AI</text>
           </g>
           <g fill="#f8991d">
-            <circle cx="215" cy="76" r="3.4"/><circle cx="310" cy="76" r="3.4"/><circle cx="405" cy="76" r="3.4"/><circle cx="500" cy="76" r="3.4"/><circle cx="595" cy="76" r="3.4"/><circle cx="690" cy="76" r="3.4"/><circle cx="785" cy="76" r="3.4"/>
+            <circle cx="215" cy="78" r="3.4"/><circle cx="310" cy="78" r="3.4"/><circle cx="405" cy="78" r="3.4"/><circle cx="500" cy="78" r="3.4"/><circle cx="595" cy="78" r="3.4"/><circle cx="690" cy="78" r="3.4"/><circle cx="785" cy="78" r="3.4"/>
           </g>
           </g>
           <!-- input path (left) -->
@@ -503,7 +504,7 @@ footer a{color:var(--orange);text-decoration:none}
     <div class="panel console mindmap-shell">
       <span class="console-tag" id="mmTag">STRUINOVA // WHY_RESIDENT_MAP</span>
       <svg class="mindmap" id="mindmapSvg" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg" aria-label="Why an Innovator in Residence mindmap"></svg>
-      <div class="tiny" style="text-align:center;padding:6px 0 14px">This map redraws itself based on what you name in Step 01. Go ahead, change your answers.</div>
+      <div class="tiny" style="text-align:center;padding:6px 0 14px">This map redraws itself based on what you name in Step 02. Go ahead, change your answers.</div>
     </div>
   </div>
 </section>
@@ -908,7 +909,7 @@ function renderMindmap(){
   if(catsSel.length===0){
     el('path',{d:'M'+(rootX+rootW)+','+rootCy+' C320,'+rootCy+' 340,'+rootCy+' 380,'+rootCy,class:'mm-link'});
     el('rect',{x:380,y:rootCy-22,width:340,height:44,rx:10,fill:'rgba(148,180,210,.04)',stroke:'rgba(148,180,210,.3)','stroke-dasharray':'6 6'});
-    el('text',{x:550,y:rootCy+4,'font-size':12,fill:'#93a5b6','text-anchor':'middle'},'Name your challenges in Step 01 and this map builds itself');
+    el('text',{x:550,y:rootCy+4,'font-size':12,fill:'#93a5b6','text-anchor':'middle'},'Name your challenges in Step 02 and this map builds itself');
   }
   const discOrder = [];
   catsSel.forEach(c=>{ (DISC_MAP[c]||DISC_MAP.custom).forEach(d=>{ if(discOrder.indexOf(d)<0) discOrder.push(d); }); });
@@ -957,7 +958,11 @@ btn.onclick = ()=>{
     'Deferring judgment, on purpose…',
     'Diverging before we converge…',
     'Untying the first strand…',
-    'Borrowing ideas from other worlds…'
+    'Borrowing ideas from other worlds…',
+    'Asking better questions…',
+    'Checking our field notes…',
+    'Consulting the toolbox…',
+    'Reading between your lines…'
   ];
   const modal = document.getElementById('workModal');
   const lineEl = document.getElementById('workLine');
@@ -970,7 +975,7 @@ btn.onclick = ()=>{
     lineEl.style.opacity = 0;
     setTimeout(()=>{ lineEl.textContent = LINES[li]; lineEl.style.opacity = 1; }, 250);
   }, 1300);
-  setTimeout(()=>{ clearInterval(spinInt); modal.classList.remove('on'); }, 5600);
+  setTimeout(()=>{ clearInterval(spinInt); modal.classList.remove('on'); }, 7600);
   /* populate the left input stack */
   const stack = document.getElementById('inputStack');
   stack.innerHTML = '<div class="in-label">FEEDING_IN &darr;</div>';
@@ -1002,7 +1007,7 @@ btn.onclick = ()=>{
     document.getElementById('hmwWrap').classList.add('on');
     /* the conversation spills out of the engine */
     setTimeout(startSpill, 1400);
-  }, Math.max(selected.length*320 + 1600, 6000));
+  }, Math.max(selected.length*320 + 1600, 8000));
 };
 
 /* =============== CONVERSATION (spill) =============== */
