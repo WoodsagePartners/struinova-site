@@ -279,7 +279,7 @@ footer a{color:var(--orange);text-decoration:none}
   <img class="biglogo" src="Struinova-dark.svg" alt="Struinova">
   <span class="brand">STRUINOVA INNOVATION</span>
   <span class="navlinks">
-    <a href="#wall">start_here</a>
+    <a href="#who">start_here</a>
     <a href="#why">why_resident</a>
     <a href="#stories">field_notes</a>
     <a href="#about">the_practice</a>
@@ -293,17 +293,41 @@ footer a{color:var(--orange);text-decoration:none}
     <span class="dentist">"You can't be your own dentist."</span>
     <h1>Every organization goes blind to its own <em>possibilities.</em></h1>
     <p class="sub">Struinova is your Innovator in Residence. We embed with your team, bring a proven creative problem-solving method, and train your people until innovation is a muscle they own, not a memo they file. Don't take our word for it. Run your real problem through our process, right now.</p>
-    <a class="btn" href="#wall">Show us what's stuck &darr;</a>
+    <a class="btn" href="#who">Show us what's stuck &darr;</a>
   </div>
 </header>
 
-<!-- ================= STEP 1: INTAKE ================= -->
-<section id="wall">
+<!-- ================= STEP 1: HOMEWORK ================= -->
+<section id="who" style="padding-bottom:20px">
   <div class="wrap">
     <div class="stepbar">
       <span class="steprule"></span>
       <div class="stepnum">01</div>
-      <div class="steplabel"><b>STEP_01</b><span>Name it</span></div>
+      <div class="steplabel"><b>STEP_01</b><span>Who are you?</span></div>
+      <span class="steprule r"></span>
+    </div>
+    <div class="center" style="margin-bottom:30px">
+      <h2>Introduce yourself. Lightly.</h2>
+      <p class="sub" style="margin:14px auto 0">A first name so Ron knows who he's talking to, and your website so he can do his homework before the conversation. Both optional; skip ahead if you'd rather stay mysterious.</p>
+    </div>
+    <div class="panel console" style="max-width:620px;margin:0 auto;padding:54px 28px 24px">
+      <span class="console-tag">STRUINOVA // HOMEWORK_CONSOLE</span>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1">
+        <input id="visName" type="text" placeholder="First name" maxlength="40" autocomplete="given-name" style="flex:1;min-width:140px;background:rgba(148,180,210,.05);border:1px solid var(--line);border-radius:10px;padding:13px 16px;color:var(--text);font-family:inherit;font-size:.95rem;outline:none">
+        <input id="siteUrl" type="url" placeholder="https://yourcompany.com" style="flex:2;min-width:220px;background:rgba(148,180,210,.05);border:1px solid var(--line);border-radius:10px;padding:13px 16px;color:var(--text);font-family:inherit;font-size:.95rem;outline:none">
+      </div>
+      <div class="tiny">We only read your public homepage. Nothing is stored, nobody gets subscribed to anything.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STEP 2: INTAKE ================= -->
+<section id="wall">
+  <div class="wrap">
+    <div class="stepbar">
+      <span class="steprule"></span>
+      <div class="stepnum">02</div>
+      <div class="steplabel"><b>STEP_02</b><span>Name it</span></div>
       <span class="steprule r"></span>
     </div>
     <div class="center" style="margin-bottom:30px">
@@ -332,8 +356,8 @@ footer a{color:var(--orange);text-decoration:none}
   <div class="wrap">
     <div class="stepbar">
       <span class="steprule"></span>
-      <div class="stepnum">02</div>
-      <div class="steplabel"><b>STEP_02</b><span>Reframe it</span></div>
+      <div class="stepnum">03</div>
+      <div class="steplabel"><b>STEP_03</b><span>Reframe it</span></div>
       <span class="steprule r"></span>
     </div>
     <div class="center" style="margin-bottom:26px">
@@ -475,8 +499,8 @@ footer a{color:var(--orange);text-decoration:none}
   <div class="wrap">
     <div class="stepbar">
       <span class="steprule"></span>
-      <div class="stepnum">03</div>
-      <div class="steplabel"><b>STEP_03</b><span>Make it real</span></div>
+      <div class="stepnum">04</div>
+      <div class="steplabel"><b>STEP_04</b><span>Make it real</span></div>
       <span class="steprule r"></span>
     </div>
     <div class="center" style="margin-bottom:30px">
@@ -956,11 +980,21 @@ let transcript = [];
 let aiHistory = [];
 let userTurns = 0;
 
+let aiHomework = '';
+function siteVal(){
+  const el = document.getElementById('siteUrl');
+  return el ? el.value.trim() : '';
+}
+function nameVal(){
+  const el = document.getElementById('visName');
+  return el ? el.value.trim() : '';
+}
 async function callRon(){
   const r = await fetch('/api/reframe', {method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({history: aiHistory, challenges: selected.map(s=>s.text), wrapUp: userTurns>=4})});
+    body: JSON.stringify({history: aiHistory, challenges: selected.map(s=>s.text), wrapUp: userTurns>=4, site: siteVal(), homework: aiHomework, name: nameVal()})});
   if(!r.ok) throw new Error('api');
   const j = await r.json();
+  if(j.homework) aiHomework = j.homework;
   if(!j.reply) throw new Error('empty');
   return j.reply;
 }
@@ -1015,9 +1049,15 @@ async function startSpill(){
   const sp = document.getElementById('spill');
   sp.style.display='block';
   setTimeout(()=>sp.scrollIntoView({behavior:'smooth',block:'center'}), 400);
+  const chatTag = document.querySelector('#chatShell .console-tag');
+  if(siteVal() && chatTag){
+    const host = siteVal().replace(/^https?:\/\//,'').split('/')[0];
+    chatTag.textContent = 'STRUINOVA // RON_IS_READING // ' + host.toUpperCase();
+  }
   const tp = showTyping();
   try{
     const reply = await callRon();
+    if(chatTag) chatTag.textContent = 'STRUINOVA // RON_IS_TYPING';
     fillTyping(tp, reply);
     aiHistory.push({role:'assistant', content:reply});
     showInput();
@@ -1098,6 +1138,8 @@ function finishChat(){
 
 /* =============== BRIEF =============== */
 function buildBrief(){
+  const fn = document.getElementById('fName');
+  if(fn && !fn.value.trim() && nameVal()) fn.value = nameVal();
   const list = document.getElementById('briefList');
   const primary = selected.length ? selected[0].cat : 'custom';
   list.innerHTML='';
@@ -1137,7 +1179,8 @@ document.getElementById('sendBrief').onclick = ()=>{
     'Challenge brief from struinova.com','',
     'Name: '+(name||'(not given)'),
     'Email: '+(email||'(not given)'),
-    'Organization: '+(org||'(not given)'),'',
+    'Organization: '+(org||'(not given)'),
+    'Website: '+(siteVal()||'(not given)'),'',
     'What’s stuck: '+(selected.map(s=>s.text).join('; ')||'n/a'),
     'Reframed as: '+(REFRAMES[primary]||REFRAMES.custom),
     'Already tried: '+(answers.tried||'n/a'),
