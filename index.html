@@ -203,7 +203,17 @@ nav a:hover{color:var(--orange)}
   .pd-table{width:100%;border-collapse:collapse;margin-top:4px}
   .pd-table td{font-size:11px;line-height:1.55;padding:7px 8px;border-bottom:1px solid #e3e9ee;vertical-align:top;color:#243442}
   .pd-table td:first-child{font-weight:600;color:#2c3e50;white-space:nowrap;font-size:10.5px;letter-spacing:.05em;width:180px}
-  .pd-quote{margin-top:18px;padding:12px 16px;border-left:3px solid #c2571b;font-style:italic;font-size:11.5px;color:#243442}
+  .pd-quote{margin-top:4px;padding:12px 16px;border-left:3px solid #c2571b;font-style:italic;font-size:11.5px;color:#243442;break-inside:avoid;page-break-inside:avoid}
+  .pd-runfoot{position:fixed;bottom:0;left:0;right:0;text-align:center;font-size:9px;color:#9aa8b5;letter-spacing:.08em}
+  .pd-tl{margin:10px 0 6px 8px}
+  .pd-tl-item{position:relative;padding:0 0 14px 24px;border-left:2px solid #c2571b;break-inside:avoid;page-break-inside:avoid}
+  .pd-tl-item::before{content:"";position:absolute;left:-8px;top:1px;width:9px;height:9px;border-radius:50%;background:#fff;border:3px solid #c2571b}
+  .pd-tl-item h5{font-size:10.5px;color:#c2571b;letter-spacing:.12em;margin:0 0 3px;text-transform:uppercase;font-weight:600}
+  .pd-tl-item p{font-size:11.5px;line-height:1.55;margin:0;color:#243442}
+  .pd-tl-more{position:relative;padding:2px 0 16px 24px;border-left:2px dashed #dfa055;break-inside:avoid;page-break-inside:avoid}
+  .pd-tl-more::after{content:"";position:absolute;left:-7px;bottom:-4px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:9px solid #dfa055}
+  .pd-tl-more h5{font-size:10.5px;color:#b07a3a;letter-spacing:.12em;margin:0 0 3px;text-transform:uppercase;font-weight:600}
+  .pd-tl-more p{font-size:11.5px;line-height:1.55;margin:0;color:#243442}
   .pd-quote span{display:block;font-style:normal;font-size:10px;color:#8a99a8;margin-top:6px}
 }
 
@@ -1441,7 +1451,8 @@ function downloadBrief(){
   const sk = new Set(); selected.forEach(s=> (SKILL_MAP[s.cat]||SKILL_MAP.custom).forEach(x=>sk.add(x)) );
   const discs = new Set(); selected.forEach(s=> (DISC_MAP[s.cat]||DISC_MAP.custom).forEach(d=>discs.add(d)) );
   pd.innerHTML =
-    '<div class="pd-page pd-cover">'
+    '<div class="pd-runfoot">Struinova Innovation &middot; your challenge, reframed &middot; struinova.com</div>'
+    + '<div class="pd-page pd-cover">'
     + '<img src="Struinova.svg" alt="Struinova">'
     + '<div class="pd-brand">STRUINOVA INNOVATION</div>'
     + '<div class="pd-title">Your Challenge, Reframed</div>'
@@ -1460,13 +1471,14 @@ function downloadBrief(){
     + '<p class="pd-p"><b>' + esc(REFRAMES[primary]||REFRAMES.custom) + '</b></p>'
     + '<p class="pd-p">That is the question we would tape to the wall on day one. It is a hypothesis, not a verdict; it is allowed to evolve as facts come in, and the good ones usually do.</p>'
     + '<p class="pd-p">Our take: ' + esc(RONTAKES[primary]||RONTAKES.custom) + '</p>'
-    + '</div>'
-    + '<div class="pd-page">'
     + '<div class="pd-h">Your first 90 days</div>'
     + '<p class="pd-p">' + esc(NINETY[primary]||NINETY.custom) + ' In practice, an engagement like yours tends to move like this:</p>'
-    + '<p class="pd-p"><b>Month one.</b> Connection before content. We build trust, onboard the shared vocabulary (divergent thinking, convergent thinking, deferral of judgment), and pick one piece of low-hanging fruit so your team banks a visible win early.</p>'
-    + '<p class="pd-p"><b>Month two.</b> Fact finding and problem definition on the challenge named above. Expect the definition to sharpen or shift; that is the method working, not failing. Co-design sessions put the reframed problem on the wall as a shared target.</p>'
-    + '<p class="pd-p"><b>Month three.</b> Idea finding, converging, and a first prototype tested with real stakeholders. We leave you with implementation steps, named owners, and a team that can run this process again without us.</p>'
+    + '<div class="pd-tl">'
+    + '<div class="pd-tl-item"><h5>Month one</h5><p>Connection before content. We build trust, onboard the shared vocabulary (divergent thinking, convergent thinking, deferral of judgment), and pick one piece of low-hanging fruit so your team banks a visible win early.</p></div>'
+    + '<div class="pd-tl-item"><h5>Month two</h5><p>Fact finding and problem definition on the challenge named above. Expect the definition to sharpen or shift; that is the method working, not failing. Co-design sessions put the reframed problem on the wall as a shared target.</p></div>'
+    + '<div class="pd-tl-item"><h5>Month three</h5><p>Idea finding, converging, and a first prototype tested with real stakeholders. Implementation steps get named owners, and your team can now run this process without us watching.</p></div>'
+    + '<div class="pd-tl-more"><h5>Month four and beyond</h5><p>The timeline stays open on purpose. Some teams take the skills and run; many keep us in residence for the next challenge, deeper training, or a new market. Ninety days is the runway, not the destination.</p></div>'
+    + '</div>'
     + '<div class="pd-h">The disciplines we applied, in plain language</div>'
     + '<p class="pd-p">Specific skills your team would practice: ' + esc(Array.from(sk).join(', ')) + '.</p>'
     + '<table class="pd-table">' + Array.from(discs).map(d=>'<tr><td>&#10003; '+d+'</td><td>'+(DISC_DESC[d]||'')+'</td></tr>').join('') + '</table>'
@@ -1474,6 +1486,8 @@ function downloadBrief(){
     + '<div class="pd-page">'
     + '<div class="pd-mapwrap"><div class="pd-h">Your map: why an Innovator in Residence fits</div>'
     + printableMap() + '</div>'
+    + '</div>'
+    + '<div class="pd-page">'
     + '<div class="pd-quote">"The training provided and process used by Struinova reframed the needs, created community support, made everyone feel like stakeholders, and built confidence among community members that they would accomplish their shared vision and goals."<span>Brian Churchill, Chief of Police, Manitou Springs, Colorado</span></div>'
     + (transcript.length ? '<div class="pd-h">The conversation</div>' + transcript.map(t=>'<p class="pd-msg"><b>'+(t[0]==='Ron'?'Struinova':'You')+':</b> '+esc(t[1])+'</p>').join('') : '')
     + '<div class="pd-h">Suggested next steps</div>'
@@ -1482,7 +1496,7 @@ function downloadBrief(){
     + '<li>Share these pages with the two or three colleagues closest to the challenge. If they disagree with the reframe, wonderful; that disagreement is exactly where a first workshop begins.</li>'
     + '<li>Run the engine again with a different set of notes and compare the maps. Seeing the same organization through two frames is itself a small taste of the method.</li>'
     + '</ol>'
-    + '<div class="pd-foot">Struinova Innovation &middot; Indianapolis, USA &middot; working across North America, Europe, and Africa &middot; struinova.com</div>'
+    + '<div class="pd-foot">Indianapolis, USA &middot; working across North America, Europe, and Africa</div>'
     + '</div>';
   const lg = pd.querySelector('img');
   if(lg && !lg.complete){ lg.onload = ()=>window.print(); lg.onerror = ()=>window.print(); }
