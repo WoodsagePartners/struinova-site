@@ -113,7 +113,19 @@ nav .brand{font-weight:600;letter-spacing:.1em;font-size:.92rem}
 nav .navlinks{display:flex;gap:24px;margin-left:auto}
 nav a{color:var(--muted);text-decoration:none;font-size:.84rem;transition:color .2s;font-family:var(--mono)}
 nav a:hover{color:var(--orange)}
-@media(max-width:760px){nav .navlinks{display:none}}
+.menu-btn{display:none;margin-left:auto;background:rgba(148,180,210,.05);border:1px solid var(--line);border-radius:10px;width:42px;height:42px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.menu-btn i{display:block;width:18px;height:2px;background:var(--orange);border-radius:2px}
+@media(max-width:760px){
+  nav .navlinks{display:none}
+  .menu-btn{display:flex}
+  nav.open .navlinks{
+    display:flex;flex-direction:column;gap:16px;align-items:flex-end;
+    position:absolute;top:100%;right:0;margin-top:10px;
+    background:#131f2c;border:1px solid var(--line);border-radius:14px;
+    padding:20px 24px;box-shadow:0 20px 50px rgba(0,0,0,.55);
+  }
+  nav.open .navlinks a{font-size:1rem}
+}
 
 /* ---------- hero ---------- */
 .hero{min-height:92vh;display:flex;align-items:center;padding-top:130px}
@@ -384,6 +396,7 @@ footer a{color:var(--orange);text-decoration:none}
     <a href="#about">the_practice</a>
     <a href="https://cal.com/brumbarger" target="_blank" rel="noopener">book_call</a>
   </span>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu"><i></i><i></i><i></i></button>
 </nav>
 
 <div class="scrollcue" id="scrollCue">MORE FINDINGS &darr;</div>
@@ -427,7 +440,7 @@ footer a{color:var(--orange);text-decoration:none}
     </div>
     <div class="center" style="margin-bottom:30px">
       <h2>Introduce yourself. Lightly.</h2>
-      <p class="sub" style="margin:14px auto 0">A first name so Ron knows who he's talking to, and your website so he can do his homework before the conversation. Both optional; skip ahead if you'd rather stay mysterious.</p>
+      <p class="sub" style="margin:14px auto 0">Your name, if you don't mind, so we know who we're talking to, and your website so we can do our homework before the conversation. Both optional; skip ahead if you'd rather stay mysterious.</p>
     </div>
     <div class="panel console" style="max-width:620px;margin:0 auto;padding:54px 28px 24px">
       <span class="console-tag">STRUINOVA // HOMEWORK_CONSOLE</span>
@@ -754,6 +767,16 @@ footer a{color:var(--orange);text-decoration:none}
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
 
+/* mobile nav */
+const menuBtn = document.getElementById('menuBtn');
+if(menuBtn){
+  const navEl = document.querySelector('nav');
+  menuBtn.onclick = ()=> navEl.classList.toggle('open');
+  document.querySelectorAll('nav .navlinks a').forEach(a=>{
+    a.addEventListener('click', ()=> navEl.classList.remove('open'));
+  });
+}
+
 /* =============== NETWORK BACKGROUND =============== */
 (function(){
   const cv = document.getElementById('net'), ctx = cv.getContext('2d');
@@ -918,6 +941,8 @@ renderWall();
 try{
   const sn = localStorage.getItem('struinova_name');
   if(sn){ const nf = document.getElementById('visName'); if(nf && !nf.value) nf.value = sn; }
+  const ss = localStorage.getItem('struinova_site');
+  if(ss){ const sf = document.getElementById('siteUrl'); if(sf && !sf.value) sf.value = ss; }
 }catch(e){}
 
 function syncSel(){
@@ -1274,6 +1299,7 @@ async function callRon(){
     const sn = localStorage.getItem('struinova_name');
     returning = !!(sn && nameVal() && sn.trim().toLowerCase() === nameVal().trim().toLowerCase());
     if(nameVal()) localStorage.setItem('struinova_name', nameVal());
+    if(siteVal()) localStorage.setItem('struinova_site', siteVal());
   }catch(e){}
   const r = await fetch('/api/reframe', {method:'POST', headers:{'Content-Type':'application/json'},
     body: JSON.stringify({history: aiHistory, challenges: selected.map(s=>s.text), wrapUp: userTurns>=4, site: siteVal(), homework: aiHomework, name: nameVal(), disciplines: Array.from(discs), returning: returning})});
@@ -1606,21 +1632,28 @@ document.getElementById('sendBrief').onclick = ()=>{
   const org=document.getElementById('fOrg').value.trim();
   const note=document.getElementById('fNote').value.trim();
   const primary = selected.length ? selected[0].cat : 'custom';
+  const sk = new Set(); selected.forEach(s=> (SKILL_MAP[s.cat]||SKILL_MAP.custom).forEach(x=>sk.add(x)) );
+  const discs = new Set(); selected.forEach(s=> (DISC_MAP[s.cat]||DISC_MAP.custom).forEach(d=>discs.add(d)) );
   const body = [
-    'Challenge brief from struinova.com','',
+    'CHALLENGE BRIEF from struinova.com','',
     'Name: '+(name||'(not given)'),
     'Email: '+(email||'(not given)'),
     'Organization: '+(org||'(not given)'),
     'Website: '+(siteVal()||'(not given)'),'',
-    'What’s stuck: '+(selected.map(s=>s.text).join('; ')||'n/a'),
-    'Reframed as: '+(REFRAMES[primary]||REFRAMES.custom),
-    'Already tried: '+(answers.tried||'n/a'),
-    'What happened: '+(answers.result||'n/a'),
-    'Where it hurts: '+(answers.pain||'n/a'),'',
-    'Notes: '+(note||'none'),'',
-    'Conversation:',
-    transcript.map(t=>t[0]+': '+t[1]).join('\n').slice(0,1400)
-  ].join('\n');
+    'WHAT IS STUCK:',
+    (selected.map(s=>'- '+s.text).join('\n')||'n/a'),'',
+    'A PROBLEM WORTH SOLVING:',
+    (REFRAMES[primary]||REFRAMES.custom),'',
+    'OUR TAKE:',
+    (RONTAKES[primary]||RONTAKES.custom),'',
+    'THE FIRST 90 DAYS:',
+    (NINETY[primary]||NINETY.custom),'',
+    'SKILLS THE TEAM KEEPS: '+Array.from(sk).join(', '),
+    'DISCIPLINES APPLIED: '+Array.from(discs).join(', '),'',
+    'NOTES: '+(note||'none'),'',
+    'THE CONVERSATION:',
+    transcript.map(t=>t[0]+': '+t[1]).join('\n')
+  ].join('\n').slice(0,1800);
   window.location.href='mailto:ron@struinova.com?subject='+encodeURIComponent('Challenge brief: '+(org||name||'new visitor'))+'&body='+encodeURIComponent(body);
 };
 </script>
