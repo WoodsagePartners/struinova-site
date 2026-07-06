@@ -194,6 +194,8 @@ nav a:hover{color:var(--orange)}
   #printDoc .mm-link{stroke:#c3d0db}
   #printDoc .mm-link.hot{stroke:#c2571b}
   .pd-foot{font-size:10px;color:#8a99a8;margin-top:22px;text-align:center}
+  .pd-page:last-child{page-break-after:auto}
+  .pd-mapwrap{break-inside:avoid;page-break-inside:avoid}
 }
 
 /* ---------- engine ---------- */
@@ -326,7 +328,16 @@ footer a{color:var(--orange);text-decoration:none}
 </nav>
 
 <div class="scrollcue" id="scrollCue">MORE FINDINGS &darr;</div>
-<div class="scrollcue" id="dlCue">DOWNLOAD YOUR BRIEF &darr;</div>
+<div class="scrollcue" id="dlCue" style="bottom:74px">DOWNLOAD YOUR BRIEF &darr;</div>
+<div class="workmodal" id="nudgeModal">
+  <div class="panel workcard">
+    <div style="font-family:'Poppins',sans-serif;font-size:1.02rem;color:var(--text);font-weight:300;line-height:1.6">We still have a couple of questions for you. Finish the short conversation and your download will include the whole exchange.</div>
+    <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;flex-wrap:wrap">
+      <button class="btn" id="nudgeKeep">Keep going</button>
+      <button class="btn ghost" id="nudgeDl">Download anyway</button>
+    </div>
+  </div>
+</div>
 <div id="printDoc" aria-hidden="true"></div>
 <div class="workmodal" id="workModal">
   <div class="panel workcard">
@@ -1100,6 +1111,8 @@ btn.onclick = ()=>{
       };
       addEventListener('scroll', watcher, {passive:true});
     }
+    const dlc = document.getElementById('dlCue');
+    if(dlc) dlc.style.display='block';
     /* the conversation spills out of the engine, quietly, below */
     setTimeout(startSpill, 1400);
   }, Math.max(selected.length*320 + 1600, 11200));
@@ -1195,7 +1208,7 @@ function showInput(){
   const box = document.getElementById('chatBox');
   const line = document.createElement('div');
   line.className='freeline'; line.id='aiLine';
-  line.innerHTML='<input type="text" placeholder="type your reply and press Enter" maxlength="300"><button class="chip">I\'m ready to book &rarr;</button>';
+  line.innerHTML='<input type="text" placeholder="type your reply and press Enter" maxlength="300"><button class="chip">Wrap up &amp; get my brief &rarr;</button>';
   line.querySelector('input').addEventListener('keydown', e=>{
     if(e.key==='Enter' && e.target.value.trim()) sendUser(e.target.value.trim());
   });
@@ -1306,14 +1319,16 @@ function answer(item, val, chips, free, isFree){
   const react = isFree ? item.react._ : (item.react[val] || item.react._);
   ronSay(react, ()=>{ qIdx++; setTimeout(askNext, 500); });
 }
+let chatDone = false;
 function finishChat(){
-  ronSay('That is enough for a real first conversation. Your challenge brief is ready below. Send it our way, or put thirty minutes straight on Ron\'s calendar.', ()=>{
+  if(chatDone) return;
+  chatDone = true;
+  ronSay('Thank you for thinking out loud with us; conversations like this one are exactly how engagements begin. Your challenge brief is ready below the map, with everything we covered inside. Download it, send it our way, or simply sit with it. No rush; we will be here.', ()=>{
     const br = document.getElementById('brief');
     br.style.display='block';
     buildBrief();
     const dc = document.getElementById('dlCue');
     if(dc) dc.style.display='block';
-    setTimeout(()=>br.scrollIntoView({behavior:'smooth'}), 600);
   });
 }
 
@@ -1409,16 +1424,34 @@ function downloadBrief(){
     + '<div>' + Array.from(discs).map(d=>'<span class="pd-chip">&#10003; '+d+'</span>').join('') + '</div>'
     + '</div>'
     + '<div class="pd-page">'
-    + '<div class="pd-h">Your map: why an Innovator in Residence fits</div>'
-    + printableMap()
+    + '<div class="pd-mapwrap"><div class="pd-h">Your map: why an Innovator in Residence fits</div>'
+    + printableMap() + '</div>'
     + (transcript.length ? '<div class="pd-h">The conversation</div>' + transcript.map(t=>'<p class="pd-msg"><b>'+(t[0]==='Ron'?'Struinova':'You')+':</b> '+esc(t[1])+'</p>').join('') : '')
     + '<div class="pd-foot">Struinova Innovation &middot; Indianapolis, USA &middot; working across North America, Europe, and Africa &middot; struinova.com</div>'
     + '</div>';
-  window.print();
+  const lg = pd.querySelector('img');
+  if(lg && !lg.complete){ lg.onload = ()=>window.print(); lg.onerror = ()=>window.print(); }
+  else window.print();
 }
 document.getElementById('dlBrief').onclick = downloadBrief;
 const dlCueEl = document.getElementById('dlCue');
-if(dlCueEl) dlCueEl.onclick = ()=>{ dlCueEl.style.display='none'; downloadBrief(); };
+if(dlCueEl) dlCueEl.onclick = ()=>{
+  if(chatDone){ downloadBrief(); return; }
+  const nMod = document.getElementById('nudgeModal');
+  if(nMod) nMod.classList.add('on'); else downloadBrief();
+};
+const nudgeKeep = document.getElementById('nudgeKeep');
+const nudgeDl = document.getElementById('nudgeDl');
+if(nudgeKeep) nudgeKeep.onclick = ()=>{
+  document.getElementById('nudgeModal').classList.remove('on');
+  chatAutoScroll = true;
+  const cs = document.getElementById('chatShell');
+  if(cs) cs.scrollIntoView({behavior:'smooth', block:'center'});
+};
+if(nudgeDl) nudgeDl.onclick = ()=>{
+  document.getElementById('nudgeModal').classList.remove('on');
+  downloadBrief();
+};
 
 document.getElementById('sendBrief').onclick = ()=>{
   const name=document.getElementById('fName').value.trim();
