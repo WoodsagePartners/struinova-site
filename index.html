@@ -171,6 +171,8 @@ nav a:hover{color:var(--orange)}
   animation:cueBob 1.6s ease-in-out infinite;
 }
 @keyframes cueBob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-6px)}}
+#dlCue{left:auto;right:22px;transform:none;animation:cueBobR 1.9s ease-in-out infinite}
+@keyframes cueBobR{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 /* ---------- printable brief ---------- */
 #printDoc{display:none}
 @media print{
@@ -196,6 +198,13 @@ nav a:hover{color:var(--orange)}
   .pd-foot{font-size:10px;color:#8a99a8;margin-top:22px;text-align:center}
   .pd-page:last-child{page-break-after:auto}
   .pd-mapwrap{break-inside:avoid;page-break-inside:avoid;display:inline-block;width:100%}
+  .pd-ul,.pd-ol{margin:4px 0 10px 18px;font-size:12.5px;line-height:1.65;color:#243442}
+  .pd-ul li,.pd-ol li{margin-bottom:4px}
+  .pd-table{width:100%;border-collapse:collapse;margin-top:4px}
+  .pd-table td{font-size:11px;line-height:1.55;padding:7px 8px;border-bottom:1px solid #e3e9ee;vertical-align:top;color:#243442}
+  .pd-table td:first-child{font-weight:600;color:#2c3e50;white-space:nowrap;font-size:10.5px;letter-spacing:.05em;width:180px}
+  .pd-quote{margin-top:18px;padding:12px 16px;border-left:3px solid #c2571b;font-style:italic;font-size:11.5px;color:#243442}
+  .pd-quote span{display:block;font-style:normal;font-size:10px;color:#8a99a8;margin-top:6px}
 }
 
 /* ---------- engine ---------- */
@@ -328,7 +337,7 @@ footer a{color:var(--orange);text-decoration:none}
 </nav>
 
 <div class="scrollcue" id="scrollCue">MORE FINDINGS &darr;</div>
-<div class="scrollcue" id="dlCue" style="bottom:74px">DOWNLOAD YOUR BRIEF &darr;</div>
+<div class="scrollcue" id="dlCue">DOWNLOAD YOUR BRIEF &darr;</div>
 <div class="workmodal" id="nudgeModal">
   <div class="panel workcard">
     <div style="font-family:'Poppins',sans-serif;font-size:1.02rem;color:var(--text);font-weight:300;line-height:1.6">We still have a couple of questions for you. Finish the short conversation and your download will include the whole exchange.</div>
@@ -1386,6 +1395,16 @@ function buildBrief(){
   }
 }
 /* =============== DOWNLOADABLE BRIEF (print to PDF) =============== */
+const DISC_DESC = {
+  'EXPERIENCE':'Thirty-plus years founding, growing, and selling companies, plus roughly 3,000 client engagements across North America, Europe, and Africa. Pattern recognition you cannot shortcut.',
+  'PROCESS':'A structured path from fuzzy complaint to executed solution, so your team’s energy becomes output instead of circling. No steps skipped, no meetings that go nowhere.',
+  'INNOVATION':'Practical techniques such as analogous thinking and lateral thinking: borrowing proven patterns from other industries and applying them to your situation.',
+  'DESIGN THINKING':'A human-centered method: understand the people involved, define the real need, generate options, prototype cheaply, and test quickly. We ran our own firm on it as an operating model.',
+  'TRAINING':'Your team learns each skill while solving the real problem, not in a classroom. The capability stays in your building after the engagement ends.',
+  'ENTREPRENEURSHIP':'Founder-level judgment about ripe problems, viable offerings, and business models, earned by building and selling companies rather than only advising them.',
+  'CREATIVE PROBLEM-SOLVING':'The Basadur Simplexity method: eight steps from problem finding through action, powered by divergent thinking (generate widely), convergent thinking (choose well), and deferral of judgment. Struinova is Basadur-certified.',
+  'APPLIED AI':'Artificial intelligence aimed by method at your actual workflow. The same pairing we used alongside police to surface new leads in two cold case homicides.'
+};
 function printableMap(){
   const src = document.getElementById('mindmapSvg');
   if(!src || !src.hasChildNodes()) return '';
@@ -1435,21 +1454,34 @@ function downloadBrief(){
     + '</div>'
     + '<div class="pd-page">'
     + '<div class="pd-h">What you told us</div>'
-    + '<p class="pd-p">' + esc(selected.map(s=>s.text).join(' &middot; ') || 'Not specified') + '</p>'
-    + (siteVal() ? '<p class="pd-p">Website: ' + esc(siteVal()) + '</p>' : '')
+    + '<p class="pd-p">You picked these notes off our intake wall' + (siteVal() ? ', and pointed us at ' + esc(siteVal()) : '') + ':</p>'
+    + '<ul class="pd-ul">' + (selected.length ? selected.map(s=>'<li>'+esc(s.text)+'</li>').join('') : '<li>Not specified</li>') + '</ul>'
     + '<div class="pd-h">A problem worth solving</div>'
-    + '<p class="pd-p">' + esc(REFRAMES[primary]||REFRAMES.custom) + ' That is the question we would tape to the wall on day one.</p>'
+    + '<p class="pd-p"><b>' + esc(REFRAMES[primary]||REFRAMES.custom) + '</b></p>'
+    + '<p class="pd-p">That is the question we would tape to the wall on day one. It is a hypothesis, not a verdict; it is allowed to evolve as facts come in, and the good ones usually do.</p>'
+    + '<p class="pd-p">Our take: ' + esc(RONTAKES[primary]||RONTAKES.custom) + '</p>'
+    + '</div>'
+    + '<div class="pd-page">'
     + '<div class="pd-h">Your first 90 days</div>'
-    + '<p class="pd-p">' + esc(NINETY[primary]||NINETY.custom) + '</p>'
-    + '<div class="pd-h">Skills your team keeps</div>'
-    + '<p class="pd-p">' + esc(Array.from(sk).join(', ')) + '. Practiced on live work rather than workshop exercises, so they hold.</p>'
-    + '<div class="pd-h">Disciplines applied</div>'
-    + '<div>' + Array.from(discs).map(d=>'<span class="pd-chip">&#10003; '+d+'</span>').join('') + '</div>'
+    + '<p class="pd-p">' + esc(NINETY[primary]||NINETY.custom) + ' In practice, an engagement like yours tends to move like this:</p>'
+    + '<p class="pd-p"><b>Month one.</b> Connection before content. We build trust, onboard the shared vocabulary (divergent thinking, convergent thinking, deferral of judgment), and pick one piece of low-hanging fruit so your team banks a visible win early.</p>'
+    + '<p class="pd-p"><b>Month two.</b> Fact finding and problem definition on the challenge named above. Expect the definition to sharpen or shift; that is the method working, not failing. Co-design sessions put the reframed problem on the wall as a shared target.</p>'
+    + '<p class="pd-p"><b>Month three.</b> Idea finding, converging, and a first prototype tested with real stakeholders. We leave you with implementation steps, named owners, and a team that can run this process again without us.</p>'
+    + '<div class="pd-h">The disciplines we applied, in plain language</div>'
+    + '<p class="pd-p">Specific skills your team would practice: ' + esc(Array.from(sk).join(', ')) + '.</p>'
+    + '<table class="pd-table">' + Array.from(discs).map(d=>'<tr><td>&#10003; '+d+'</td><td>'+(DISC_DESC[d]||'')+'</td></tr>').join('') + '</table>'
     + '</div>'
     + '<div class="pd-page">'
     + '<div class="pd-mapwrap"><div class="pd-h">Your map: why an Innovator in Residence fits</div>'
     + printableMap() + '</div>'
+    + '<div class="pd-quote">"The training provided and process used by Struinova reframed the needs, created community support, made everyone feel like stakeholders, and built confidence among community members that they would accomplish their shared vision and goals."<span>Brian Churchill, Chief of Police, Manitou Springs, Colorado</span></div>'
     + (transcript.length ? '<div class="pd-h">The conversation</div>' + transcript.map(t=>'<p class="pd-msg"><b>'+(t[0]==='Ron'?'Struinova':'You')+':</b> '+esc(t[1])+'</p>').join('') : '')
+    + '<div class="pd-h">Suggested next steps</div>'
+    + '<ol class="pd-ol">'
+    + '<li>Book a thirty-minute conversation at cal.com/brumbarger, or simply reply to ron@struinova.com with this brief attached.</li>'
+    + '<li>Share these pages with the two or three colleagues closest to the challenge. If they disagree with the reframe, wonderful; that disagreement is exactly where a first workshop begins.</li>'
+    + '<li>Run the engine again with a different set of notes and compare the maps. Seeing the same organization through two frames is itself a small taste of the method.</li>'
+    + '</ol>'
     + '<div class="pd-foot">Struinova Innovation &middot; Indianapolis, USA &middot; working across North America, Europe, and Africa &middot; struinova.com</div>'
     + '</div>';
   const lg = pd.querySelector('img');
