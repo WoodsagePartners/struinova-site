@@ -922,49 +922,54 @@ function renderMindmap(){
     });
     return h;
   }
-  /* center card = their first 90 days (Output 02), map builds around it */
-  const cx0 = 500, cy0 = 330;
+  /* left-to-right tree: root = their first 90 days (Output 02) */
   const seen = new Set(); const catsSel = [];
   selected.forEach(s=>{ if(!seen.has(s.cat)){ seen.add(s.cat); catsSel.push(s.cat); } });
   const primary = catsSel.length ? catsSel[0] : null;
   const centerTxt = primary ? (NINETY[primary]||NINETY.custom) : 'Name your challenges in Step 02 and this map builds itself around your first 90 days with us.';
-  const cl = wrapText(centerTxt, 48).slice(0,7);
-  const ch = cardEl(cx0, cy0, 300, cl, {lh:16, fs:12, pad:16, fill:'rgba(248,153,29,.12)', stroke:'rgba(248,153,29,.8)', sw:1.6, color:'#ffe0b0', dash: primary?'0':'6 6'});
-  el('text',{x:cx0, y:cy0-ch/2-12, 'font-size':11, fill:'#f8991d','text-anchor':'middle','letter-spacing':2}, primary ? 'OUTPUT_02 // YOUR FIRST 90 DAYS' : 'THE MAP AWAITS');
-  const tag = document.getElementById('mmTag');
-  if(tag) tag.textContent = primary ? 'STRUINOVA // WHY_MAP // TUNED_TO_YOUR_SIGNALS' : 'STRUINOVA // WHY_MAP // AWAITING_STEP_02';
-  if(!primary) return;
-  /* branches = applied disciplines on all sides; limbs = discipline × their actual problems */
+  const cl = wrapText(centerTxt, 33);
+  /* measure everything before drawing so nothing overflows */
   const discOrder = [];
   catsSel.forEach(c=>{ (DISC_MAP[c]||DISC_MAP.custom).forEach(d=>{ if(discOrder.indexOf(d)<0) discOrder.push(d); }); });
   const shown = discOrder.slice(0,4);
-  const slotNames = {1:['E'],2:['E','W'],3:['N','E','W'],4:['N','E','W','S']}[shown.length];
-  const SLOTS = {
-    N:{px:500, py:118, pw:170, lw:250, cf:[500, cy0-ch/2], pt:[500,101], pb:[500,135],
-       pos:{1:[[500,52]],2:[[350,52],[650,52]],3:[[225,52],[500,48],[775,52]]}},
-    S:{px:500, py:548, pw:170, lw:250, cf:[500, cy0+ch/2], pt:[500,565], pb:[500,531],
-       pos:{1:[[500,622]],2:[[350,622],[650,622]],3:[[225,622],[500,626],[775,622]]}},
-    W:{px:255, py:330, pw:150, lw:170, cf:[350,330], pt:[180,330], pb:[330,330],
-       pos:{1:[[90,330]],2:[[90,205],[90,455]],3:[[90,180],[90,330],[90,480]]}},
-    E:{px:745, py:330, pw:150, lw:170, cf:[650,330], pt:[820,330], pb:[670,330],
-       pos:{1:[[910,330]],2:[[910,205],[910,455]],3:[[910,180],[910,330],[910,480]]}}
-  };
-  shown.forEach((disc,i)=>{
-    const sl = SLOTS[slotNames[i]];
+  const groups = shown.map(disc=>{
     const limbs = catsSel
       .filter(c=>(DISC_MAP[c]||DISC_MAP.custom).indexOf(disc)>=0)
       .map(c=>DISC_COMBO[disc+'|'+c])
       .filter(Boolean)
-      .slice(0,3);
-    const m = Math.max(limbs.length,1);
-    el('path',{d:'M'+sl.cf[0]+','+sl.cf[1]+' L'+sl.pb[0]+','+sl.pb[1], class:'mm-link hot'});
-    limbs.forEach((lf,j)=>{
-      const p = (sl.pos[m]||sl.pos[1])[j];
-      el('path',{d:'M'+sl.pt[0]+','+sl.pt[1]+' C'+((sl.pt[0]+p[0])/2)+','+sl.pt[1]+' '+((sl.pt[0]+p[0])/2)+','+p[1]+' '+p[0]+','+p[1], class:'mm-link hot'});
-      cardEl(p[0], p[1], sl.lw, wrapText(lf, sl.lw>200?38:26).slice(0,5), {lh:14, fs:11, pad:10, fill:'rgba(248,153,29,.08)', stroke:'rgba(248,153,29,.55)', color:'#ffd9a8'});
+      .slice(0,3)
+      .map(t=>wrapText(t,48));
+    const hs = limbs.map(ls=>ls.length*15+20);
+    const h = Math.max(44, hs.reduce((a,b)=>a+b,0) + Math.max(0,limbs.length-1)*14);
+    return {disc, limbs, hs, h};
+  });
+  const groupGap = 30;
+  const totalH = groups.length ? groups.reduce((a,g)=>a+g.h,0) + (groups.length-1)*groupGap : 0;
+  const rootH = cl.length*16+52;
+  const H = Math.max(440, totalH+120, rootH+140);
+  svg.setAttribute('viewBox','0 0 1000 '+H);
+  const cy0 = H/2;
+  const ch = cardEl(160, cy0, 280, cl, {lh:16, fs:12, pad:16, fill:'rgba(248,153,29,.12)', stroke:'rgba(248,153,29,.8)', sw:1.6, color:'#ffe0b0', dash: primary?'0':'6 6'});
+  el('text',{x:160, y:cy0-ch/2-12, 'font-size':11, fill:'#f8991d','text-anchor':'middle','letter-spacing':2}, primary ? 'OUTPUT_02 // YOUR FIRST 90 DAYS' : 'THE MAP AWAITS');
+  const tag = document.getElementById('mmTag');
+  if(tag) tag.textContent = primary ? 'STRUINOVA // WHY_MAP // TUNED_TO_YOUR_SIGNALS' : 'STRUINOVA // WHY_MAP // AWAITING_STEP_02';
+  if(!primary) return;
+  /* branches fan right; limbs sized to their text */
+  const pillX = 350, pw = 210;
+  let gy = cy0 - totalH/2;
+  groups.forEach(g=>{
+    const bcy = gy + g.h/2;
+    el('path',{d:'M300,'+cy0+' C325,'+cy0+' 320,'+bcy+' '+pillX+','+bcy, class:'mm-link hot'});
+    let ly = gy;
+    g.limbs.forEach((ls,j)=>{
+      const cyL = ly + g.hs[j]/2;
+      el('path',{d:'M'+(pillX+pw)+','+bcy+' C'+(pillX+pw+38)+','+bcy+' '+562+','+cyL+' 600,'+cyL, class:'mm-link hot'});
+      cardEl(785, cyL, 370, ls, {lh:15, fs:11, pad:10, fill:'rgba(248,153,29,.08)', stroke:'rgba(248,153,29,.55)', color:'#ffd9a8'});
+      ly += g.hs[j] + 14;
     });
-    el('rect',{x:sl.px-sl.pw/2, y:sl.py-17, width:sl.pw, height:34, rx:10, fill:'rgba(64,90,116,.55)', stroke:'rgba(248,153,29,.6)'});
-    el('text',{x:sl.px, y:sl.py+4, 'font-size':10, fill:'#e6edf3','text-anchor':'middle','letter-spacing':1}, disc);
+    el('rect',{x:pillX, y:bcy-17, width:pw, height:34, rx:10, fill:'rgba(64,90,116,.55)', stroke:'rgba(248,153,29,.6)'});
+    el('text',{x:pillX+pw/2, y:bcy+4, 'font-size':10, fill:'#e6edf3','text-anchor':'middle','letter-spacing':1}, g.disc);
+    gy += g.h + groupGap;
   });
 }
 renderMindmap();
