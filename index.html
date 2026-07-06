@@ -143,8 +143,8 @@ nav a:hover{color:var(--orange)}
 .queue b{color:var(--orange);font-weight:500}
 .console.has-tabs::after{display:none}
 .dot-tabs{position:absolute;top:13px;left:16px;display:flex;gap:8px;align-items:center;z-index:3}
-.dot-tab{width:12px;height:12px;border-radius:50%;border:1px solid rgba(148,180,210,.5);background:rgba(148,180,210,.2);cursor:pointer;padding:0;transition:all .2s}
-.dot-tab:hover{background:rgba(248,153,29,.5)}
+.dot-tab{width:12px;height:12px;border-radius:50%;border:1px solid rgba(248,153,29,.6);background:rgba(248,153,29,.35);cursor:pointer;padding:0;transition:all .2s}
+.dot-tab:hover{background:rgba(248,153,29,.7);transform:scale(1.2)}
 .dot-tab.active{background:var(--orange);border-color:var(--orange);box-shadow:0 0 12px rgba(248,153,29,.8)}
 .dot-name{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.16em;margin-left:8px}
 .disc-panel{padding:46px 26px 20px;margin-top:22px}
@@ -306,7 +306,7 @@ footer a{color:var(--orange);text-decoration:none}
   <div class="wrap">
     <span class="dentist">"You can't be your own dentist."</span>
     <h1>Every organization goes blind to its own <em>possibilities.</em></h1>
-    <p class="sub">Struinova is your Innovator in Residence. We embed with your team, bring a proven creative problem-solving method, and train your people until innovation is a muscle they own, not a memo they file. Don't take our word for it. Run your real problem through our process, right now.</p>
+    <p class="sub">Struinova goes to market one way: as your Innovator in Residence. Not a consultant who visits and leaves a deck, but a seasoned innovation partner who takes up residence alongside your team, brings a proven creative problem-solving method, and trains your people until innovation is a muscle they own. Don't take our word for it. Run your real problem through our process, right now.</p>
     <a class="btn" href="#who">Show us what's stuck &darr;</a>
   </div>
 </header>
@@ -354,7 +354,7 @@ footer a{color:var(--orange);text-decoration:none}
         <button class="dot-tab active" data-set="0" aria-label="What's stuck"></button>
         <button class="dot-tab" data-set="1" aria-label="New products and services"></button>
         <button class="dot-tab" data-set="2" aria-label="Tech, AI and robotics"></button>
-        <span class="dot-name" id="dotName">SET_01 // WHAT'S STUCK</span>
+        <span class="dot-name" id="dotName">SET_01 // WHAT'S STUCK &middot; TAP THE DOTS FOR MORE BOARDS</span>
       </div>
       <div class="wall" id="stickyWall"></div>
       <div class="intake-foot">
@@ -505,6 +505,10 @@ footer a{color:var(--orange);text-decoration:none}
       <span class="console-tag" id="mmTag">STRUINOVA // WHY_RESIDENT_MAP</span>
       <svg class="mindmap" id="mindmapSvg" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg" aria-label="Why an Innovator in Residence mindmap"></svg>
       <div class="tiny" style="text-align:center;padding:6px 0 14px">This map redraws itself based on what you name in Step 02. Go ahead, change your answers.</div>
+    </div>
+    <div class="panel" style="margin-top:22px;padding:30px 36px">
+      <div class="kicker" style="margin-bottom:8px">The term, plainly</div>
+      <p class="sub" style="max-width:100%">An Innovator in Residence is a seasoned innovator who embeds with your organization for a season: part fresh eyes, part facilitator, part trainer. Universities and research labs have used residencies for decades to bring outside capability inside; we bring the same idea to business. Ron served as Taylor University's first Entrepreneur in Residence, and Struinova delivers every engagement this way. We work your real problems alongside your people, teach the method while solving, and when we leave, the capability stays with you.</p>
     </div>
   </div>
 </section>
@@ -1220,6 +1224,7 @@ function buildBrief(){
   const primary = selected.length ? selected[0].cat : 'custom';
   list.innerHTML='';
   const rows = [
+    ['Your website', siteVal() || 'Not provided'],
     ['What’s stuck', selected.map(s=>s.text).join(' · ') || 'Not specified'],
     ['Reframed as', REFRAMES[primary] || REFRAMES.custom],
     ['Already tried', answers.tried || 'Not discussed'],
@@ -1241,7 +1246,7 @@ function buildBrief(){
   }
   const cal=document.getElementById('calBrief');
   if(cal){
-    const notes=('Challenges: '+selected.map(s=>s.text).join('; ')+'\n'+transcript.map(t=>t[0]+': '+t[1]).join('\n')).slice(0,700);
+    const notes=((siteVal()?('Website: '+siteVal()+'\n'):'')+'Challenges: '+selected.map(s=>s.text).join('; ')+'\n'+transcript.map(t=>t[0]+': '+t[1]).join('\n')).slice(0,700);
     cal.href='https://cal.com/brumbarger?notes='+encodeURIComponent(notes);
   }
 }
