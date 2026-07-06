@@ -163,6 +163,14 @@ nav a:hover{color:var(--orange)}
 .workring{width:52px;height:52px;border-radius:50%;border:2px dashed rgba(248,153,29,.8);margin:0 auto 20px;animation:spin 3s linear infinite}
 .workline{font-family:'Caveat',cursive;font-size:1.7rem;color:#ffd9a8;min-height:2.4rem;transition:opacity .25s}
 .worksub{font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;color:var(--muted);margin-top:14px}
+.scrollcue{
+  position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:90;display:none;cursor:pointer;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;color:#0a1119;font-weight:500;
+  background:linear-gradient(135deg,var(--orange),var(--burnt));padding:11px 20px;border-radius:999px;
+  box-shadow:0 10px 30px rgba(194,87,27,.5), inset 0 1px 0 rgba(255,255,255,.3);
+  animation:cueBob 1.6s ease-in-out infinite;
+}
+@keyframes cueBob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-6px)}}
 
 /* ---------- engine ---------- */
 #engine{display:none;padding-top:0}
@@ -293,6 +301,7 @@ footer a{color:var(--orange);text-decoration:none}
   </span>
 </nav>
 
+<div class="scrollcue" id="scrollCue">MORE FINDINGS &darr;</div>
 <div class="workmodal" id="workModal">
   <div class="panel workcard">
     <div class="workring"></div>
@@ -376,7 +385,7 @@ footer a{color:var(--orange);text-decoration:none}
     </div>
     <div class="center" style="margin-bottom:26px">
       <h2>When you change how you see a problem,<br>you change the problem you see.</h2>
-      <p class="sub" style="margin:14px auto 0">Your challenges enter from the left. Seven Struinova disciplines pour in from above. The junk gets exhausted off to the right, and what flows out the bottom is a conversation worth having.</p>
+      <p class="sub" style="margin:14px auto 0">We trained this reframing engine to work the way we do: same method, same questions, same stubborn refusal to accept the first framing. Your challenges enter from the left, seven Struinova disciplines pour in from above, the junk gets exhausted off to the right, and what flows out the bottom is a conversation worth having.</p>
     </div>
     <div class="panel console engine-shell" id="engineShell">
       <span class="console-tag">STRUINOVA // REFRAME_ENGINE</span>
@@ -994,7 +1003,12 @@ btn.onclick = ()=>{
     'Asking better questions…',
     'Checking our field notes…',
     'Consulting the toolbox…',
-    'Reading between your lines…'
+    'Reading between your lines…',
+    'Standing on chairs for a better view…',
+    'Interviewing the problem, gently…',
+    'Chasing the why behind the why…',
+    'Trading our lenses for yours…',
+    'Letting the wild ideas in the door…'
   ];
   const modal = document.getElementById('workModal');
   const lineEl = document.getElementById('workLine');
@@ -1006,8 +1020,8 @@ btn.onclick = ()=>{
     li = (li+1) % LINES.length;
     lineEl.style.opacity = 0;
     setTimeout(()=>{ lineEl.textContent = LINES[li]; lineEl.style.opacity = 1; }, 250);
-  }, 1300);
-  setTimeout(()=>{ clearInterval(spinInt); modal.classList.remove('on'); }, 7600);
+  }, 1800);
+  setTimeout(()=>{ clearInterval(spinInt); modal.classList.remove('on'); }, 10800);
   /* populate the left input stack */
   const stack = document.getElementById('inputStack');
   stack.innerHTML = '<div class="in-label">FEEDING_IN &darr;</div>';
@@ -1037,9 +1051,29 @@ btn.onclick = ()=>{
     renderDisciplines();
     renderOutputs();
     document.getElementById('hmwWrap').classList.add('on');
-    /* the conversation spills out of the engine */
+    /* land on the engine outputs, not the chat */
+    const orow = document.querySelector('.outrow');
+    if(orow) orow.scrollIntoView({behavior:'smooth', block:'start'});
+    const cue = document.getElementById('scrollCue');
+    if(cue){
+      cue.style.display='block';
+      cue.onclick = ()=>{
+        cue.style.display='none';
+        const cs = document.getElementById('chatShell');
+        if(cs) cs.scrollIntoView({behavior:'smooth', block:'center'});
+      };
+      const watcher = ()=>{
+        const cs = document.getElementById('chatShell');
+        if(cs && cs.getBoundingClientRect().top < innerHeight*0.7){
+          cue.style.display='none';
+          removeEventListener('scroll', watcher);
+        }
+      };
+      addEventListener('scroll', watcher, {passive:true});
+    }
+    /* the conversation spills out of the engine, quietly, below */
     setTimeout(startSpill, 1400);
-  }, Math.max(selected.length*320 + 1600, 8000));
+  }, Math.max(selected.length*320 + 1600, 11200));
 };
 
 /* =============== CONVERSATION (spill) =============== */
@@ -1162,7 +1196,7 @@ async function startSpill(){
   spillStarted = true;
   const sp = document.getElementById('spill');
   sp.style.display='block';
-  setTimeout(()=>sp.scrollIntoView({behavior:'smooth',block:'center'}), 400);
+  /* no auto-scroll here; the MORE FINDINGS cue invites the reader down */
   const chatTag = document.querySelector('#chatShell .console-tag');
   if(siteVal() && chatTag){
     const host = siteVal().replace(/^https?:\/\//,'').split('/')[0];
