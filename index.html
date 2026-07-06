@@ -1314,6 +1314,7 @@ async function startSpill(){
     if(chatTag) chatTag.textContent = 'STRUINOVA // REFRAMING_ENGINE';
     fillTyping(tp, reply);
     aiHistory.push({role:'assistant', content:reply});
+    prefillForm();
     showInput();
   }catch(e){
     tp.remove();
@@ -1434,16 +1435,18 @@ function prefillForm(){
   const nmEl = document.getElementById('fName');
   if(nmEl && !nmEl.value.trim() && nameVal()) nmEl.value = nameVal();
   const orgEl = document.getElementById('fOrg');
-  if(orgEl && !orgEl.value.trim() && siteVal()){
-    let guess = '';
-    const tm = (aiHomework||'').match(/Title:\s*([^\n]+)/);
-    if(tm) guess = tm[1].split(/\||–|—|::|·| - /)[0].trim();
-    if(!guess || guess.length > 40){
-      const host = siteVal().replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0].split('.')[0];
-      guess = host ? host.charAt(0).toUpperCase() + host.slice(1) : '';
-    }
-    if(guess) orgEl.value = guess;
+  if(!orgEl || !siteVal()) return;
+  /* only touch the field if it is empty or still holds our own earlier guess */
+  const untouched = !orgEl.value.trim() || orgEl.value === orgEl.dataset.auto;
+  if(!untouched) return;
+  let guess = '';
+  const tm = (aiHomework||'').match(/Title:\s*([^\n]+)/);
+  if(tm) guess = tm[1].split(/\||–|—|::|·| - /)[0].trim();
+  if(!guess || guess.length > 40){
+    const host = siteVal().replace(/^https?:\/\//,'').replace(/^www\./,'').split('/')[0].split('.')[0];
+    guess = host ? host.charAt(0).toUpperCase() + host.slice(1) : '';
   }
+  if(guess){ orgEl.value = guess; orgEl.dataset.auto = guess; }
 }
 
 /* =============== DOWNLOADABLE BRIEF (print to PDF) =============== */
