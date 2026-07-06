@@ -289,6 +289,16 @@ nav a:hover{color:var(--orange)}
 .typing i{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:tp 1s infinite}
 .typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
 @keyframes tp{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:1;transform:translateY(-4px)}}
+@media(max-width:640px){
+  .chat{padding:54px 14px 20px;border-radius:16px}
+  .msg{gap:10px;margin-bottom:16px}
+  .msg .bubble{max-width:100%;font-size:.92rem;padding:12px 15px}
+  .ron-ava{flex:0 0 34px;width:34px;height:34px;font-size:.78rem}
+  .chips{margin-left:0}
+  .freeline{margin-left:0;flex-wrap:wrap;gap:8px}
+  .freeline input{flex:1 1 100%;min-width:0}
+  .freeline .chip{flex:1 1 100%;text-align:center}
+}
 
 /* ---------- brief / booking ---------- */
 #brief{display:none}
