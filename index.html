@@ -668,7 +668,7 @@ footer a{color:var(--orange);text-decoration:none}
           <button class="btn ghost" id="dlBrief">Download my brief (PDF)</button>
           <a class="btn ghost" id="calBrief" href="https://cal.com/brumbarger" target="_blank" rel="noopener">Book on cal.com &rarr;</a>
         </div>
-        <div class="tiny">Your brief goes straight to ron@struinova.com. No lists, no drip campaigns, just a reply from a human.</div>
+        <div class="tiny">Tip: hit Download first, then Send, and attach the PDF to the email it opens. It goes straight to ron@struinova.com. No lists, no drip campaigns, just a reply from a human.</div>
       </div>
     </div>
   </div>
@@ -1321,7 +1321,7 @@ function showTyping(){
 function fillTyping(tp, text){
   tp.querySelector('.bubble').classList.remove('typing');
   tp.querySelector('.bubble').textContent = text;
-  transcript.push(['Ron', text]);
+  transcript.push(['Struinova', text]);
   if(chatAutoScroll) tp.scrollIntoView({behavior:'smooth',block:'end'});
 }
 function showInput(){
@@ -1395,7 +1395,7 @@ function ronSay(text, cb){
   setTimeout(()=>{
     tp.querySelector('.bubble').classList.remove('typing');
     tp.querySelector('.bubble').textContent=text;
-    transcript.push(['Ron', text]);
+    transcript.push(['Struinova', text]);
     if(chatAutoScroll) tp.scrollIntoView({behavior:'smooth',block:'end'});
     if(cb) cb();
   }, 900 + Math.min(text.length*5, 1600));
@@ -1476,7 +1476,7 @@ function buildBrief(){
   });
   if(transcript.length){
     const li=document.createElement('li');
-    const b=document.createElement('b'); b.textContent='Conversation with Ron';
+    const b=document.createElement('b'); b.textContent='The conversation';
     li.appendChild(b);
     li.appendChild(document.createTextNode(transcript.map(t=>t[0]+': '+t[1]).join('   ')));
     list.appendChild(li);
@@ -1592,7 +1592,7 @@ function downloadBrief(){
     + '</div>'
     + '<div class="pd-page">'
     + '<div class="pd-quote">"The training provided and process used by Struinova reframed the needs, created community support, made everyone feel like stakeholders, and built confidence among community members that they would accomplish their shared vision and goals."<span>Brian Churchill, Chief of Police, Manitou Springs, Colorado</span></div>'
-    + (transcript.length ? '<div class="pd-h">The conversation</div>' + transcript.map(t=>'<p class="pd-msg"><b>'+(t[0]==='Ron'?'Struinova':'You')+':</b> '+esc(t[1])+'</p>').join('') : '')
+    + (transcript.length ? '<div class="pd-h">The conversation</div>' + transcript.map(t=>'<p class="pd-msg"><b>'+(t[0]==='You'?'You':'Struinova')+':</b> '+esc(t[1])+'</p>').join('') : '')
     + '<div class="pd-h">Suggested next steps</div>'
     + '<ol class="pd-ol">'
     + '<li>Book a thirty-minute conversation at cal.com/brumbarger, or simply reply to ron@struinova.com with this brief attached.</li>'
@@ -1632,28 +1632,16 @@ document.getElementById('sendBrief').onclick = ()=>{
   const org=document.getElementById('fOrg').value.trim();
   const note=document.getElementById('fNote').value.trim();
   const primary = selected.length ? selected[0].cat : 'custom';
-  const sk = new Set(); selected.forEach(s=> (SKILL_MAP[s.cat]||SKILL_MAP.custom).forEach(x=>sk.add(x)) );
-  const discs = new Set(); selected.forEach(s=> (DISC_MAP[s.cat]||DISC_MAP.custom).forEach(d=>discs.add(d)) );
   const body = [
-    'CHALLENGE BRIEF from struinova.com','',
+    'Hi Ron,','',
+    'I ran my challenge through the Reframing Engine on struinova.com. My full brief is attached as a PDF.','',
     'Name: '+(name||'(not given)'),
-    'Email: '+(email||'(not given)'),
     'Organization: '+(org||'(not given)'),
-    'Website: '+(siteVal()||'(not given)'),'',
-    'WHAT IS STUCK:',
-    (selected.map(s=>'- '+s.text).join('\n')||'n/a'),'',
-    'A PROBLEM WORTH SOLVING:',
-    (REFRAMES[primary]||REFRAMES.custom),'',
-    'OUR TAKE:',
-    (RONTAKES[primary]||RONTAKES.custom),'',
-    'THE FIRST 90 DAYS:',
-    (NINETY[primary]||NINETY.custom),'',
-    'SKILLS THE TEAM KEEPS: '+Array.from(sk).join(', '),
-    'DISCIPLINES APPLIED: '+Array.from(discs).join(', '),'',
-    'NOTES: '+(note||'none'),'',
-    'THE CONVERSATION:',
-    transcript.map(t=>t[0]+': '+t[1]).join('\n')
-  ].join('\n').slice(0,1800);
+    'Website: '+(siteVal()||'(not given)'),
+    'What is stuck: '+(selected.map(s=>s.text).join('; ')||'n/a'),
+    (note ? 'Notes: '+note : ''),'',
+    'Looking forward to a conversation.'
+  ].filter(l=>l!==null).join('\n');
   window.location.href='mailto:ron@struinova.com?subject='+encodeURIComponent('Challenge brief: '+(org||name||'new visitor'))+'&body='+encodeURIComponent(body);
 };
 </script>
