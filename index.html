@@ -171,6 +171,30 @@ nav a:hover{color:var(--orange)}
   animation:cueBob 1.6s ease-in-out infinite;
 }
 @keyframes cueBob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-6px)}}
+/* ---------- printable brief ---------- */
+#printDoc{display:none}
+@media print{
+  body>*:not(#printDoc){display:none !important}
+  body{background:#fff}
+  #printDoc{display:block !important;color:#243442;font-family:'Poppins',sans-serif;font-weight:300}
+  @page{margin:14mm}
+  .pd-page{page-break-after:always}
+  .pd-cover{text-align:center;padding-top:70px}
+  .pd-cover img{width:110px;height:110px}
+  .pd-brand{font-weight:600;letter-spacing:.22em;color:#2c3e50;margin-top:12px;font-size:13px}
+  .pd-title{font-size:26px;font-weight:600;color:#2c3e50;margin:38px 0 6px}
+  .pd-for{color:#c2571b;font-size:13px;letter-spacing:.06em}
+  .pd-greet{max-width:520px;margin:32px auto 0;text-align:left}
+  .pd-cta{margin-top:40px;padding-top:16px;border-top:2px solid #c2571b;display:inline-block;font-size:12px;color:#2c3e50;line-height:1.8}
+  .pd-h{font-size:14px;font-weight:600;color:#c2571b;letter-spacing:.12em;text-transform:uppercase;margin:20px 0 6px}
+  .pd-p{font-size:12.5px;line-height:1.65;margin-bottom:8px;color:#243442}
+  .pd-chip{display:inline-block;border:1px solid #c2571b;color:#7a4a10;border-radius:6px;padding:2px 8px;margin:2px 4px 2px 0;font-size:10.5px}
+  .pd-msg{font-size:11.5px;line-height:1.55;margin-bottom:6px;color:#243442}
+  .pd-msg b{color:#c2571b;font-weight:600}
+  #printDoc .mm-link{stroke:#c3d0db}
+  #printDoc .mm-link.hot{stroke:#c2571b}
+  .pd-foot{font-size:10px;color:#8a99a8;margin-top:22px;text-align:center}
+}
 
 /* ---------- engine ---------- */
 #engine{display:none;padding-top:0}
@@ -302,6 +326,8 @@ footer a{color:var(--orange);text-decoration:none}
 </nav>
 
 <div class="scrollcue" id="scrollCue">MORE FINDINGS &darr;</div>
+<div class="scrollcue" id="dlCue">DOWNLOAD YOUR BRIEF &darr;</div>
+<div id="printDoc" aria-hidden="true"></div>
 <div class="workmodal" id="workModal">
   <div class="panel workcard">
     <div class="workring"></div>
@@ -554,6 +580,7 @@ footer a{color:var(--orange);text-decoration:none}
         <textarea id="fNote" rows="3" placeholder="Optional"></textarea>
         <div class="form-actions">
           <button class="btn" id="sendBrief">Send my brief</button>
+          <button class="btn ghost" id="dlBrief">Download my brief (PDF)</button>
           <a class="btn ghost" id="calBrief" href="https://cal.com/brumbarger" target="_blank" rel="noopener">Book on cal.com &rarr;</a>
         </div>
         <div class="tiny">Your brief goes straight to ron@struinova.com. No lists, no drip campaigns, just a reply from a human.</div>
@@ -618,7 +645,7 @@ footer a{color:var(--orange);text-decoration:none}
 
 <footer>
   <div class="wrap frow">
-    <div>&copy; <span id="yr"></span> Struinova Innovation &middot; Indianapolis, IN</div>
+    <div>&copy; <span id="yr"></span> Struinova Innovation &middot; Indianapolis, USA &middot; working across North America, Europe, and Africa</div>
     <div><a href="mailto:ron@struinova.com">ron@struinova.com</a> &middot; <a href="tel:+13174904376">317.490.4376</a> &middot; <a href="https://linkedin.com/in/brumbarger" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://cal.com/brumbarger" target="_blank" rel="noopener">cal.com/brumbarger</a></div>
   </div>
 </footer>
@@ -716,17 +743,17 @@ const REFRAMES = {
 };
 
 const RONTAKES = {
-  imagine:  'Here is the good news: I have never met a team that lacked imagination. I have met plenty that lacked permission and process. Divergent thinking is a trainable skill. Within one workshop your people will generate more raw ideas than they have in the past year, and we will show them how to converge on the ones worth building.',
-  blind:    'This one is my favorite, because it describes almost every smart leadership team we have worked with. You are not stuck because you lack answers. You are stuck because you keep looking where you have always looked. Fresh, structured eyes change what is visible. That is the entire job of an Innovator in Residence.',
+  imagine:  'Here is the good news: we have never met a team that lacked imagination, on any continent. We have met plenty that lacked permission and process. Divergent thinking is a trainable skill, and within one workshop your people will generate more raw ideas than they have in the past year.',
+  blind:    'This one describes almost every smart leadership team we have worked with, from Indianapolis to Addis Ababa. You are not stuck because you lack answers. You keep looking where you have always looked. Fresh, structured eyes change what is visible. That is the entire job of an Innovator in Residence.',
   paradigm: 'Old paradigms are comfortable because they used to pay the bills. We will not ask your team to abandon what they know. We teach lateral and analogous thinking so they can borrow patterns from other worlds, and suddenly the old way just looks like one option among many.',
-  silos:    'In Manitou Springs I watched 25 stakeholders with competing agendas, some openly hostile, co-design a solution in two days. The trick is to put the challenge on the wall as a shared target, so people stop defending turf and start aiming together. Politics thins out fast when the problem stops being personal.',
-  gtm:      'I spent 27 years at Bitwise helping clients turn a website into an impactful online solution, and the difference was never the technology. It was reframing go-to-market as a design problem. We will map your model, find the assumption nobody has questioned in years, and prototype around it.',
+  silos:    'In Manitou Springs we watched 25 stakeholders with competing agendas, some openly hostile, co-design a solution in two days. The trick is to put the challenge on the wall as a shared target, so people stop defending turf and start aiming together. Politics thins out fast when the problem stops being personal.',
+  gtm:      'Across 27 years and 3,000 engagements at Bitwise, the difference was never the technology. It was reframing go-to-market as a design problem. We will map your model, find the assumption nobody has questioned in years, and prototype around it.',
   mindset:  'Scarcity, timidity, and judging arrive at meetings before your people do. So we start with the mindsets: diverge first, converge later, and defer judgment in between. It sounds simple. Done with discipline, it changes the temperature of every room your team sits in.',
   method:   'Unstructured teams running unstructured processes produce spaghetti, every time. Structure is not bureaucracy; it is freedom with a map. We bring Simplexity, design thinking, and a shared vocabulary your team keeps long after we leave. The skills stay. That is the point.',
-  knot:     'Big daunting knots are our home turf. We will not attack the whole thing at once. Month one, we pick the low-hanging fruit, get your team up to altitude with a shared vocabulary, and bank an early win. Momentum unties knots faster than brilliance does.',
-  product:  'New offerings do not come from brainstorms; they come from ripe problems. I founded Apprentice University because firms across Indiana could not find talent. The shortage was the ripe problem; the university was the product. We will hunt your ripe problem first, then design the offering that answers it.',
-  tech:     'My degree is in robotics, so I have loved this frontier since before it was fashionable. Three decades taught me one thing: technology amplifies method, it never replaces it. We will map your workflow, find where AI and automation genuinely fit, and skip the expensive trophies.',
-  custom:   'I read every one of these personally, and here is what I can tell you before we even talk: the problem you just described is probably not the problem we will end up solving. That is not a criticism. It is how seeing works. Let’s look at it together.'
+  knot:     'Big daunting knots are our home turf, on three continents and counting. We will not attack the whole thing at once. Month one, we pick the low-hanging fruit, get your team up to altitude with a shared vocabulary, and bank an early win. Momentum unties knots faster than brilliance does.',
+  product:  'New offerings do not come from brainstorms; they come from ripe problems. Apprentice University exists because a regional talent shortage was a ripe problem, and an institution was the product. We will hunt your ripe problem first, then design the offering that answers it.',
+  tech:     'Our roots run through a robotics degree and two cold cases worked with AI alongside police. Three decades taught us one thing: technology amplifies method, it never replaces it. We will map your workflow, find where AI and automation genuinely fit, and skip the expensive trophies.',
+  custom:   'We read every one of these personally, and here is what we can say before we even talk: the problem you just described is probably not the problem we will end up solving. That is not a criticism. It is how seeing works. Let’s look at it together.'
 };
 
 const PROOFS = {
@@ -1051,14 +1078,15 @@ btn.onclick = ()=>{
     renderDisciplines();
     renderOutputs();
     document.getElementById('hmwWrap').classList.add('on');
-    /* land on the engine outputs, not the chat */
-    const orow = document.querySelector('.outrow');
-    if(orow) orow.scrollIntoView({behavior:'smooth', block:'start'});
+    /* land with the engine graphic at the top of the browser */
+    const shell = document.getElementById('engineShell');
+    if(shell) shell.scrollIntoView({behavior:'smooth', block:'start'});
     const cue = document.getElementById('scrollCue');
     if(cue){
       cue.style.display='block';
       cue.onclick = ()=>{
         cue.style.display='none';
+        chatAutoScroll = true;
         const cs = document.getElementById('chatShell');
         if(cs) cs.scrollIntoView({behavior:'smooth', block:'center'});
       };
@@ -1066,6 +1094,7 @@ btn.onclick = ()=>{
         const cs = document.getElementById('chatShell');
         if(cs && cs.getBoundingClientRect().top < innerHeight*0.7){
           cue.style.display='none';
+          chatAutoScroll = true;
           removeEventListener('scroll', watcher);
         }
       };
@@ -1116,6 +1145,7 @@ QS.push(
 let answers = {};
 let qIdx = 0;
 let spillStarted = false;
+let chatAutoScroll = false;
 let transcript = [];
 let aiHistory = [];
 let userTurns = 0;
@@ -1152,14 +1182,14 @@ function showTyping(){
   tp.className='msg ron';
   tp.innerHTML='<div class="ron-ava">S</div><div class="bubble typing"><i></i><i></i><i></i></div>';
   box.appendChild(tp);
-  tp.scrollIntoView({behavior:'smooth',block:'end'});
+  if(chatAutoScroll) tp.scrollIntoView({behavior:'smooth',block:'end'});
   return tp;
 }
 function fillTyping(tp, text){
   tp.querySelector('.bubble').classList.remove('typing');
   tp.querySelector('.bubble').textContent = text;
   transcript.push(['Ron', text]);
-  tp.scrollIntoView({behavior:'smooth',block:'end'});
+  if(chatAutoScroll) tp.scrollIntoView({behavior:'smooth',block:'end'});
 }
 function showInput(){
   const box = document.getElementById('chatBox');
@@ -1171,10 +1201,11 @@ function showInput(){
   });
   line.querySelector('button').onclick = ()=>{ line.remove(); finishChat(); };
   box.appendChild(line);
-  line.scrollIntoView({behavior:'smooth',block:'end'});
-  line.querySelector('input').focus();
+  if(chatAutoScroll) line.scrollIntoView({behavior:'smooth',block:'end'});
+  line.querySelector('input').focus({preventScroll:true});
 }
 async function sendUser(val){
+  chatAutoScroll = true;
   const line = document.getElementById('aiLine');
   if(line) line.remove();
   youSay(val);
@@ -1200,12 +1231,12 @@ async function startSpill(){
   const chatTag = document.querySelector('#chatShell .console-tag');
   if(siteVal() && chatTag){
     const host = siteVal().replace(/^https?:\/\//,'').split('/')[0];
-    chatTag.textContent = 'STRUINOVA // RON_IS_READING // ' + host.toUpperCase();
+    chatTag.textContent = 'STRUINOVA // READING // ' + host.toUpperCase();
   }
   const tp = showTyping();
   try{
     const reply = await callRon();
-    if(chatTag) chatTag.textContent = 'STRUINOVA // RON_IS_TYPING';
+    if(chatTag) chatTag.textContent = 'STRUINOVA // REFRAMING_ENGINE';
     fillTyping(tp, reply);
     aiHistory.push({role:'assistant', content:reply});
     showInput();
@@ -1226,12 +1257,12 @@ function ronSay(text, cb){
   tp.className='msg ron';
   tp.innerHTML='<div class="ron-ava">S</div><div class="bubble typing"><i></i><i></i><i></i></div>';
   box.appendChild(tp);
-  tp.scrollIntoView({behavior:'smooth',block:'end'});
+  if(chatAutoScroll) tp.scrollIntoView({behavior:'smooth',block:'end'});
   setTimeout(()=>{
     tp.querySelector('.bubble').classList.remove('typing');
     tp.querySelector('.bubble').textContent=text;
     transcript.push(['Ron', text]);
-    tp.scrollIntoView({behavior:'smooth',block:'end'});
+    if(chatAutoScroll) tp.scrollIntoView({behavior:'smooth',block:'end'});
     if(cb) cb();
   }, 900 + Math.min(text.length*5, 1600));
 }
@@ -1243,7 +1274,7 @@ function youSay(text){
   m.querySelector('.bubble').textContent=text;
   transcript.push(['You', text]);
   box.appendChild(m);
-  m.scrollIntoView({behavior:'smooth',block:'end'});
+  if(chatAutoScroll) m.scrollIntoView({behavior:'smooth',block:'end'});
 }
 function askNext(){
   if(qIdx >= QS.length){ finishChat(); return; }
@@ -1280,6 +1311,8 @@ function finishChat(){
     const br = document.getElementById('brief');
     br.style.display='block';
     buildBrief();
+    const dc = document.getElementById('dlCue');
+    if(dc) dc.style.display='block';
     setTimeout(()=>br.scrollIntoView({behavior:'smooth'}), 600);
   });
 }
@@ -1318,6 +1351,75 @@ function buildBrief(){
     cal.href='https://cal.com/brumbarger?notes='+encodeURIComponent(notes);
   }
 }
+/* =============== DOWNLOADABLE BRIEF (print to PDF) =============== */
+function printableMap(){
+  const src = document.getElementById('mindmapSvg');
+  if(!src || !src.hasChildNodes()) return '';
+  const c = src.cloneNode(true);
+  const map = {
+    '#ffe0b0':'#7a4a10','#ffd9a8':'#7a4a10','#e6edf3':'#2c3e50','#93a5b6':'#5a6b7c','#f8991d':'#c2571b',
+    'rgba(248,153,29,.12)':'#fff3e2','rgba(248,153,29,.08)':'#fff7ec',
+    'rgba(64,90,116,.45)':'#eef3f8','rgba(64,90,116,.55)':'#eef3f8',
+    'rgba(248,153,29,.8)':'#c2571b','rgba(248,153,29,.75)':'#c2571b',
+    'rgba(248,153,29,.55)':'#dfa055','rgba(248,153,29,.6)':'#dfa055',
+    'rgba(148,180,210,.04)':'#f4f7fa','rgba(148,180,210,.3)':'#b9c7d4'
+  };
+  c.querySelectorAll('*').forEach(n=>{
+    ['fill','stroke'].forEach(a=>{ const v = n.getAttribute(a); if(v && map[v]) n.setAttribute(a, map[v]); });
+  });
+  c.removeAttribute('id');
+  c.setAttribute('style','width:100%;height:auto');
+  return c.outerHTML;
+}
+function downloadBrief(){
+  const pd = document.getElementById('printDoc');
+  if(!pd) return;
+  const esc = t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const primary = selected.length ? selected[0].cat : 'custom';
+  const fN = document.getElementById('fName');
+  const nm = (fN && fN.value.trim()) || nameVal() || 'Friend';
+  const orgEl = document.getElementById('fOrg');
+  const org = orgEl ? orgEl.value.trim() : '';
+  const dt = new Date().toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
+  const sk = new Set(); selected.forEach(s=> (SKILL_MAP[s.cat]||SKILL_MAP.custom).forEach(x=>sk.add(x)) );
+  const discs = new Set(); selected.forEach(s=> (DISC_MAP[s.cat]||DISC_MAP.custom).forEach(d=>discs.add(d)) );
+  pd.innerHTML =
+    '<div class="pd-page pd-cover">'
+    + '<img src="Struinova.svg" alt="Struinova">'
+    + '<div class="pd-brand">STRUINOVA INNOVATION</div>'
+    + '<div class="pd-title">Your Challenge, Reframed</div>'
+    + '<div class="pd-for">Prepared for ' + esc(nm) + (org ? ' &middot; ' + esc(org) : '') + ' &middot; ' + dt + '</div>'
+    + '<div class="pd-greet">'
+    + '<p class="pd-p">' + esc(nm) + ', thank you for spending a few minutes with our Reframing Engine. What you hold is a working document: your challenge as you named it, the reframe our method suggests, and the first ninety days we would walk together.</p>'
+    + '<p class="pd-p">From our home base in Indianapolis to workshop rooms across Europe and Africa, one truth has held everywhere we have worked: when you change how you see a problem, you change the problem you see. We would be glad to look at yours together.</p>'
+    + '</div>'
+    + '<div class="pd-cta"><b>The next step is a simple conversation, wherever in the world you are.</b><br>Ron Brumbarger &middot; ron@struinova.com &middot; +1 317.490.4376<br>cal.com/brumbarger &middot; struinova.com</div>'
+    + '</div>'
+    + '<div class="pd-page">'
+    + '<div class="pd-h">What you told us</div>'
+    + '<p class="pd-p">' + esc(selected.map(s=>s.text).join(' &middot; ') || 'Not specified') + '</p>'
+    + (siteVal() ? '<p class="pd-p">Website: ' + esc(siteVal()) + '</p>' : '')
+    + '<div class="pd-h">A problem worth solving</div>'
+    + '<p class="pd-p">' + esc(REFRAMES[primary]||REFRAMES.custom) + ' That is the question we would tape to the wall on day one.</p>'
+    + '<div class="pd-h">Your first 90 days</div>'
+    + '<p class="pd-p">' + esc(NINETY[primary]||NINETY.custom) + '</p>'
+    + '<div class="pd-h">Skills your team keeps</div>'
+    + '<p class="pd-p">' + esc(Array.from(sk).join(', ')) + '. Practiced on live work rather than workshop exercises, so they hold.</p>'
+    + '<div class="pd-h">Disciplines applied</div>'
+    + '<div>' + Array.from(discs).map(d=>'<span class="pd-chip">&#10003; '+d+'</span>').join('') + '</div>'
+    + '</div>'
+    + '<div class="pd-page">'
+    + '<div class="pd-h">Your map: why an Innovator in Residence fits</div>'
+    + printableMap()
+    + (transcript.length ? '<div class="pd-h">The conversation</div>' + transcript.map(t=>'<p class="pd-msg"><b>'+(t[0]==='Ron'?'Struinova':'You')+':</b> '+esc(t[1])+'</p>').join('') : '')
+    + '<div class="pd-foot">Struinova Innovation &middot; Indianapolis, USA &middot; working across North America, Europe, and Africa &middot; struinova.com</div>'
+    + '</div>';
+  window.print();
+}
+document.getElementById('dlBrief').onclick = downloadBrief;
+const dlCueEl = document.getElementById('dlCue');
+if(dlCueEl) dlCueEl.onclick = ()=>{ dlCueEl.style.display='none'; downloadBrief(); };
+
 document.getElementById('sendBrief').onclick = ()=>{
   const name=document.getElementById('fName').value.trim();
   const email=document.getElementById('fEmail').value.trim();
