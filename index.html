@@ -205,6 +205,7 @@ nav a:hover{color:var(--orange)}
   .pd-table td:first-child{font-weight:600;color:#2c3e50;white-space:nowrap;font-size:10.5px;letter-spacing:.05em;width:180px}
   .pd-quote{margin-top:4px;padding:12px 16px;border-left:3px solid #c2571b;font-style:italic;font-size:11.5px;color:#243442;break-inside:avoid;page-break-inside:avoid}
   .pd-runfoot{position:fixed;bottom:0;left:0;right:0;text-align:center;font-size:9px;color:#9aa8b5;letter-spacing:.08em}
+  #printDoc a{color:#c2571b;text-decoration:none}
   .pd-tl{margin:10px 0 6px 8px}
   .pd-tl-item{position:relative;padding:0 0 14px 24px;border-left:2px solid #c2571b;break-inside:avoid;page-break-inside:avoid}
   .pd-tl-item::before{content:"";position:absolute;left:-8px;top:1px;width:9px;height:9px;border-radius:50%;background:#fff;border:3px solid #c2571b}
@@ -621,6 +622,35 @@ footer a{color:var(--orange);text-decoration:none}
   </div>
 </section>
 
+<!-- ================= HOW WE AIM AI ================= -->
+<section id="aimai">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker">Yeah, well, we use AI too</div>
+      <h2>Doesn't every innovation team use AI?</h2>
+      <p class="sub" style="margin:14px auto 0">They do. Here is the difference: most use AI to move faster inside the frame they already have. We use it to change the frame. And you have already watched that work; the Reframing Engine above is applied AI, aimed by thirty years of method, pointed at your problem.</p>
+    </div>
+    <div class="why-grid">
+      <div class="panel why">
+        <div class="n">AIM_01</div>
+        <h3>Speed versus seeing</h3>
+        <p>AI makes teams faster at whatever they are already doing: faster decks, longer idea lists, quicker summaries. Speed is fine. But if the problem is misdefined, acceleration just delivers you to the wrong place sooner. Method decides where the machine aims. That is the entire difference.</p>
+      </div>
+      <div class="panel why">
+        <div class="n">AIM_02</div>
+        <h3>Proof, not promises</h3>
+        <p>We have worked two cold case homicides beside police. The first ran on the Simplexity method alone. The second paired Simplexity with AI, surfaced new leads in a 25-year-old file, and was presented to the International Homicide Investigators Association. Method found the frame; AI multiplied it.</p>
+      </div>
+      <div class="panel why">
+        <div class="n">AIM_03</div>
+        <h3>Transfer, not dependence</h3>
+        <p>From Indianapolis to Addis Ababa, we introduce AI as a thinking partner and train your people to aim it themselves. We do not rent you our tools; we build your aim. When the engagement ends, both the method and the machine stay useful in your hands.</p>
+      </div>
+    </div>
+    <div class="center" style="margin-top:36px"><span class="dentist">"Everyone has the engine. We teach aim."</span></div>
+  </div>
+</section>
+
 <!-- ================= STORIES ================= -->
 <section id="stories">
   <div class="wrap">
@@ -660,7 +690,7 @@ footer a{color:var(--orange);text-decoration:none}
       <div>
         <div class="kicker">The practice</div>
         <h2>Sometimes it's Ron.<br>Sometimes it's a team.<br>The method is constant.</h2>
-        <p class="sub" style="margin-top:18px">Struinova was founded by Ron Brumbarger, who spent 27 years building Bitwise Solutions into an enterprise digital firm serving ~1,100 clients before its sale, then founded and sold Apprentice University. He is a Senior Research Fellow with Basadur Innovation, a certified creative problem-solving facilitator, co-founder of the How Might We Collective, a patent holder, and author of <i>You're Always Being Interviewed</i>. He has twice applied creative problem-solving and AI to cold case homicides alongside law enforcement.</p>
+        <p class="sub" style="margin-top:18px">Struinova was founded by Ron Brumbarger, who spent 27 years building Bitwise Solutions into an enterprise digital firm serving ~1,100 clients before its sale, then founded and sold Apprentice University. He is a Senior Research Fellow with Basadur Innovation, a certified creative problem-solving facilitator, co-founder of the How Might We Collective, a patent holder, and author of <i>You're Always Being Interviewed</i>. He has worked two cold case homicides alongside law enforcement: the first using the Simplexity method alone, the second pairing Simplexity with AI.</p>
         <p class="sub" style="margin-top:14px">Engagements are led by Ron and scaled with a trusted bench of facilitators and partners. Whether it is one facilitator or five, you get the same methodology, the same vocabulary, and the same standard: your team leaves stronger than we found it.</p>
       </div>
       <div class="creds">
@@ -784,7 +814,7 @@ const RONTAKES = {
   method:   'Unstructured teams running unstructured processes produce spaghetti, every time. Structure is not bureaucracy; it is freedom with a map. We bring Simplexity, design thinking, and a shared vocabulary your team keeps long after we leave. The skills stay. That is the point.',
   knot:     'Big daunting knots are our home turf, on three continents and counting. We will not attack the whole thing at once. Month one, we pick the low-hanging fruit, get your team up to altitude with a shared vocabulary, and bank an early win. Momentum unties knots faster than brilliance does.',
   product:  'New offerings do not come from brainstorms; they come from ripe problems. Apprentice University exists because a regional talent shortage was a ripe problem, and an institution was the product. We will hunt your ripe problem first, then design the offering that answers it.',
-  tech:     'Our roots run through a robotics degree and two cold cases worked with AI alongside police. Three decades taught us one thing: technology amplifies method, it never replaces it. We will map your workflow, find where AI and automation genuinely fit, and skip the expensive trophies.',
+  tech:     'Our roots run through a robotics degree and two cold cases worked beside police, the second pairing our method with AI. Three decades taught us one thing: technology amplifies method, it never replaces it. We will map your workflow, find where AI and automation genuinely fit, and skip the expensive trophies.',
   custom:   'We read every one of these personally, and here is what we can say before we even talk: the problem you just described is probably not the problem we will end up solving. That is not a criticism. It is how seeing works. Let’s look at it together.'
 };
 
@@ -1112,6 +1142,7 @@ btn.onclick = ()=>{
     hub.setAttribute('fill','rgba(248,153,29,.12)');
     renderDisciplines();
     renderOutputs();
+    prefillForm();
     document.getElementById('hmwWrap').classList.add('on');
     /* land with the engine graphic at the top of the browser */
     const shell = document.getElementById('engineShell');
@@ -1384,7 +1415,15 @@ function buildBrief(){
     li.appendChild(document.createTextNode(transcript.map(t=>t[0]+': '+t[1]).join('   ')));
     list.appendChild(li);
   }
-  /* prefill the contact form from what we already know */
+  prefillForm();
+  const cal=document.getElementById('calBrief');
+  if(cal){
+    const notes=((siteVal()?('Website: '+siteVal()+'\n'):'')+'Challenges: '+selected.map(s=>s.text).join('; ')+'\n'+transcript.map(t=>t[0]+': '+t[1]).join('\n')).slice(0,700);
+    cal.href='https://cal.com/brumbarger?notes='+encodeURIComponent(notes);
+  }
+}
+/* prefill the contact form from what we already know; never overwrites typed values */
+function prefillForm(){
   const nmEl = document.getElementById('fName');
   if(nmEl && !nmEl.value.trim() && nameVal()) nmEl.value = nameVal();
   const orgEl = document.getElementById('fOrg');
@@ -1398,12 +1437,8 @@ function buildBrief(){
     }
     if(guess) orgEl.value = guess;
   }
-  const cal=document.getElementById('calBrief');
-  if(cal){
-    const notes=((siteVal()?('Website: '+siteVal()+'\n'):'')+'Challenges: '+selected.map(s=>s.text).join('; ')+'\n'+transcript.map(t=>t[0]+': '+t[1]).join('\n')).slice(0,700);
-    cal.href='https://cal.com/brumbarger?notes='+encodeURIComponent(notes);
-  }
 }
+
 /* =============== DOWNLOADABLE BRIEF (print to PDF) =============== */
 const DISC_DESC = {
   'EXPERIENCE':'Thirty-plus years founding, growing, and selling companies, plus roughly 3,000 client engagements across North America, Europe, and Africa. Pattern recognition you cannot shortcut.',
@@ -1413,7 +1448,7 @@ const DISC_DESC = {
   'TRAINING':'Your team learns each skill while solving the real problem, not in a classroom. The capability stays in your building after the engagement ends.',
   'ENTREPRENEURSHIP':'Founder-level judgment about ripe problems, viable offerings, and business models, earned by building and selling companies rather than only advising them.',
   'CREATIVE PROBLEM-SOLVING':'The Basadur Simplexity method: eight steps from problem finding through action, powered by divergent thinking (generate widely), convergent thinking (choose well), and deferral of judgment. Struinova is Basadur-certified.',
-  'APPLIED AI':'Artificial intelligence aimed by method at your actual workflow. The same pairing we used alongside police to surface new leads in two cold case homicides.'
+  'APPLIED AI':'Artificial intelligence aimed by method at your actual workflow. The same pairing surfaced new leads in a 25-year-old cold case homicide, the second of two we have worked beside police (the first ran on method alone).'
 };
 function printableMap(){
   const src = document.getElementById('mindmapSvg');
@@ -1441,6 +1476,7 @@ function printableMap(){
 function downloadBrief(){
   const pd = document.getElementById('printDoc');
   if(!pd) return;
+  prefillForm();
   const esc = t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');
   const primary = selected.length ? selected[0].cat : 'custom';
   const fN = document.getElementById('fName');
@@ -1451,8 +1487,7 @@ function downloadBrief(){
   const sk = new Set(); selected.forEach(s=> (SKILL_MAP[s.cat]||SKILL_MAP.custom).forEach(x=>sk.add(x)) );
   const discs = new Set(); selected.forEach(s=> (DISC_MAP[s.cat]||DISC_MAP.custom).forEach(d=>discs.add(d)) );
   pd.innerHTML =
-    '<div class="pd-runfoot">Struinova Innovation &middot; your challenge, reframed &middot; struinova.com</div>'
-    + '<div class="pd-page pd-cover">'
+    '<div class="pd-page pd-cover">'
     + '<img src="Struinova.svg" alt="Struinova">'
     + '<div class="pd-brand">STRUINOVA INNOVATION</div>'
     + '<div class="pd-title">Your Challenge, Reframed</div>'
@@ -1495,6 +1530,7 @@ function downloadBrief(){
     + '<li>Book a thirty-minute conversation at cal.com/brumbarger, or simply reply to ron@struinova.com with this brief attached.</li>'
     + '<li>Share these pages with the two or three colleagues closest to the challenge. If they disagree with the reframe, wonderful; that disagreement is exactly where a first workshop begins.</li>'
     + '<li>Run the engine again with a different set of notes and compare the maps. Seeing the same organization through two frames is itself a small taste of the method.</li>'
+    + '<li>Watch our short film, "You can\'t be your own dentist": <a href="https://youtu.be/pkkuwaVtd00">youtu.be/pkkuwaVtd00</a>. A few minutes, and worth forwarding to the colleague still staring at the same wall.</li>'
     + '</ol>'
     + '<div class="pd-foot">Indianapolis, USA &middot; working across North America, Europe, and Africa</div>'
     + '</div>';
