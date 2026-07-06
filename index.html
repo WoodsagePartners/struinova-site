@@ -46,7 +46,7 @@ canvas#net{position:fixed;inset:0;z-index:-1;opacity:.55}
 .console::after{content:"";position:absolute;top:14px;left:18px;width:10px;height:10px;border-radius:50%;background:var(--orange);box-shadow:18px 0 0 rgba(148,180,210,.5), 36px 0 0 rgba(148,180,210,.25)}
 .console .console-tag{position:absolute;top:9px;right:18px;font-family:var(--mono);font-size:.66rem;color:var(--muted);letter-spacing:.14em;z-index:2}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-section{padding:100px 0}
+section{padding:54px 0}
 h1,h2,h3{font-weight:600;line-height:1.22}
 .kicker{font-family:var(--mono);color:var(--orange);letter-spacing:.24em;font-size:.72rem;font-weight:500;margin-bottom:14px;text-transform:uppercase}
 .sub{color:var(--muted);font-weight:300;max-width:660px}
@@ -330,7 +330,7 @@ footer a{color:var(--orange);text-decoration:none}
         <input id="visName" type="text" placeholder="First name" maxlength="40" autocomplete="given-name" style="flex:1;min-width:140px;background:rgba(148,180,210,.05);border:1px solid var(--line);border-radius:10px;padding:13px 16px;color:var(--text);font-family:inherit;font-size:.95rem;outline:none">
         <input id="siteUrl" type="url" placeholder="https://yourcompany.com" style="flex:2;min-width:220px;background:rgba(148,180,210,.05);border:1px solid var(--line);border-radius:10px;padding:13px 16px;color:var(--text);font-family:inherit;font-size:.95rem;outline:none">
       </div>
-      <div class="tiny">We only read your public homepage. Nothing is stored, nobody gets subscribed to anything.</div>
+      <div class="tiny">We only read your public homepage. Your first name stays in your own browser so we can welcome you back; nothing else is stored and nobody gets subscribed to anything.</div>
     </div>
   </div>
 </section>
@@ -501,14 +501,14 @@ footer a{color:var(--orange);text-decoration:none}
       <div class="kicker">Consultants leave decks. Residents leave capability.</div>
       <h2>Why an Innovator in Residence<br>might fit your situation</h2>
     </div>
-    <div class="panel console mindmap-shell">
-      <span class="console-tag" id="mmTag">STRUINOVA // WHY_RESIDENT_MAP</span>
-      <svg class="mindmap" id="mindmapSvg" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg" aria-label="Why an Innovator in Residence mindmap"></svg>
-      <div class="tiny" style="text-align:center;padding:6px 0 14px">This map redraws itself based on what you name in Step 02. Go ahead, change your answers.</div>
-    </div>
-    <div class="panel" style="margin-top:22px;padding:30px 36px">
+    <div class="panel" style="margin:6px 0 20px;padding:28px 34px">
       <div class="kicker" style="margin-bottom:8px">The term, plainly</div>
       <p class="sub" style="max-width:100%">An Innovator in Residence is a seasoned innovator who embeds with your organization for a season: part fresh eyes, part facilitator, part trainer. Universities and research labs have used residencies for decades to bring outside capability inside; we bring the same idea to business. Ron served as Taylor University's first Entrepreneur in Residence, and Struinova delivers every engagement this way. We work your real problems alongside your people, teach the method while solving, and when we leave, the capability stays with you.</p>
+    </div>
+    <div class="panel console mindmap-shell">
+      <span class="console-tag" id="mmTag">STRUINOVA // WHY_RESIDENT_MAP</span>
+      <svg class="mindmap" id="mindmapSvg" viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg" aria-label="Why an Innovator in Residence mindmap"></svg>
+      <div class="tiny" style="text-align:center;padding:6px 0 14px">This map redraws itself based on what you name in Step 02. Go ahead, change your answers.</div>
     </div>
   </div>
 </section>
@@ -778,6 +778,10 @@ document.querySelectorAll('.dot-tab').forEach(t=>{
   };
 });
 renderWall();
+try{
+  const sn = localStorage.getItem('struinova_name');
+  if(sn){ const nf = document.getElementById('visName'); if(nf && !nf.value) nf.value = sn; }
+}catch(e){}
 
 function syncSel(){
   selected = ALL_ITEMS.filter(c => selectedIds.has(c.id));
@@ -804,17 +808,17 @@ const DISC_MAP = {
   custom:['CREATIVE PROBLEM-SOLVING','EXPERIENCE','APPLIED AI']
 };
 const NINETY = {
-  imagine:  'Train the imagination muscle on a small real target first, then aim it at this challenge and bank a visible win.',
-  blind:    'A fresh-eyes audit and a shared vocabulary, then one reframe workshop aimed squarely at the spot you cannot see.',
-  paradigm: 'Analogous-thinking sessions that borrow patterns from other industries, applied to your one most stubborn assumption.',
-  silos:    'The challenge goes on the wall as a shared target; cross-silo co-design replaces turf defense by month two.',
-  gtm:      'Map the business model, find the assumption nobody has questioned in years, prototype a new go-to-market around it.',
-  mindset:  'Onboard diverge, converge, and deferral of judgment; the temperature of your meetings changes in month one.',
-  method:   'One shared vocabulary and one structured process, installed while your team solves a real problem, not a toy one.',
-  knot:     'Pick the low-hanging fruit first; momentum loosens the first strand of the knot this quarter.',
-  product:  'Hunt the ripe, unserved customer problem first; then design and test the offering that answers it.',
-  tech:     'Map your workflow, find where AI and automation genuinely fit, and skip the expensive trophies.',
-  custom:   'Low-hanging fruit, a shared vocabulary, and an early visible win aimed directly at what you named.'
+  imagine:  'We train the imagination muscle on a small, real target first, then aim it at this challenge. Early reps build confidence, and an early visible win buys your team permission to keep going.',
+  blind:    'A fresh-eyes audit and a shared vocabulary come first, then one reframe workshop aimed squarely at the spot you cannot see. Expect the real problem to look different than the one you walked in holding.',
+  paradigm: 'Analogous-thinking sessions borrow patterns from other industries and apply them to your most stubborn assumption. By month three the old way is still available; it just has to compete for the job.',
+  silos:    'The challenge goes on the wall as a shared target so your people attack it instead of each other. Co-design replaces turf defense, and an early win gives former rivals something to share credit for.',
+  gtm:      'We map your business model, find the assumption nobody has questioned in years, and prototype a new go-to-market around it. Small, cheap tests beat big confident launches every time.',
+  mindset:  'We onboard diverge, converge, and deferral of judgment in month one, practiced on real work. The temperature of your meetings changes first; the quality of your decisions follows shortly after.',
+  method:   'One shared vocabulary and one structured process, installed while your team solves a real problem rather than a toy one. Structure is not bureaucracy; it is what turns energy into output.',
+  knot:     'We pick the low-hanging fruit first and bank a visible win, because momentum loosens knots faster than brilliance does. Then we name the real problem properly and pull the first strand this quarter.',
+  product:  'We hunt the ripe, unserved customer problem before designing anything. Then we shape and test the offering that answers it, cheaply and quickly, before the ribbon-cutting budget gets spent.',
+  tech:     'We map your workflow first, then find where AI, automation, or robotics genuinely fit. Trophy projects get skipped, your people learn to aim the tools themselves, and the wins compound quietly.',
+  custom:   'Low-hanging fruit, a shared vocabulary, and an early visible win aimed directly at what you named. Expect the problem definition to sharpen once the facts are on the wall; it nearly always does.'
 };
 const SKILL_MAP = {
   imagine:['divergent thinking','deferral of judgment'],
@@ -831,12 +835,12 @@ const SKILL_MAP = {
 };
 function renderOutputs(){
   const primary = selected.length ? selected[0].cat : 'custom';
-  document.getElementById('outProblem').textContent = REFRAMES[primary] || REFRAMES.custom;
+  document.getElementById('outProblem').textContent = (REFRAMES[primary] || REFRAMES.custom) + ' That is the question we would tape to the wall on day one. It is allowed to evolve as the facts come in; the good ones usually do.';
   document.getElementById('outNinety').textContent = NINETY[primary] || NINETY.custom;
   const sk = new Set();
   selected.forEach(s=> (SKILL_MAP[s.cat]||SKILL_MAP.custom).forEach(x=>sk.add(x)) );
   const skl = Array.from(sk).join(', ');
-  document.getElementById('outSkills').textContent = skl.charAt(0).toUpperCase() + skl.slice(1) + '. Long after we leave.';
+  document.getElementById('outSkills').textContent = skl.charAt(0).toUpperCase() + skl.slice(1) + '. Practiced on live work rather than workshop exercises, so they hold. Long after we leave, your team still runs the plays.';
 }
 function renderDisciplines(){
   const row = document.getElementById('discRow');
@@ -854,39 +858,39 @@ function renderDisciplines(){
 
 /* =============== DYNAMIC MINDMAP: disciplines × selected problems =============== */
 const DISC_COMBO = {
-  'EXPERIENCE|blind':'We have watched 100 smart teams miss this',
-  'EXPERIENCE|paradigm':'We ran our own firm on the new way first',
-  'EXPERIENCE|silos':'25 rival agendas aligned in Manitou Springs',
-  'EXPERIENCE|gtm':'27 years of go-to-market reframes at Bitwise',
-  'EXPERIENCE|knot':'Big knots untied on three continents',
-  'EXPERIENCE|tech':'A robotics degree, zero trophy projects',
-  'EXPERIENCE|custom':'Odds are we have met your problem before',
-  'PROCESS|silos':'Simplexity puts the problem on the wall',
-  'PROCESS|mindset':'Structure makes exploration feel safe',
-  'PROCESS|method':'Simplexity replaces spaghetti with steps',
-  'PROCESS|knot':'Problem definition before solutions, always',
-  'INNOVATION|imagine':'Idea fluency drills unlock stuck teams',
-  'INNOVATION|paradigm':'Analogous thinking borrows other worlds',
-  'INNOVATION|gtm':'Your market, mapped as a design problem',
-  'INNOVATION|product':'Ripe problems become new offerings',
-  'INNOVATION|tech':'AI aimed at real workflow, not hype',
-  'TRAINING|imagine':'Divergent thinking is a trainable rep',
-  'TRAINING|paradigm':'Lateral thinking taught on your real work',
-  'TRAINING|silos':'A shared vocabulary dissolves turf lines',
-  'TRAINING|mindset':'Deferral of judgment, drilled until easy',
-  'TRAINING|method':'Skills onboarded while solving, not after',
-  'ENTREPRENEURSHIP|gtm':'Founder eyes on your revenue model',
-  'ENTREPRENEURSHIP|product':'We built new offerings from ripe problems',
-  'CREATIVE PROBLEM-SOLVING|imagine':'Fluency first: volume beats brilliance',
-  'CREATIVE PROBLEM-SOLVING|blind':'Challenge mapping finds the unseen frame',
-  'CREATIVE PROBLEM-SOLVING|mindset':'Yes-and replaces judge-and-kill',
-  'CREATIVE PROBLEM-SOLVING|method':'One certified method: Basadur Simplexity',
-  'CREATIVE PROBLEM-SOLVING|knot':'Telescoping finds the first loose strand',
-  'CREATIVE PROBLEM-SOLVING|product':'HMW ladders from complaint to concept',
-  'CREATIVE PROBLEM-SOLVING|custom':'Your words become a workable challenge',
-  'APPLIED AI|blind':'AI as fresh eyes on stale facts',
-  'APPLIED AI|tech':'Method first, then the right tools',
-  'APPLIED AI|custom':'AI probes the angles humans skip'
+  'EXPERIENCE|blind':'A hundred smart teams have sworn to us they looked everywhere. The answer usually sat behind them.',
+  'EXPERIENCE|paradigm':'Bitwise ran on design thinking before we ever asked a client to. We only teach what we have lived.',
+  'EXPERIENCE|silos':'Manitou Springs: 25 rival agendas, one walkout, and a shared community vision two days later.',
+  'EXPERIENCE|gtm':'27 years and 3,000 engagements taught us the market rarely moves. The frame around it does.',
+  'EXPERIENCE|knot':'Every big knot we have untied, on three continents, loosened at a strand nobody rated important.',
+  'EXPERIENCE|tech':'A robotics degree and two cold cases with police taught us tools follow method, never the reverse.',
+  'EXPERIENCE|custom':'Whatever you scribbled on that note, odds are decent we have sat with a cousin of it before.',
+  'PROCESS|silos':'When the problem goes on the wall as a shared target, people stop aiming at each other.',
+  'PROCESS|mindset':'Exploration needs guardrails to feel safe. Structure is not freedom’s enemy; it is the map for it.',
+  'PROCESS|method':'Spaghetti is what energy becomes without process. Eight Simplexity steps turn it back into output.',
+  'PROCESS|knot':'We refuse to solve anything until the problem is defined. Most knots are misnamed, not unsolvable.',
+  'INNOVATION|imagine':'Idea fluency is a drill, not a gift. Teams that cannot imagine usually just stopped practicing.',
+  'INNOVATION|paradigm':'Analogous thinking raids other industries for patterns. Your next move may already exist elsewhere.',
+  'INNOVATION|gtm':'We treat your market like a design brief: map the model, question the assumption, prototype.',
+  'INNOVATION|product':'New offerings begin as ripe, unserved problems. Apprentice University started exactly that way.',
+  'INNOVATION|tech':'AI earns a seat when it serves the workflow. We hunt the genuine fit and skip the trophies.',
+  'TRAINING|imagine':'Divergent thinking is a muscle. We run the reps with your team on real work until volume comes easy.',
+  'TRAINING|paradigm':'Lateral thinking gets taught on your live problems, so the old way quietly becomes one option of many.',
+  'TRAINING|silos':'A shared vocabulary is quiet diplomacy. When everyone names the work the same way, turf lines thin.',
+  'TRAINING|mindset':'Deferral of judgment gets drilled until it is habit, and the temperature of your meetings drops.',
+  'TRAINING|method':'Skills are onboarded mid-solve, not in a classroom. What your team learns, they learn by using.',
+  'ENTREPRENEURSHIP|gtm':'Founder eyes on your revenue model: which assumption is paying rent it no longer earns?',
+  'ENTREPRENEURSHIP|product':'We have built and sold what we preach. Ripe problem first, offering second, ribbon cutting last.',
+  'CREATIVE PROBLEM-SOLVING|imagine':'Volume before brilliance: diverge wide, defer judgment, then converge on what deserves to live.',
+  'CREATIVE PROBLEM-SOLVING|blind':'Challenge mapping climbs the whys until the frame you could not see sits in plain sight.',
+  'CREATIVE PROBLEM-SOLVING|mindset':'Yes-and replaces judge-and-kill, and suddenly half-formed ideas survive long enough to matter.',
+  'CREATIVE PROBLEM-SOLVING|method':'One certified method, Basadur Simplexity, carried by a Senior Research Fellow who still runs it weekly.',
+  'CREATIVE PROBLEM-SOLVING|knot':'Telescoping zooms the problem in and out until the first loose strand shows itself. It always does.',
+  'CREATIVE PROBLEM-SOLVING|product':'How-might-we laddering walks a complaint up to a concept your customers did not know to ask for.',
+  'CREATIVE PROBLEM-SOLVING|custom':'Your own words become a workable challenge statement, usually a different one than you arrived with.',
+  'APPLIED AI|blind':'AI reads your stale facts with fresh eyes. On a 25-year-old case file, that combination found new leads.',
+  'APPLIED AI|tech':'Method aims, AI fires. We map the workflow first, then hand the machine the jobs it genuinely wins.',
+  'APPLIED AI|custom':'We let AI probe the angles humans skip, then let humans judge what it finds. Both halves matter.'
 };
 function renderMindmap(){
   const svg = document.getElementById('mindmapSvg');
@@ -900,49 +904,68 @@ function renderMindmap(){
     svg.appendChild(e);
     return e;
   }
-  /* root, far left */
-  const rootX=16, rootW=222, rootCy=320;
-  el('rect',{x:rootX,y:rootCy-56,width:rootW,height:112,rx:14,fill:'rgba(248,153,29,.14)',stroke:'rgba(248,153,29,.75)','stroke-width':1.6});
-  ['WHY AN INNOVATOR','IN RESIDENCE MIGHT','FIT YOUR SITUATION'].forEach((ln,i)=>{
-    el('text',{x:rootX+rootW/2,y:rootCy-14+i*20,'font-size':13,fill:'#f8991d','text-anchor':'middle','letter-spacing':2},ln);
-  });
-  /* branches = applied disciplines; limbs = how each maps to their actual problems */
-  const seen = new Set();
-  const catsSel = [];
-  selected.forEach(s=>{ if(!seen.has(s.cat)){ seen.add(s.cat); catsSel.push(s.cat); } });
-  if(catsSel.length===0){
-    el('path',{d:'M'+(rootX+rootW)+','+rootCy+' C320,'+rootCy+' 340,'+rootCy+' 380,'+rootCy,class:'mm-link'});
-    el('rect',{x:380,y:rootCy-22,width:340,height:44,rx:10,fill:'rgba(148,180,210,.04)',stroke:'rgba(148,180,210,.3)','stroke-dasharray':'6 6'});
-    el('text',{x:550,y:rootCy+4,'font-size':12,fill:'#93a5b6','text-anchor':'middle'},'Name your challenges in Step 02 and this map builds itself');
+  function wrapText(t, max){
+    const words = String(t).split(' ');
+    const lines = []; let cur = '';
+    words.forEach(w=>{
+      if((cur + ' ' + w).trim().length > max){ if(cur.trim()) lines.push(cur.trim()); cur = w; }
+      else cur = cur + ' ' + w;
+    });
+    if(cur.trim()) lines.push(cur.trim());
+    return lines;
   }
+  function cardEl(cx, cy, w, lines, o){
+    const h = lines.length*o.lh + o.pad*2;
+    el('rect',{x:cx-w/2, y:cy-h/2, width:w, height:h, rx:10, fill:o.fill, stroke:o.stroke, 'stroke-width':o.sw||1, 'stroke-dasharray':o.dash||'0'});
+    lines.forEach((ln,i)=>{
+      el('text',{x:cx, y:cy-h/2+o.pad+o.lh*i+o.fs-2, 'font-size':o.fs, fill:o.color, 'text-anchor':'middle'}, ln);
+    });
+    return h;
+  }
+  /* center card = their first 90 days (Output 02), map builds around it */
+  const cx0 = 500, cy0 = 330;
+  const seen = new Set(); const catsSel = [];
+  selected.forEach(s=>{ if(!seen.has(s.cat)){ seen.add(s.cat); catsSel.push(s.cat); } });
+  const primary = catsSel.length ? catsSel[0] : null;
+  const centerTxt = primary ? (NINETY[primary]||NINETY.custom) : 'Name your challenges in Step 02 and this map builds itself around your first 90 days with us.';
+  const cl = wrapText(centerTxt, 48).slice(0,7);
+  const ch = cardEl(cx0, cy0, 300, cl, {lh:16, fs:12, pad:16, fill:'rgba(248,153,29,.12)', stroke:'rgba(248,153,29,.8)', sw:1.6, color:'#ffe0b0', dash: primary?'0':'6 6'});
+  el('text',{x:cx0, y:cy0-ch/2-12, 'font-size':11, fill:'#f8991d','text-anchor':'middle','letter-spacing':2}, primary ? 'OUTPUT_02 // YOUR FIRST 90 DAYS' : 'THE MAP AWAITS');
+  const tag = document.getElementById('mmTag');
+  if(tag) tag.textContent = primary ? 'STRUINOVA // WHY_MAP // TUNED_TO_YOUR_SIGNALS' : 'STRUINOVA // WHY_MAP // AWAITING_STEP_02';
+  if(!primary) return;
+  /* branches = applied disciplines on all sides; limbs = discipline × their actual problems */
   const discOrder = [];
   catsSel.forEach(c=>{ (DISC_MAP[c]||DISC_MAP.custom).forEach(d=>{ if(discOrder.indexOf(d)<0) discOrder.push(d); }); });
-  const shown = discOrder.slice(0,5);
-  const n = shown.length;
-  const spacing = n>0 ? Math.min(150, 520/n) : 0;
-  const bx=330, bw=200, bh=34;
+  const shown = discOrder.slice(0,4);
+  const slotNames = {1:['E'],2:['E','W'],3:['N','E','W'],4:['N','E','W','S']}[shown.length];
+  const SLOTS = {
+    N:{px:500, py:118, pw:170, lw:250, cf:[500, cy0-ch/2], pt:[500,101], pb:[500,135],
+       pos:{1:[[500,52]],2:[[350,52],[650,52]],3:[[225,52],[500,48],[775,52]]}},
+    S:{px:500, py:548, pw:170, lw:250, cf:[500, cy0+ch/2], pt:[500,565], pb:[500,531],
+       pos:{1:[[500,622]],2:[[350,622],[650,622]],3:[[225,622],[500,626],[775,622]]}},
+    W:{px:255, py:330, pw:150, lw:170, cf:[350,330], pt:[180,330], pb:[330,330],
+       pos:{1:[[90,330]],2:[[90,205],[90,455]],3:[[90,180],[90,330],[90,480]]}},
+    E:{px:745, py:330, pw:150, lw:170, cf:[650,330], pt:[820,330], pb:[670,330],
+       pos:{1:[[910,330]],2:[[910,205],[910,455]],3:[[910,180],[910,330],[910,480]]}}
+  };
   shown.forEach((disc,i)=>{
+    const sl = SLOTS[slotNames[i]];
     const limbs = catsSel
       .filter(c=>(DISC_MAP[c]||DISC_MAP.custom).indexOf(disc)>=0)
       .map(c=>DISC_COMBO[disc+'|'+c])
       .filter(Boolean)
       .slice(0,3);
-    const bcy = 320 + (i-(n-1)/2)*spacing;
-    el('path',{d:'M'+(rootX+rootW)+','+rootCy+' C290,'+rootCy+' 270,'+bcy+' '+bx+','+bcy,class:'mm-link hot'});
-    el('rect',{x:bx,y:bcy-bh/2,width:bw,height:bh,rx:10,fill:'rgba(64,90,116,.45)',stroke:'rgba(248,153,29,.55)'});
-    el('text',{x:bx+bw/2,y:bcy+4,'font-size':11,fill:'#e6edf3','text-anchor':'middle','letter-spacing':1.5},disc);
+    const m = Math.max(limbs.length,1);
+    el('path',{d:'M'+sl.cf[0]+','+sl.cf[1]+' L'+sl.pb[0]+','+sl.pb[1], class:'mm-link hot'});
     limbs.forEach((lf,j)=>{
-      const m = limbs.length;
-      const ly = bcy + (j-(m-1)/2)*38;
-      const lx = bx+bw+52 + (j%2)*12;
-      const w = Math.min(lf.length*6.7+26, 330);
-      el('path',{d:'M'+(bx+bw)+','+bcy+' C'+(bx+bw+28)+','+bcy+' '+(lx-24)+','+ly+' '+lx+','+ly,class:'mm-link hot'});
-      el('rect',{x:lx,y:ly-15,width:w,height:30,rx:8,fill:'rgba(248,153,29,.10)',stroke:'rgba(248,153,29,.7)'});
-      el('text',{x:lx+w/2,y:ly+4,'font-size':11,fill:'#ffd9a8','text-anchor':'middle'},lf);
+      const p = (sl.pos[m]||sl.pos[1])[j];
+      el('path',{d:'M'+sl.pt[0]+','+sl.pt[1]+' C'+((sl.pt[0]+p[0])/2)+','+sl.pt[1]+' '+((sl.pt[0]+p[0])/2)+','+p[1]+' '+p[0]+','+p[1], class:'mm-link hot'});
+      cardEl(p[0], p[1], sl.lw, wrapText(lf, sl.lw>200?38:26).slice(0,5), {lh:14, fs:11, pad:10, fill:'rgba(248,153,29,.08)', stroke:'rgba(248,153,29,.55)', color:'#ffd9a8'});
     });
+    el('rect',{x:sl.px-sl.pw/2, y:sl.py-17, width:sl.pw, height:34, rx:10, fill:'rgba(64,90,116,.55)', stroke:'rgba(248,153,29,.6)'});
+    el('text',{x:sl.px, y:sl.py+4, 'font-size':10, fill:'#e6edf3','text-anchor':'middle','letter-spacing':1}, disc);
   });
-  const tag = document.getElementById('mmTag');
-  if(tag) tag.textContent = n ? 'STRUINOVA // WHY_MAP // TUNED_TO_YOUR_SIGNALS' : 'STRUINOVA // WHY_MAP // AWAITING_STEP_01';
 }
 renderMindmap();
 
@@ -1070,8 +1093,14 @@ function nameVal(){
 async function callRon(){
   const discs = new Set();
   selected.forEach(s=> (DISC_MAP[s.cat]||DISC_MAP.custom).forEach(d=>discs.add(d)) );
+  let returning = false;
+  try{
+    const sn = localStorage.getItem('struinova_name');
+    returning = !!(sn && nameVal() && sn.trim().toLowerCase() === nameVal().trim().toLowerCase());
+    if(nameVal()) localStorage.setItem('struinova_name', nameVal());
+  }catch(e){}
   const r = await fetch('/api/reframe', {method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({history: aiHistory, challenges: selected.map(s=>s.text), wrapUp: userTurns>=4, site: siteVal(), homework: aiHomework, name: nameVal(), disciplines: Array.from(discs)})});
+    body: JSON.stringify({history: aiHistory, challenges: selected.map(s=>s.text), wrapUp: userTurns>=4, site: siteVal(), homework: aiHomework, name: nameVal(), disciplines: Array.from(discs), returning: returning})});
   if(!r.ok) throw new Error('api');
   const j = await r.json();
   if(j.homework) aiHomework = j.homework;

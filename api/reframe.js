@@ -32,7 +32,7 @@ async function fetchSite(url) {
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') { res.status(405).json({ error: 'method not allowed' }); return; }
-  const { history = [], challenges = [], wrapUp = false, site = '', homework: prevHomework = '', name = '', disciplines = [] } = req.body || {};
+  const { history = [], challenges = [], wrapUp = false, site = '', homework: prevHomework = '', name = '', disciplines = [], returning = false } = req.body || {};
   const firstName = String(name || '').slice(0, 40).trim();
 
   let homework = typeof prevHomework === 'string' ? prevHomework.slice(0, 2200) : '';
@@ -55,6 +55,7 @@ Story pool (when proof helps, reference at most ONE story per reply, chosen for 
 The visitor selected these challenges: ${challenges.join('; ') || 'none stated'}.
 ${Array.isArray(disciplines) && disciplines.length ? 'The Reframe Engine flagged these Struinova disciplines for this case: ' + disciplines.join(', ') + '. Let the one or two most relevant shape your questions.' : ''}
 ${firstName ? `The visitor's first name is ${firstName}. Greet them by name once, early, then use the name at most once more. Never let it feel like a mail merge.` : ''}
+${firstName && returning && history.length === 0 ? `This visitor has been here before and gave the same name. Open your very first reply with a warm "Welcome back, ${firstName}" before anything else.` : ''}
 ${homework ? `\nHomework on the visitor's company, pulled from their public website: ${homework}\nUse this the way a prepared consultant would: work one specific, accurate detail about what they do into an early observation or question. Never recite the homework wholesale, never mention it came from their site; just demonstrate familiarity.` : ''}
 
 If this is the start of the conversation: greet briefly, offer their challenge reframed as a single "How might we..." question tailored to their situation, then ask whether that framing lands or misses. On later turns: one short observation at most, then one question, moving through facts, decisions, and emotions.${wrapUp ? ' Now wrap up warmly: reflect back what you heard in one sentence, and invite them to send the brief below or book time with Ron on his calendar. Ask no further questions.' : ''}`;
