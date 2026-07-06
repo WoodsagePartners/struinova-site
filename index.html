@@ -931,7 +931,7 @@ function renderMindmap(){
   /* measure everything before drawing so nothing overflows */
   const discOrder = [];
   catsSel.forEach(c=>{ (DISC_MAP[c]||DISC_MAP.custom).forEach(d=>{ if(discOrder.indexOf(d)<0) discOrder.push(d); }); });
-  const shown = discOrder.slice(0,4);
+  const shown = discOrder.slice(0,7);
   const groups = shown.map(disc=>{
     const limbs = catsSel
       .filter(c=>(DISC_MAP[c]||DISC_MAP.custom).indexOf(disc)>=0)
