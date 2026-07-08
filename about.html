@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | Struinova Innovation</title>
+<meta name="description" content="About Struinova Innovation: Ron Brumbarger, your Innovator in Residence, and the associates who work alongside him across North America, Europe, and Africa.">
+<link rel="icon" type="image/svg+xml" href="Struinova.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --orange:#f8991d; --burnt:#c2571b; --navy:#2c3e50; --ink:#0a1119;
+  --text:#e6edf3; --muted:#93a5b6; --line:rgba(148,180,210,0.14);
+  --panel:rgba(44,62,80,0.32); --panel-hi:rgba(64,90,116,0.30);
+  --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:var(--ink);color:var(--text);overflow-x:hidden;line-height:1.65}
+.bg{position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(1000px 700px at 80% -15%, rgba(44,62,80,0.55), transparent 60%),
+  radial-gradient(800px 600px at -10% 60%, rgba(44,62,80,0.4), transparent 65%),
+  radial-gradient(600px 500px at 70% 105%, rgba(194,87,27,0.08), transparent 60%),
+  linear-gradient(165deg,#0a1119 0%,#0d1621 50%,#0a1119 100%);}
+.panel{
+  background:linear-gradient(150deg,var(--panel-hi),var(--panel) 55%,rgba(22,34,46,0.5));
+  backdrop-filter:blur(16px) saturate(130%);-webkit-backdrop-filter:blur(16px) saturate(130%);
+  border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+section{padding:54px 0}
+h1,h2,h3{font-weight:600;line-height:1.22}
+.kicker{font-family:var(--mono);color:var(--orange);letter-spacing:.24em;font-size:.72rem;font-weight:500;margin-bottom:14px;text-transform:uppercase}
+.sub{color:var(--muted);font-weight:300;max-width:660px}
+.center{text-align:center}
+.center .sub{margin-left:auto;margin-right:auto}
+.dentist{font-family:'Caveat',cursive;font-size:1.65rem;color:var(--orange);display:inline-block;transform:rotate(-1.2deg)}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+  padding:14px 30px;border-radius:10px;border:1px solid rgba(248,153,29,.55);
+  background:linear-gradient(135deg,rgba(248,153,29,.95),rgba(194,87,27,.9));
+  color:#fff;font-family:inherit;font-size:.98rem;font-weight:500;
+  box-shadow:0 10px 30px rgba(194,87,27,.3), inset 0 1px 0 rgba(255,255,255,.3);
+  transition:transform .2s,box-shadow .2s;text-decoration:none;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(194,87,27,.45), inset 0 1px 0 rgba(255,255,255,.3)}
+.btn.ghost{background:rgba(148,180,210,.06);border:1px solid var(--line);box-shadow:none;color:var(--text)}
+.btn.ghost:hover{border-color:var(--orange);color:var(--orange)}
+/* nav */
+nav{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(1080px,94vw);
+  display:flex;align-items:center;gap:14px;padding:14px 18px 14px 128px;border-radius:14px;
+  background:#131f2c;border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+.logo-chip{
+  position:absolute;left:14px;top:100%;margin-top:-2px;width:158px;height:98px;
+  background:#131f2c;border:1px solid var(--line);border-top:none;border-radius:0 0 30px 30px;
+  box-shadow:0 22px 40px rgba(0,0,0,.45);
+}
+.biglogo{position:absolute;left:24px;top:9px;height:138px;width:138px;z-index:3;filter:drop-shadow(0 0 12px rgba(248,153,29,.45))}
+nav .brand{font-weight:600;letter-spacing:.1em;font-size:.92rem}
+nav .navlinks{display:flex;gap:24px;margin-left:auto}
+nav a{color:var(--muted);text-decoration:none;font-size:.84rem;transition:color .2s;font-family:var(--mono)}
+nav a:hover,nav a.here{color:var(--orange)}
+.menu-btn{display:none;margin-left:auto;background:rgba(148,180,210,.05);border:1px solid var(--line);border-radius:10px;width:42px;height:42px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.menu-btn i{display:block;width:18px;height:2px;background:var(--orange);border-radius:2px}
+@media(max-width:760px){
+  nav .navlinks{display:none}
+  .menu-btn{display:flex}
+  nav.open .navlinks{
+    display:flex;flex-direction:column;gap:16px;align-items:flex-end;
+    position:absolute;top:100%;right:0;margin-top:10px;
+    background:#131f2c;border:1px solid var(--line);border-radius:14px;
+    padding:20px 24px;box-shadow:0 20px 50px rgba(0,0,0,.55);
+  }
+  nav.open .navlinks a{font-size:1rem}
+}
+@media(max-width:640px){
+  nav{padding:12px 14px 12px 118px}
+  nav .brand{font-size:.72rem;letter-spacing:.06em}
+  .biglogo{height:92px;width:92px;left:18px;top:8px}
+  .logo-chip{width:110px;height:56px}
+  section{padding:40px 0}
+}
+/* about layout */
+.about-hero{padding-top:190px}
+.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:start;margin-top:34px}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+.portrait{
+  padding:14px 14px 18px;transform:rotate(-1.6deg);position:sticky;top:120px;
+}
+.portrait img{width:100%;display:block;border-radius:12px;border:1px solid rgba(248,153,29,.35)}
+.portrait .cap{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.14em;margin-top:12px;text-align:center}
+.bio p{color:var(--muted);font-weight:300;margin-bottom:16px}
+.bio p b{color:var(--text);font-weight:500}
+.creds{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+.cred{padding:18px 20px;border-radius:14px;background:rgba(148,180,210,.04);border:1px solid var(--line)}
+.cred b{display:block;color:var(--orange);font-size:1.3rem;font-weight:600;font-family:var(--mono)}
+.cred span{font-size:.78rem;color:var(--muted);font-weight:300}
+.bench{padding:40px 44px;margin-top:20px}
+.bench p{color:var(--muted);font-weight:300;margin-bottom:14px}
+.bench p b{color:var(--text);font-weight:500}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:36px}
+footer{padding:50px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem;font-weight:300}
+footer .frow{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+footer a{color:var(--orange);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<nav id="topnav">
+  <span class="logo-chip"></span>
+  <img class="biglogo" src="Struinova-dark.svg" alt="Struinova">
+  <span class="brand">STRUINOVA INNOVATION</span>
+  <span class="navlinks">
+    <a href="index.html#who">start_here</a>
+    <a href="index.html#why">why_resident</a>
+    <a href="index.html#stories">field_notes</a>
+    <a class="here" href="about.html">about_us</a>
+    <a href="https://cal.com/brumbarger" target="_blank" rel="noopener">book_call</a>
+  </span>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu"><i></i><i></i><i></i></button>
+</nav>
+
+<section class="about-hero">
+  <div class="wrap">
+    <div class="center">
+      <div class="kicker">About us</div>
+      <h1>The resident, and the bench behind him</h1>
+      <p class="sub" style="margin:16px auto 0">Struinova Innovation is built around a simple promise: seasoned eyes, a proven method, and the right people for each engagement. A founder with three decades in the arena, and a growing bench of trusted associates working across North America, Europe, and Africa.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="panel portrait">
+        <img src="ron.jpg" alt="Ron Brumbarger" onerror="this.parentElement.style.display='none'">
+        <div class="cap">RON BRUMBARGER // FIELDWORK, SOMEWHERE ABOVE THE TREE LINE</div>
+      </div>
+      <div class="bio">
+        <p><b>Ron Brumbarger builds things, fixes things, and teaches other people to see differently.</b> He founded Bitwise Solutions in 1992 and led it for 27 years: roughly 1,100 clients, 3,000 engagements, three competitors acquired along the way, and design thinking installed as the firm's own operating model years before it was fashionable. He sold the company in 2018.</p>
+        <p>When Central Indiana's knowledge firms could not find talent, he treated the shortage as a ripe problem and built the answer: <b>Apprentice University</b>, an award-winning, competency-based institution that served some 250 students across eleven years before its sale in 2023. That is the Struinova pattern in miniature: name the real problem, then build what answers it.</p>
+        <p>The method beneath the pattern is certified and earned. Ron is a <b>Senior Research Fellow with Basadur Innovation</b>, one of a small global group, and a certified facilitator of the Simplexity creative problem-solving process. He has taught and facilitated on three continents: mission organizations in Ethiopia and Kenya, developer camps in Croatia, innovation leaders in Berlin, executive teams across the United States and Europe. Taylor University named him its first <b>Entrepreneur in Residence</b>.</p>
+        <p>And then there is the proof most consultants cannot offer: Ron has worked <b>two cold case homicides</b> alongside law enforcement. The first ran on the Simplexity method alone. The second paired Simplexity with AI, surfaced new leads in a 25-year-old file, and was presented to the International Homicide Investigators Association. If the method moves a case detectives stared at for a quarter century, it can move your market.</p>
+        <p>He holds a degree in robotics, a US patent, and the pen behind <i>You're Always Being Interviewed</i>. He co-founded the <a href="https://hmwcollective.com" target="_blank" rel="noopener" style="color:var(--orange);text-decoration:none">How Might We Collective</a>. He is, depending on the day, a facilitator, a professor, an investigator, and a fellow founder who has genuinely sat in your chair.</p>
+        <div class="creds">
+          <div class="cred"><b>27y</b><span>Built and sold Bitwise Solutions, ~1,100 clients worldwide</span></div>
+          <div class="cred"><b>3000+</b><span>Client engagements delivered</span></div>
+          <div class="cred"><b>3</b><span>Continents of workshops: North America, Europe, Africa</span></div>
+          <div class="cred"><b>11y</b><span>Founded, led, and sold Apprentice University</span></div>
+          <div class="cred"><b>SRF</b><span>Senior Research Fellow, Basadur Innovation</span></div>
+          <div class="cred"><b>2</b><span>Cold case homicides worked beside police</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel bench">
+      <div class="kicker">The associates</div>
+      <h2>Sometimes it's Ron. Sometimes it's a team.<br>The method is constant.</h2>
+      <p style="margin-top:16px">When an engagement calls for more hands, we bring trusted associates: facilitators, designers, technologists, and operators we have worked beside for years, including partners from the <a href="https://hmwcollective.com" target="_blank" rel="noopener" style="color:var(--orange);text-decoration:none">How Might We Collective</a>. Each one is chosen for the engagement in front of us, not billed to it by default, and the bench grows as Struinova does.</p>
+      <p>Whether you get one facilitator or five, you get the same methodology, the same vocabulary, and the same standard: <b>your team leaves stronger than we found it.</b></p>
+      <div class="center" style="margin-top:26px"><span class="dentist">"You can't be your own dentist." We bring the fresh eyes; friends of the firm bring more.</span></div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn" href="index.html#who">Run your challenge through the Reframing Engine &rarr;</a>
+      <a class="btn ghost" href="https://cal.com/brumbarger" target="_blank" rel="noopener">Book thirty minutes with Ron</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap frow">
+    <div>&copy; <span id="yr"></span> Struinova Innovation &middot; Indianapolis, USA &middot; working across North America, Europe, and Africa</div>
+    <div><a href="mailto:ron@struinova.com">ron@struinova.com</a> &middot; <a href="tel:+13174904376">317.490.4376</a> &middot; <a href="https://linkedin.com/in/brumbarger" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://cal.com/brumbarger" target="_blank" rel="noopener">cal.com/brumbarger</a></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+const menuBtn = document.getElementById('menuBtn');
+if(menuBtn){
+  const navEl = document.getElementById('topnav');
+  menuBtn.onclick = ()=> navEl.classList.toggle('open');
+  document.querySelectorAll('nav .navlinks a').forEach(a=>{
+    a.addEventListener('click', ()=> navEl.classList.remove('open'));
+  });
+}
+</script>
+</body>
+</html>
