@@ -1232,6 +1232,9 @@ btn.onclick = ()=>{
     }
     const dlc = document.getElementById('dlCue');
     if(dlc) dlc.style.display='block';
+    /* the brief is available immediately; the chat below supplements it */
+    const brEl = document.getElementById('brief');
+    if(brEl && brEl.style.display !== 'block'){ brEl.style.display='block'; buildBrief(); }
     /* the conversation spills out of the engine, quietly, below */
     setTimeout(startSpill, 1400);
   }, Math.max(selected.length*320 + 1600, 11200));
