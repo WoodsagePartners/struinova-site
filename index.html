@@ -323,6 +323,8 @@ nav a:hover{color:var(--orange)}
   .console-tag{display:none}
   .dot-name{max-width:62vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .engine-shell{padding:50px 10px 14px}
+  .engine-body{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .engine-svg{min-width:600px}
   .disc-panel{padding:50px 16px 16px}
   .outcard{padding:20px 18px}
   .mindmap-shell{overflow-x:auto;padding:52px 10px 12px}
@@ -1648,5 +1650,10 @@ document.getElementById('sendBrief').onclick = ()=>{
   window.location.href='mailto:ron@struinova.com?subject='+encodeURIComponent('Challenge brief: '+(org||name||'new visitor'))+'&body='+encodeURIComponent(body);
 };
 </script>
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
