@@ -165,7 +165,10 @@ nav a:hover{color:var(--orange)}
 .dot-tab{width:12px;height:12px;border-radius:50%;border:1px solid rgba(248,153,29,.6);background:rgba(248,153,29,.35);cursor:pointer;padding:0;transition:all .2s}
 .dot-tab:hover{background:rgba(248,153,29,.7);transform:scale(1.2)}
 .dot-tab.active{background:var(--orange);border-color:var(--orange);box-shadow:0 0 12px rgba(248,153,29,.8)}
-.dot-name{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.16em;margin-left:8px}
+.dot-name{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.16em;margin-left:8px;flex:1}
+.dot-sep{color:rgba(248,153,29,.4);margin:0 10px;font-size:.8rem}
+.restart-btn{background:linear-gradient(135deg,rgba(248,153,29,.95),rgba(194,87,27,.9));border:1px solid rgba(248,153,29,.7);color:#fff;padding:8px 18px;border-radius:8px;font-family:inherit;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .2s;box-shadow:0 4px 12px rgba(194,87,27,.3)}
+.restart-btn:hover{background:linear-gradient(135deg,var(--orange),var(--burnt));box-shadow:0 6px 18px rgba(194,87,27,.45);transform:translateY(-1px)}
 .disc-panel{padding:46px 26px 20px;margin-top:22px}
 .disc-panel .dlabel{font-family:var(--mono);font-size:.64rem;color:var(--orange);letter-spacing:.18em;margin-bottom:10px;position:relative;z-index:1}
 .disc-row{display:flex;flex-wrap:wrap;gap:8px;position:relative;z-index:1}
@@ -222,6 +225,10 @@ nav a:hover{color:var(--orange)}
   .pd-table{width:100%;border-collapse:collapse;margin-top:4px}
   .pd-table td{font-size:11px;line-height:1.55;padding:7px 8px;border-bottom:1px solid #e3e9ee;vertical-align:top;color:#243442}
   .pd-table td:first-child{font-weight:600;color:#2c3e50;white-space:nowrap;font-size:10.5px;letter-spacing:.05em;width:180px}
+  .pd-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+  .pd-card{border:1px solid #e3cdb0;border-top:3px solid #c2571b;border-radius:8px;padding:10px 12px;background:#fffaf3;break-inside:avoid;page-break-inside:avoid}
+  .pd-card h6{font-size:10.5px;color:#c2571b;letter-spacing:.1em;margin:0 0 5px;font-weight:600}
+  .pd-card p{font-size:10.5px;line-height:1.5;margin:0;color:#243442}
   .pd-quote{margin-top:4px;padding:12px 16px;border-left:3px solid #c2571b;font-style:italic;font-size:11.5px;color:#243442;break-inside:avoid;page-break-inside:avoid}
   .pd-runfoot{position:fixed;bottom:0;left:0;right:0;text-align:center;font-size:9px;color:#9aa8b5;letter-spacing:.08em}
   #printDoc a{color:#c2571b;text-decoration:none}
@@ -321,7 +328,9 @@ nav a:hover{color:var(--orange)}
   .steprule{flex:0 0 26px}
   .intake{padding:60px 14px 22px}
   .console-tag{display:none}
-  .dot-name{max-width:62vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dot-name{max-width:50vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dot-sep{margin:0 6px;font-size:.7rem}
+  .restart-btn{padding:6px 14px;font-size:.78rem}
   .engine-shell{padding:50px 10px 14px}
   .engine-body{overflow-x:auto;-webkit-overflow-scrolling:touch}
   .engine-svg{min-width:600px}
@@ -389,11 +398,12 @@ footer a{color:var(--orange);text-decoration:none}
 
 <nav class="panel">
   <span class="logo-chip"></span>
-  <img class="biglogo" src="Struinova-dark.svg" alt="Struinova">
+  <a href="index.html" aria-label="Struinova home"><img class="biglogo" src="Struinova-dark.svg" alt="Struinova"></a>
   <span class="brand">STRUINOVA INNOVATION</span>
   <span class="navlinks">
     <a href="#who">start_here</a>
     <a href="#why">why_resident</a>
+    <a href="lenses/">lenses</a>
     <a href="#stories">field_notes</a>
     <a href="about.html">about_us</a>
     <a href="https://cal.com/brumbarger" target="_blank" rel="noopener">book_call</a>
@@ -425,7 +435,7 @@ footer a{color:var(--orange);text-decoration:none}
 <header class="hero">
   <div class="wrap">
     <span class="dentist">"You can't be your own dentist."</span>
-    <h1>Blind to your own possibilities?<br><em>Get an Innovator in Residence. Not a consultant.</em></h1>
+    <h1>Every organization goes blind to its own <em>possibilities.</em></h1>
     <p class="sub">Struinova goes to market one way: as your Innovator in Residence. Not a consultant who visits and leaves a deck, but a seasoned innovation partner who takes up residence alongside your team, brings a proven creative problem-solving method, and trains your people until innovation is a muscle they own. Don't take our word for it. Run your real problem through our process, right now.</p>
     <a class="btn" href="#who">Show us what's stuck &darr;</a>
   </div>
@@ -475,6 +485,8 @@ footer a{color:var(--orange);text-decoration:none}
         <button class="dot-tab" data-set="1" aria-label="New products and services"></button>
         <button class="dot-tab" data-set="2" aria-label="Tech, AI and robotics"></button>
         <span class="dot-name" id="dotName">SET_01 // WHAT'S STUCK &middot; TAP THE DOTS FOR MORE BOARDS</span>
+        <span class="dot-sep">|</span>
+        <button id="restartBtn" class="restart-btn" style="display:none">Restart</button>
       </div>
       <div class="wall" id="stickyWall"></div>
       <div class="intake-foot">
@@ -496,7 +508,7 @@ footer a{color:var(--orange);text-decoration:none}
     </div>
     <div class="center" style="margin-bottom:26px">
       <h2>When you change how you see a problem,<br>you change the problem you see.</h2>
-      <p class="sub" style="margin:14px auto 0">We trained this reframing engine to work the way we do: same method, same questions, same stubborn refusal to accept the first framing. Your challenges enter from the left, eight Struinova lenses pour in from above, the junk gets exhausted off to the right, and what flows out the bottom is a conversation worth having.</p>
+      <p class="sub" style="margin:14px auto 0">We trained this reframing engine to work the way we do: same method, same questions, same stubborn refusal to accept the first framing. Your challenges enter from the left, nine Struinova lenses pour in from above, the junk gets exhausted off to the right, and what flows out the bottom is a conversation worth having.</p>
     </div>
     <div class="panel console engine-shell" id="engineShell">
       <span class="console-tag">STRUINOVA // REFRAME_ENGINE</span>
@@ -506,28 +518,30 @@ footer a{color:var(--orange);text-decoration:none}
           <!-- ingredient streams (top) -->
           <g transform="translate(-80 0)">
           <g stroke="rgba(148,180,210,.5)" fill="none" stroke-width="1.3">
-            <path class="flow" d="M160,84 C160,170 330,190 452,222"/>
-            <path class="flow" d="M255,84 C258,165 380,182 468,212"/>
-            <path class="flow" d="M350,84 C352,150 430,172 484,198"/>
-            <path class="flow" d="M445,84 C447,140 470,160 494,190"/>
-            <path class="flow" d="M540,84 C540,140 528,165 508,190"/>
-            <path class="flow" d="M635,84 C632,150 570,172 516,198"/>
-            <path class="flow" d="M730,84 C727,165 620,182 532,212"/>
-            <path class="flow" d="M825,84 C825,170 670,190 548,222"/>
+            <path class="flow" d="M140,88 C140,175 320,192 450,224"/>
+            <path class="flow" d="M230,88 C233,168 375,185 466,214"/>
+            <path class="flow" d="M320,88 C322,155 425,175 483,200"/>
+            <path class="flow" d="M410,88 C412,140 462,165 492,192"/>
+            <path class="flow" d="M500,88 L500,184"/>
+            <path class="flow" d="M590,88 C588,140 538,165 508,192"/>
+            <path class="flow" d="M680,88 C678,155 575,175 517,200"/>
+            <path class="flow" d="M770,88 C767,168 625,185 534,214"/>
+            <path class="flow" d="M860,88 C860,175 680,192 550,224"/>
           </g>
-          <g font-size="13" fill="#c6d6e4" text-anchor="middle" letter-spacing="1">
-            <text x="160" y="40">EXPERIENCE</text>
-            <text x="255" y="70">PROCESS</text>
-            <text x="350" y="40">INNOVATION</text>
-            <text x="445" y="70">DESIGN THINKING</text>
-            <text x="540" y="40">TRAINING</text>
-            <text x="635" y="70">ENTREPRENEURSHIP</text>
-            <text x="730" y="36">CREATIVE</text>
-            <text x="730" y="52">PROBLEM-SOLVING</text>
-            <text x="825" y="70">APPLIED AI</text>
+          <g font-size="12" fill="#c6d6e4" text-anchor="middle" letter-spacing="1">
+            <text x="140" y="40">EXPERIENCE</text>
+            <text x="230" y="68">PROCESS</text>
+            <text x="320" y="40">INNOVATION</text>
+            <text x="410" y="68">FIRST PRINCIPLES</text>
+            <text x="500" y="40">TRAINING</text>
+            <text x="590" y="68">DESIGN THINKING</text>
+            <text x="680" y="40">ENTREPRENEURSHIP</text>
+            <text x="770" y="56">CREATIVE</text>
+            <text x="770" y="72">PROBLEM-SOLVING</text>
+            <text x="860" y="40">APPLIED AI</text>
           </g>
           <g fill="#f8991d">
-            <circle cx="160" cy="78" r="3.4"/><circle cx="255" cy="78" r="3.4"/><circle cx="350" cy="78" r="3.4"/><circle cx="445" cy="78" r="3.4"/><circle cx="540" cy="78" r="3.4"/><circle cx="635" cy="78" r="3.4"/><circle cx="730" cy="78" r="3.4"/><circle cx="825" cy="78" r="3.4"/>
+            <circle cx="140" cy="82" r="3.4"/><circle cx="230" cy="82" r="3.4"/><circle cx="320" cy="82" r="3.4"/><circle cx="410" cy="82" r="3.4"/><circle cx="500" cy="82" r="3.4"/><circle cx="590" cy="82" r="3.4"/><circle cx="680" cy="82" r="3.4"/><circle cx="770" cy="82" r="3.4"/><circle cx="860" cy="82" r="3.4"/>
           </g>
           </g>
           <!-- input path (left) -->
@@ -904,6 +918,20 @@ let curSet = 0;
 const selectedIds = new Set();
 let customText = '';
 
+function clearSelections(){
+  selected = [];
+  selectedIds.clear();
+  customText = '';
+  updateQueue();
+  renderWall();
+  updateRestartVisibility();
+}
+
+function updateRestartVisibility(){
+  const rb = document.getElementById('restartBtn');
+  if(rb) rb.style.display = selected.length > 0 ? 'inline-block' : 'none';
+}
+
 function renderWall(){
   wallEl.innerHTML = '';
   CHALLENGE_SETS[curSet].items.forEach(c=>{
@@ -939,6 +967,8 @@ document.querySelectorAll('.dot-tab').forEach(t=>{
     renderWall();
   };
 });
+const restartBtn = document.getElementById('restartBtn');
+if(restartBtn) restartBtn.addEventListener('click', clearSelections);
 renderWall();
 try{
   const sn = localStorage.getItem('struinova_name');
@@ -954,21 +984,22 @@ function syncSel(){
   document.getElementById('qCount').textContent = selected.length;
   document.getElementById('qStatus').textContent = selected.length ? 'READY TO REFRAME' : 'AWAITING INPUT';
   renderMindmap();
+  updateRestartVisibility();
 }
 
 /* =============== APPLIED DISCIPLINES =============== */
-const ALLDISC = ['EXPERIENCE','PROCESS','INNOVATION','DESIGN THINKING','TRAINING','ENTREPRENEURSHIP','CREATIVE PROBLEM-SOLVING','APPLIED AI'];
+const ALLDISC = ['EXPERIENCE','PROCESS','INNOVATION','FIRST PRINCIPLES','DESIGN THINKING','TRAINING','ENTREPRENEURSHIP','CREATIVE PROBLEM-SOLVING','APPLIED AI'];
 const DISC_MAP = {
   imagine:['TRAINING','CREATIVE PROBLEM-SOLVING','INNOVATION'],
   blind:['EXPERIENCE','CREATIVE PROBLEM-SOLVING','APPLIED AI'],
-  paradigm:['INNOVATION','DESIGN THINKING','TRAINING','EXPERIENCE'],
+  paradigm:['FIRST PRINCIPLES','INNOVATION','DESIGN THINKING','TRAINING','EXPERIENCE'],
   silos:['PROCESS','TRAINING','EXPERIENCE'],
   gtm:['ENTREPRENEURSHIP','DESIGN THINKING','EXPERIENCE','INNOVATION'],
   mindset:['TRAINING','PROCESS','CREATIVE PROBLEM-SOLVING'],
   method:['PROCESS','TRAINING','CREATIVE PROBLEM-SOLVING'],
-  knot:['CREATIVE PROBLEM-SOLVING','PROCESS','EXPERIENCE'],
+  knot:['CREATIVE PROBLEM-SOLVING','FIRST PRINCIPLES','PROCESS','EXPERIENCE'],
   product:['ENTREPRENEURSHIP','DESIGN THINKING','INNOVATION','CREATIVE PROBLEM-SOLVING'],
-  tech:['APPLIED AI','EXPERIENCE','INNOVATION'],
+  tech:['APPLIED AI','FIRST PRINCIPLES','EXPERIENCE','INNOVATION'],
   custom:['CREATIVE PROBLEM-SOLVING','EXPERIENCE','APPLIED AI']
 };
 const NINETY = {
@@ -1052,6 +1083,9 @@ const DISC_COMBO = {
   'CREATIVE PROBLEM-SOLVING|knot':'Telescoping zooms the problem in and out until the first loose strand shows itself. It always does.',
   'CREATIVE PROBLEM-SOLVING|product':'How-might-we laddering walks a complaint up to a concept your customers did not know to ask for.',
   'CREATIVE PROBLEM-SOLVING|custom':'Your own words become a workable challenge statement, usually a different one than you arrived with.',
+  'FIRST PRINCIPLES|paradigm':'Strip the challenge to what is physically and economically true, then rebuild. The old way rarely survives the teardown.',
+  'FIRST PRINCIPLES|knot':'Big knots untangle when you separate what must be true from what everyone merely assumes. We find that difference.',
+  'FIRST PRINCIPLES|tech':'Before any tool gets bought, we reduce the workflow to its irreducible jobs. AI earns its seat at that table or none.',
   'DESIGN THINKING|gtm':'We ran Bitwise on design thinking as its operating model. Your market gets the same treatment: empathize, define, prototype, test.',
   'DESIGN THINKING|product':'Design thinking starts with the human need, not the feature list. Offerings born that way get adopted, not just launched.',
   'DESIGN THINKING|paradigm':'Design thinking swaps "how we have always done it" for "what do people actually need". The shift sounds small. It is not.',
@@ -1517,6 +1551,7 @@ const DISC_DESC = {
   'EXPERIENCE':'Thirty-plus years founding, growing, and selling companies, plus roughly 3,000 client engagements across North America, Europe, and Africa. Pattern recognition you cannot shortcut.',
   'PROCESS':'A structured path from fuzzy complaint to executed solution, so your team’s energy becomes output instead of circling. No steps skipped, no meetings that go nowhere.',
   'INNOVATION':'Practical techniques such as analogous thinking and lateral thinking: borrowing proven patterns from other industries and applying them to your situation.',
+  'FIRST PRINCIPLES':'Reasoning down to what is fundamentally true about your situation, then building back up from there, instead of reasoning by analogy to what competitors or history did.',
   'DESIGN THINKING':'A human-centered method: understand the people involved, define the real need, generate options, prototype cheaply, and test quickly. We ran our own firm on it as an operating model.',
   'TRAINING':'Your team learns each skill while solving the real problem, not in a classroom. The capability stays in your building after the engagement ends.',
   'ENTREPRENEURSHIP':'Founder-level judgment about ripe problems, viable offerings, and business models, earned by building and selling companies rather than only advising them.',
@@ -1587,9 +1622,11 @@ function downloadBrief(){
     + '<div class="pd-tl-item"><h5>Month three</h5><p>Idea finding, converging, and a first prototype tested with real stakeholders. Implementation steps get named owners, and your team can now run this process without us watching.</p></div>'
     + '<div class="pd-tl-more"><h5>Month four and beyond</h5><p>The timeline stays open on purpose. Some teams take the skills and run; many keep us in residence for the next challenge, deeper training, or a new market. Ninety days is the runway, not the destination.</p></div>'
     + '</div>'
+    + '</div>'
+    + '<div class="pd-page">'
     + '<div class="pd-h">The lenses we applied, in plain language</div>'
     + '<p class="pd-p">Specific skills your team would practice: ' + esc(Array.from(sk).join(', ')) + '.</p>'
-    + '<table class="pd-table">' + Array.from(discs).map(d=>'<tr><td>&#10003; '+d+'</td><td>'+(DISC_DESC[d]||'')+'</td></tr>').join('') + '</table>'
+    + '<div class="pd-cards">' + Array.from(discs).map(d=>'<div class="pd-card"><h6>&#10003; '+d+'</h6><p>'+(DISC_DESC[d]||'')+'</p></div>').join('') + '</div>'
     + '</div>'
     + '<div class="pd-page">'
     + '<div class="pd-mapwrap"><div class="pd-h">Your map: why an Innovator in Residence fits</div>'
