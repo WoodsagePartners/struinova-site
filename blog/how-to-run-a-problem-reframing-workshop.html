@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Run a Problem-Reframing Workshop | Struinova Innovation</title>
+<meta name="description" content="The two-day facilitation framework we use to turn twenty-five people with competing agendas into a team with a shared plan. Real moves, in order.">
+<link rel="icon" type="image/svg+xml" href="../Struinova.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#f8991d;--burnt:#c2571b;--navy:#2c3e50;--ink:#0a1119;--text:#e6edf3;--muted:#93a5b6;--line:rgba(148,180,210,0.14);--panel:rgba(44,62,80,0.32);--panel-hi:rgba(64,90,116,0.30);--mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:var(--ink);color:var(--text);overflow-x:hidden;line-height:1.65}
+.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(1000px 700px at 80% -15%, rgba(44,62,80,0.55), transparent 60%),radial-gradient(800px 600px at -10% 60%, rgba(44,62,80,0.4), transparent 65%),radial-gradient(600px 500px at 70% 105%, rgba(194,87,27,0.08), transparent 60%),linear-gradient(165deg,#0a1119 0%,#0d1621 50%,#0a1119 100%)}
+.panel{background:linear-gradient(150deg,var(--panel-hi),var(--panel) 55%,rgba(22,34,46,0.5));backdrop-filter:blur(16px) saturate(130%);-webkit-backdrop-filter:blur(16px) saturate(130%);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08)}
+.wrap{max-width:820px;margin:0 auto;padding:0 24px}
+section{padding:54px 0}
+h1,h2,h3{font-weight:600;line-height:1.22}
+.kicker{font-family:var(--mono);color:var(--orange);letter-spacing:.24em;font-size:.72rem;font-weight:500;margin-bottom:14px;text-transform:uppercase}
+p{color:var(--muted);font-weight:300;margin-bottom:20px;line-height:1.7}
+.lead{font-size:1.12rem;color:var(--text);font-weight:300}
+h1{font-size:2.1rem;margin-bottom:22px}
+h2{font-size:1.35rem;margin:44px 0 4px;color:var(--text)}
+.highlight{color:var(--orange);font-weight:500}
+strong{color:var(--text);font-weight:500}
+nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(1080px,94vw);display:flex;align-items:center;gap:14px;padding:16px 18px 16px 188px;border-radius:14px;background:#131f2c;border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.logo-chip{position:absolute;left:14px;top:100%;margin-top:-2px;width:158px;height:100px;background:#131f2c;border:1px solid var(--line);border-top:none;border-radius:0 0 30px 30px;box-shadow:0 22px 40px rgba(0,0,0,.45)}
+.biglogo{position:absolute;left:24px;top:9px;height:138px;width:138px;z-index:3;filter:drop-shadow(0 0 12px rgba(248,153,29,.45))}
+nav .brand{font-weight:600;letter-spacing:.1em;font-size:.92rem}
+nav .navlinks{display:flex;gap:24px;margin-left:auto}
+nav a{color:var(--muted);text-decoration:none;font-size:.84rem;transition:color .2s;font-family:var(--mono)}
+nav a:hover,nav a.here{color:var(--orange)}
+.menu-btn{display:none;margin-left:auto;background:rgba(148,180,210,.05);border:1px solid var(--line);border-radius:10px;width:42px;height:42px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.menu-btn i{display:block;width:18px;height:2px;background:var(--orange);border-radius:2px}
+@media(max-width:760px){nav .navlinks{display:none}.menu-btn{display:flex}nav.open .navlinks{display:flex;flex-direction:column;gap:16px;align-items:flex-end;position:absolute;top:100%;right:0;margin-top:10px;background:#131f2c;border:1px solid var(--line);border-radius:14px;padding:20px 24px;box-shadow:0 20px 50px rgba(0,0,0,.55)}nav.open .navlinks a{font-size:1rem}}
+@media(max-width:640px){nav{padding:12px 14px 12px 118px}nav .brand{font-size:.72rem;letter-spacing:.06em}.biglogo{height:92px;width:92px;left:18px;top:8px}.logo-chip{width:110px;height:56px}section{padding:40px 0}h1{font-size:1.7rem}}
+.post-hero{padding-top:150px;padding-bottom:10px}
+.meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);letter-spacing:.08em;margin-bottom:30px}
+.meta .highlight{color:var(--orange)}
+.pull{border-left:2px solid var(--orange);padding:6px 0 6px 24px;margin:34px 0}
+.pull p{color:var(--text);font-size:1.28rem;font-weight:400;font-family:'Caveat',cursive;line-height:1.4;margin:0}
+.card{padding:30px 32px;margin:32px 0}
+.card h3{color:var(--orange);font-size:1.02rem;font-family:var(--mono);letter-spacing:.06em;margin-bottom:14px;font-weight:500}
+.card p:last-child{margin-bottom:0}
+.steps{margin:26px 0}
+.steps .row{display:flex;gap:18px;padding:20px 0;border-top:1px solid var(--line)}
+.steps .row:last-child{border-bottom:1px solid var(--line)}
+.steps .num{font-family:var(--mono);color:var(--orange);font-size:.9rem;flex:0 0 34px;padding-top:2px}
+.steps .row div p{margin-bottom:0}
+.steps .row b{color:var(--text);font-weight:500}
+.cta-box{margin:50px 0 10px;text-align:center;padding:44px 32px}
+.cta-box h2{margin-top:0}
+.btn{display:inline-block;margin-top:22px;padding:14px 30px;border-radius:10px;border:1px solid rgba(248,153,29,.55);background:linear-gradient(135deg,rgba(248,153,29,.95),rgba(194,87,27,.9));color:#fff;font-family:inherit;font-size:.98rem;font-weight:500;box-shadow:0 10px 30px rgba(194,87,27,.3), inset 0 1px 0 rgba(255,255,255,.3);text-decoration:none;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(194,87,27,.45), inset 0 1px 0 rgba(255,255,255,.3)}
+.related{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:8px}
+.related a{color:var(--orange);text-decoration:none}
+footer{padding:50px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem;font-weight:300}
+footer .frow{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+footer a{color:var(--orange);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<nav id="topnav">
+  <span class="logo-chip"></span>
+  <a href="../index.html" aria-label="Struinova home"><img class="biglogo" src="../Struinova-dark.svg" alt="Struinova"></a>
+  <span class="brand">STRUINOVA INNOVATION</span>
+  <span class="navlinks">
+    <a href="../index.html#who">start_here</a>
+    <a href="../index.html#why">why_resident</a>
+    <a href="../lenses/index.html">lenses</a>
+    <a href="../blog/index.html">field_notes</a>
+    <a href="../about.html">about_us</a>
+    <a href="https://cal.com/brumbarger" target="_blank" rel="noopener">book_call</a>
+  </span>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu"><i></i><i></i><i></i></button>
+</nav>
+
+<section class="post-hero">
+  <div class="wrap">
+    <div class="kicker">Field Notes &middot; Facilitation</div>
+    <h1>How to Run a Problem-Reframing Workshop</h1>
+    <div class="meta">By Ron Brumbarger &middot; Indianapolis</div>
+    <p class="lead">Manitou Springs, Colorado gave us two days and twenty-five people who did not want to be in the room together. Here is the framework, move by move.</p>
+  </div>
+</section>
+
+<section style="padding-top:10px">
+  <div class="wrap">
+
+    <p>The setup was not promising. Manitou Springs, Colorado, a tourism-dependent town at the base of Pikes Peak, was buckling under a homelessness and mental-health crisis that had spilled in from fast-growing Colorado Springs next door. Residents blamed leadership. Earlier attempts at a shared strategy had collapsed under a mix of apathy and open opposition. We were given two days and about twenty-five people from organizations with real history and self-serving agendas. One of them walked out in the first hour. Here is what the other twenty-four did.</p>
+
+    <h2>Day one: build the ground before you build the plan</h2>
+    <p><strong>Connection before content.</strong> We opened with ten minutes of simple, slightly ridiculous icebreakers. The point was not fun for its own sake. Ideas do not surface in a room where people are guarded, and you cannot reframe a problem with a group that will not speak freely.</p>
+    <p><strong>A shared canvas and shared skills.</strong> We taught the basics, divergent thinking, convergent thinking, deferral of judgment, each with a quick exercise so everyone left with the same vocabulary. Then we put a co-design canvas on the wall and moved the conversation off personalities and onto a target everyone could face together. By lunch, the loudest silos had quietly shrunk.</p>
+    <p><strong>Gamify it.</strong> We split the room into two deliberately mixed, competitive teams and asked them to keep their strategies secret until the next day. Competition pulled focus without creating winners and losers.</p>
+    <p><strong>Improv and analogous thinking.</strong> One group acted out the town's current and future states. Another asked how wildly unrelated situations would handle the same challenge, starting absurd to loosen imagination, then grounding it. Both surfaced ideas a straight discussion never would have.</p>
+    <p><strong>Trading cards and a popcorn debrief.</strong> Over a break, people swapped cards to build fictional dream teams, quietly dissolving more friction. We closed the day with each person sharing two takeaways, one funny and one serious.</p>
+
+    <div class="pull"><p>By the second day's lunch in the park, the day-one adversaries were sharing tables. Nobody planned the seating. The method did that.</p></div>
+
+    <h2>Day two: reframe, then solve</h2>
+    <p><strong>Warm up laughing.</strong> A fast "yes, and" round set the mood on purpose. Somber rooms do not generate.</p>
+    <p><strong>Problem definition.</strong> Using the previous day's facts, each team ran Simplexity step three and named its real problem. Both definitions drifted a long way from the challenge we started with, which is exactly what a good reframe does.</p>
+    <p><strong>Idea finding and ranking.</strong> Steps four and five. Each team produced five solid, actionable ideas and prioritized them.</p>
+    <p><strong>Presentations.</strong> Thirty minutes to prepare, five to present. The two teams arrived at strikingly different plans, which made the blended next steps richer than either alone. The tension that filled the room on day one was simply gone.</p>
+
+    <h2>What it produced</h2>
+    <p>The community conceived and stood up a wellness and referral hub, The Hive, that the Manitou Springs police began routing people to directly. Staff, board, and city leadership co-wrote the operating procedures together. And the part that matters most for you: participants carried the skills back into their own organizations and used them on later projects. We facilitated one plan. They kept a capability.</p>
+
+    <h2>The moves that carry across</h2>
+    <p>Connection before content. A shared vocabulary before a shared plan. A target on the wall instead of personalities across the table. Structured divergence, then honest convergence. None of it is theater, and all of it is repeatable. That is the difference between a workshop people remember fondly and one that actually changes what they do on Monday.</p>
+
+    <div class="cta-box panel">
+      <h2 style="color:var(--text)">Have a room that needs to become a team?</h2>
+      <p>Let's talk through your situation and design two days that actually move it.</p>
+      <a href="https://cal.com/brumbarger" target="_blank" rel="noopener" class="btn">Book a call &rarr;</a>
+      <div class="related">Related: <a href="../services/design-thinking-facilitation.html">Design Thinking Facilitation</a> &middot; <a href="../blog/why-workshops-fail-and-how-to-run-ones-that-stick.html">Why workshops fail</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap frow">
+    <div>&copy; <span id="yr"></span> Struinova Innovation &middot; Indianapolis, USA &middot; working across North America, Europe, and Africa</div>
+    <div><a href="mailto:ron@struinova.com">ron@struinova.com</a> &middot; <a href="tel:+13174904376">317.490.4376</a> &middot; <a href="https://linkedin.com/in/brumbarger" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://cal.com/brumbarger" target="_blank" rel="noopener">cal.com/brumbarger</a></div>
+  </div>
+</footer>
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+const menuBtn = document.getElementById('menuBtn');
+if(menuBtn){const navEl=document.getElementById('topnav');menuBtn.onclick=()=>navEl.classList.toggle('open');document.querySelectorAll('nav .navlinks a').forEach(a=>{a.addEventListener('click',()=>navEl.classList.remove('open'));});}
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Resident Model: Why Embedded Innovation Works | Struinova Innovation</title>
+<meta name="description" content="Consultants leave decks. Residents leave capability. Why embedding an Innovator in Residence changes the outcome, and when to choose it.">
+<link rel="icon" type="image/svg+xml" href="../Struinova.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#f8991d;--burnt:#c2571b;--navy:#2c3e50;--ink:#0a1119;--text:#e6edf3;--muted:#93a5b6;--line:rgba(148,180,210,0.14);--panel:rgba(44,62,80,0.32);--panel-hi:rgba(64,90,116,0.30);--mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:var(--ink);color:var(--text);overflow-x:hidden;line-height:1.65}
+.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(1000px 700px at 80% -15%, rgba(44,62,80,0.55), transparent 60%),radial-gradient(800px 600px at -10% 60%, rgba(44,62,80,0.4), transparent 65%),radial-gradient(600px 500px at 70% 105%, rgba(194,87,27,0.08), transparent 60%),linear-gradient(165deg,#0a1119 0%,#0d1621 50%,#0a1119 100%)}
+.panel{background:linear-gradient(150deg,var(--panel-hi),var(--panel) 55%,rgba(22,34,46,0.5));backdrop-filter:blur(16px) saturate(130%);-webkit-backdrop-filter:blur(16px) saturate(130%);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08)}
+.wrap{max-width:820px;margin:0 auto;padding:0 24px}
+section{padding:54px 0}
+h1,h2,h3{font-weight:600;line-height:1.22}
+.kicker{font-family:var(--mono);color:var(--orange);letter-spacing:.24em;font-size:.72rem;font-weight:500;margin-bottom:14px;text-transform:uppercase}
+p{color:var(--muted);font-weight:300;margin-bottom:20px;line-height:1.7}
+.lead{font-size:1.12rem;color:var(--text);font-weight:300}
+h1{font-size:2.1rem;margin-bottom:22px}
+h2{font-size:1.35rem;margin:44px 0 4px;color:var(--text)}
+.highlight{color:var(--orange);font-weight:500}
+strong{color:var(--text);font-weight:500}
+nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(1080px,94vw);display:flex;align-items:center;gap:14px;padding:16px 18px 16px 188px;border-radius:14px;background:#131f2c;border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.logo-chip{position:absolute;left:14px;top:100%;margin-top:-2px;width:158px;height:100px;background:#131f2c;border:1px solid var(--line);border-top:none;border-radius:0 0 30px 30px;box-shadow:0 22px 40px rgba(0,0,0,.45)}
+.biglogo{position:absolute;left:24px;top:9px;height:138px;width:138px;z-index:3;filter:drop-shadow(0 0 12px rgba(248,153,29,.45))}
+nav .brand{font-weight:600;letter-spacing:.1em;font-size:.92rem}
+nav .navlinks{display:flex;gap:24px;margin-left:auto}
+nav a{color:var(--muted);text-decoration:none;font-size:.84rem;transition:color .2s;font-family:var(--mono)}
+nav a:hover,nav a.here{color:var(--orange)}
+.menu-btn{display:none;margin-left:auto;background:rgba(148,180,210,.05);border:1px solid var(--line);border-radius:10px;width:42px;height:42px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.menu-btn i{display:block;width:18px;height:2px;background:var(--orange);border-radius:2px}
+@media(max-width:760px){nav .navlinks{display:none}.menu-btn{display:flex}nav.open .navlinks{display:flex;flex-direction:column;gap:16px;align-items:flex-end;position:absolute;top:100%;right:0;margin-top:10px;background:#131f2c;border:1px solid var(--line);border-radius:14px;padding:20px 24px;box-shadow:0 20px 50px rgba(0,0,0,.55)}nav.open .navlinks a{font-size:1rem}}
+@media(max-width:640px){nav{padding:12px 14px 12px 118px}nav .brand{font-size:.72rem;letter-spacing:.06em}.biglogo{height:92px;width:92px;left:18px;top:8px}.logo-chip{width:110px;height:56px}section{padding:40px 0}h1{font-size:1.7rem}}
+.post-hero{padding-top:150px;padding-bottom:10px}
+.meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);letter-spacing:.08em;margin-bottom:30px}
+.meta .highlight{color:var(--orange)}
+.pull{border-left:2px solid var(--orange);padding:6px 0 6px 24px;margin:34px 0}
+.pull p{color:var(--text);font-size:1.28rem;font-weight:400;font-family:'Caveat',cursive;line-height:1.4;margin:0}
+.card{padding:30px 32px;margin:32px 0}
+.card h3{color:var(--orange);font-size:1.02rem;font-family:var(--mono);letter-spacing:.06em;margin-bottom:14px;font-weight:500}
+.card p:last-child{margin-bottom:0}
+.steps{margin:26px 0}
+.steps .row{display:flex;gap:18px;padding:20px 0;border-top:1px solid var(--line)}
+.steps .row:last-child{border-bottom:1px solid var(--line)}
+.steps .num{font-family:var(--mono);color:var(--orange);font-size:.9rem;flex:0 0 34px;padding-top:2px}
+.steps .row div p{margin-bottom:0}
+.steps .row b{color:var(--text);font-weight:500}
+.cta-box{margin:50px 0 10px;text-align:center;padding:44px 32px}
+.cta-box h2{margin-top:0}
+.btn{display:inline-block;margin-top:22px;padding:14px 30px;border-radius:10px;border:1px solid rgba(248,153,29,.55);background:linear-gradient(135deg,rgba(248,153,29,.95),rgba(194,87,27,.9));color:#fff;font-family:inherit;font-size:.98rem;font-weight:500;box-shadow:0 10px 30px rgba(194,87,27,.3), inset 0 1px 0 rgba(255,255,255,.3);text-decoration:none;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(194,87,27,.45), inset 0 1px 0 rgba(255,255,255,.3)}
+.related{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:8px}
+.related a{color:var(--orange);text-decoration:none}
+footer{padding:50px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem;font-weight:300}
+footer .frow{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+footer a{color:var(--orange);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<nav id="topnav">
+  <span class="logo-chip"></span>
+  <a href="../index.html" aria-label="Struinova home"><img class="biglogo" src="../Struinova-dark.svg" alt="Struinova"></a>
+  <span class="brand">STRUINOVA INNOVATION</span>
+  <span class="navlinks">
+    <a href="../index.html#who">start_here</a>
+    <a href="../index.html#why">why_resident</a>
+    <a href="../lenses/index.html">lenses</a>
+    <a href="../blog/index.html">field_notes</a>
+    <a href="../about.html">about_us</a>
+    <a href="https://cal.com/brumbarger" target="_blank" rel="noopener">book_call</a>
+  </span>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu"><i></i><i></i><i></i></button>
+</nav>
+
+<section class="post-hero">
+  <div class="wrap">
+    <div class="kicker">Field Notes &middot; Model</div>
+    <h1>The Resident Model: Why Embedded Innovation Works</h1>
+    <div class="meta">By Ron Brumbarger &middot; Indianapolis</div>
+    <p class="lead">The traditional consultant parachutes in, runs a session, leaves a deck, and disappears. The resident does almost the opposite, and the difference shows up months later.</p>
+  </div>
+</section>
+
+<section style="padding-top:10px">
+  <div class="wrap">
+
+    <p>There is a reason universities have used residencies for decades. You bring exceptional talent inside for a season, not as a visitor delivering a report but as a working member of the team. The idea travels to business intact. An Innovator in Residence is part fresh eyes, part facilitator, part trainer, and the whole point is that when the residency ends, the capability stays behind.</p>
+
+    <h2>Two models, two very different endings</h2>
+    <div class="steps">
+      <div class="row"><div class="num">01</div><div><p><b>The parachute.</b> Fly in, run a workshop, leave a polished deck, disappear. You are left with recommendations and no one who knows how to carry them.</p></div></div>
+      <div class="row"><div class="num">02</div><div><p><b>The embed.</b> Work alongside the team for a season, teach throughout, and step back once the method has taken root. You are left with people who own the capability.</p></div></div>
+    </div>
+
+    <div class="pull"><p>You can't be your own dentist. But a good dentist also teaches you to brush.</p></div>
+
+    <h2>Why being in the room changes the result</h2>
+    <p><strong>Fresh eyes plus real context.</strong> A resident does not yet know "how things work here," which is an asset, not a liability. The naive question shakes an old assumption loose. But they are close enough to the work to respect its actual realities.</p>
+    <p><strong>Real-time problem-solving.</strong> When a new obstacle surfaces, and it will, the resident is present to adjust on the spot instead of hearing about it secondhand a month later.</p>
+    <p><strong>Skill transfer over time.</strong> A two-day workshop cannot transfer deep capability. A season of practice, feedback, and iteration can, so the skill becomes the team's own.</p>
+    <p><strong>Skin in the game.</strong> An embedded partner is judged on whether your people can keep solving problems after the engagement, not on the polish of a slide.</p>
+
+    <h2>How a residency runs</h2>
+    <p>Every engagement is shaped to fit, but a common shape is one to three days a week for eight to twelve weeks. Workshops, facilitated decisions, hands-on training, and the quiet work of building innovation habits that keep going after the resident leaves.</p>
+
+    <h2>Thirty years of local proof</h2>
+    <p>Ron built and sold Bitwise Solutions here in Indianapolis, grew and sold Apprentice University, and has served as an Entrepreneur in Residence. When the Indianapolis Metropolitan Police Department wanted a genuinely fresh approach to a decades-cold homicide, they came to Ron, and the team's method and playbook outlived the four-month engagement. That is the resident model in one sentence: the work ends, the capability does not.</p>
+
+    <h2>When to choose it</h2>
+    <p>Reach for a resident partner when the challenge is complex, when cultural change matters, and when you want your team to own the capability rather than rent it. Reach for traditional consulting when you need a one-time assessment or outside validation and nothing ongoing. Most organizations facing a real innovation problem are better served by the embed.</p>
+
+    <div class="cta-box panel">
+      <h2 style="color:var(--text)">Curious whether a residency fits your organization?</h2>
+      <p>Thirty minutes to understand the challenge and whether an embedded partner is the right call.</p>
+      <a href="https://cal.com/brumbarger" target="_blank" rel="noopener" class="btn">Book a call &rarr;</a>
+      <div class="related">Related: <a href="../services/indianapolis-innovation-consulting.html">Innovator in Residence</a> &middot; <a href="../blog/cold-case-problem-solving-what-criminal-investigators-teach-business-leaders.html">What a cold case taught us</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap frow">
+    <div>&copy; <span id="yr"></span> Struinova Innovation &middot; Indianapolis, USA &middot; working across North America, Europe, and Africa</div>
+    <div><a href="mailto:ron@struinova.com">ron@struinova.com</a> &middot; <a href="tel:+13174904376">317.490.4376</a> &middot; <a href="https://linkedin.com/in/brumbarger" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://cal.com/brumbarger" target="_blank" rel="noopener">cal.com/brumbarger</a></div>
+  </div>
+</footer>
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+const menuBtn = document.getElementById('menuBtn');
+if(menuBtn){const navEl=document.getElementById('topnav');menuBtn.onclick=()=>navEl.classList.toggle('open');document.querySelectorAll('nav .navlinks a').forEach(a=>{a.addEventListener('click',()=>navEl.classList.remove('open'));});}
+</script>
+</body>
+</html>

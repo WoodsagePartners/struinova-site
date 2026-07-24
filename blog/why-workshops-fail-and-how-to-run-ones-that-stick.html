@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Workshops Fail (and How to Run Ones That Stick) | Struinova Innovation</title>
+<meta name="description" content="Most workshops are theater. The energy fades in a week and habits return. Here is why, and the design that actually changes behavior.">
+<link rel="icon" type="image/svg+xml" href="../Struinova.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Caveat:wght@500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#f8991d;--burnt:#c2571b;--navy:#2c3e50;--ink:#0a1119;--text:#e6edf3;--muted:#93a5b6;--line:rgba(148,180,210,0.14);--panel:rgba(44,62,80,0.32);--panel-hi:rgba(64,90,116,0.30);--mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:var(--ink);color:var(--text);overflow-x:hidden;line-height:1.65}
+.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(1000px 700px at 80% -15%, rgba(44,62,80,0.55), transparent 60%),radial-gradient(800px 600px at -10% 60%, rgba(44,62,80,0.4), transparent 65%),radial-gradient(600px 500px at 70% 105%, rgba(194,87,27,0.08), transparent 60%),linear-gradient(165deg,#0a1119 0%,#0d1621 50%,#0a1119 100%)}
+.panel{background:linear-gradient(150deg,var(--panel-hi),var(--panel) 55%,rgba(22,34,46,0.5));backdrop-filter:blur(16px) saturate(130%);-webkit-backdrop-filter:blur(16px) saturate(130%);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08)}
+.wrap{max-width:820px;margin:0 auto;padding:0 24px}
+section{padding:54px 0}
+h1,h2,h3{font-weight:600;line-height:1.22}
+.kicker{font-family:var(--mono);color:var(--orange);letter-spacing:.24em;font-size:.72rem;font-weight:500;margin-bottom:14px;text-transform:uppercase}
+p{color:var(--muted);font-weight:300;margin-bottom:20px;line-height:1.7}
+.lead{font-size:1.12rem;color:var(--text);font-weight:300}
+h1{font-size:2.1rem;margin-bottom:22px}
+h2{font-size:1.35rem;margin:44px 0 4px;color:var(--text)}
+.highlight{color:var(--orange);font-weight:500}
+strong{color:var(--text);font-weight:500}
+nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:50;width:min(1080px,94vw);display:flex;align-items:center;gap:14px;padding:16px 18px 16px 188px;border-radius:14px;background:#131f2c;border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.logo-chip{position:absolute;left:14px;top:100%;margin-top:-2px;width:158px;height:100px;background:#131f2c;border:1px solid var(--line);border-top:none;border-radius:0 0 30px 30px;box-shadow:0 22px 40px rgba(0,0,0,.45)}
+.biglogo{position:absolute;left:24px;top:9px;height:138px;width:138px;z-index:3;filter:drop-shadow(0 0 12px rgba(248,153,29,.45))}
+nav .brand{font-weight:600;letter-spacing:.1em;font-size:.92rem}
+nav .navlinks{display:flex;gap:24px;margin-left:auto}
+nav a{color:var(--muted);text-decoration:none;font-size:.84rem;transition:color .2s;font-family:var(--mono)}
+nav a:hover,nav a.here{color:var(--orange)}
+.menu-btn{display:none;margin-left:auto;background:rgba(148,180,210,.05);border:1px solid var(--line);border-radius:10px;width:42px;height:42px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.menu-btn i{display:block;width:18px;height:2px;background:var(--orange);border-radius:2px}
+@media(max-width:760px){nav .navlinks{display:none}.menu-btn{display:flex}nav.open .navlinks{display:flex;flex-direction:column;gap:16px;align-items:flex-end;position:absolute;top:100%;right:0;margin-top:10px;background:#131f2c;border:1px solid var(--line);border-radius:14px;padding:20px 24px;box-shadow:0 20px 50px rgba(0,0,0,.55)}nav.open .navlinks a{font-size:1rem}}
+@media(max-width:640px){nav{padding:12px 14px 12px 118px}nav .brand{font-size:.72rem;letter-spacing:.06em}.biglogo{height:92px;width:92px;left:18px;top:8px}.logo-chip{width:110px;height:56px}section{padding:40px 0}h1{font-size:1.7rem}}
+.post-hero{padding-top:150px;padding-bottom:10px}
+.meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);letter-spacing:.08em;margin-bottom:30px}
+.meta .highlight{color:var(--orange)}
+.pull{border-left:2px solid var(--orange);padding:6px 0 6px 24px;margin:34px 0}
+.pull p{color:var(--text);font-size:1.28rem;font-weight:400;font-family:'Caveat',cursive;line-height:1.4;margin:0}
+.card{padding:30px 32px;margin:32px 0}
+.card h3{color:var(--orange);font-size:1.02rem;font-family:var(--mono);letter-spacing:.06em;margin-bottom:14px;font-weight:500}
+.card p:last-child{margin-bottom:0}
+.steps{margin:26px 0}
+.steps .row{display:flex;gap:18px;padding:20px 0;border-top:1px solid var(--line)}
+.steps .row:last-child{border-bottom:1px solid var(--line)}
+.steps .num{font-family:var(--mono);color:var(--orange);font-size:.9rem;flex:0 0 34px;padding-top:2px}
+.steps .row div p{margin-bottom:0}
+.steps .row b{color:var(--text);font-weight:500}
+.cta-box{margin:50px 0 10px;text-align:center;padding:44px 32px}
+.cta-box h2{margin-top:0}
+.btn{display:inline-block;margin-top:22px;padding:14px 30px;border-radius:10px;border:1px solid rgba(248,153,29,.55);background:linear-gradient(135deg,rgba(248,153,29,.95),rgba(194,87,27,.9));color:#fff;font-family:inherit;font-size:.98rem;font-weight:500;box-shadow:0 10px 30px rgba(194,87,27,.3), inset 0 1px 0 rgba(255,255,255,.3);text-decoration:none;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(194,87,27,.45), inset 0 1px 0 rgba(255,255,255,.3)}
+.related{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:8px}
+.related a{color:var(--orange);text-decoration:none}
+footer{padding:50px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem;font-weight:300}
+footer .frow{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+footer a{color:var(--orange);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<nav id="topnav">
+  <span class="logo-chip"></span>
+  <a href="../index.html" aria-label="Struinova home"><img class="biglogo" src="../Struinova-dark.svg" alt="Struinova"></a>
+  <span class="brand">STRUINOVA INNOVATION</span>
+  <span class="navlinks">
+    <a href="../index.html#who">start_here</a>
+    <a href="../index.html#why">why_resident</a>
+    <a href="../lenses/index.html">lenses</a>
+    <a href="../blog/index.html">field_notes</a>
+    <a href="../about.html">about_us</a>
+    <a href="https://cal.com/brumbarger" target="_blank" rel="noopener">book_call</a>
+  </span>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu"><i></i><i></i><i></i></button>
+</nav>
+
+<section class="post-hero">
+  <div class="wrap">
+    <div class="kicker">Field Notes &middot; Facilitation</div>
+    <h1>Why Workshops Fail, and How to Run Ones That Stick</h1>
+    <div class="meta">By Ron Brumbarger &middot; Indianapolis</div>
+    <p class="lead">Day one, everyone loves it. Day seven, nothing has changed. The failure is almost always baked into the design, not the delivery.</p>
+  </div>
+</section>
+
+<section style="padding-top:10px">
+  <div class="wrap">
+
+    <p>You have seen the pattern. Day one, the room is electric and the facilitator is compelling. By day three, someone quietly wonders how any of this gets implemented. By the following week, the meetings resume, the habits return, and the workshop becomes a fond story. "Remember that great offsite?" Nothing moved.</p>
+
+    <h2>Why it happens</h2>
+    <div class="steps">
+      <div class="row"><div class="num">01</div><div><p><b>No method.</b> Concepts get taught but no repeatable process, so nobody can run it again without the facilitator.</p></div></div>
+      <div class="row"><div class="num">02</div><div><p><b>No real problem.</b> The work happens on tidy case studies instead of the messy challenge people actually face. Theory does not transfer without practice.</p></div></div>
+      <div class="row"><div class="num">03</div><div><p><b>No accountability.</b> The session ends and nobody follows up, so the learning quietly evaporates.</p></div></div>
+      <div class="row"><div class="num">04</div><div><p><b>No ownership.</b> The facilitator owns the room and the attendees are passengers. Passengers consume. They do not keep.</p></div></div>
+    </div>
+
+    <div class="pull"><p>Ownership is the whole difference between learning something and keeping it.</p></div>
+
+    <h2>The design that sticks</h2>
+    <p><strong>Connection before content.</strong> People learn from people they trust, so earn a little trust before you teach anything.</p>
+    <p><strong>Teach on the real thing.</strong> Introduce the method and immediately apply it to a live problem the team actually owns. They leave with muscle memory, not notes.</p>
+    <p><strong>Build in accountability.</strong> The workshop is the start, not the finish. Check in at a week, a month, three months. Are people using the method? Where are they stuck?</p>
+    <p><strong>Hand over ownership.</strong> The team does the thinking. The facilitator guides. What they build, they own.</p>
+
+    <h2>A field note</h2>
+    <p>Manitou Springs, Colorado gave us two days and about twenty-five people who did not want to share a room. We did not teach theory. We handed them a method and pointed it at their actual emergency. They generated real solutions and practiced working with people they had been fighting. They left with skills and with ownership, not just goodwill. The community launched a wellness and referral hub, The Hive, and participants carried the methods into their own organizations and used them again. The design made the behavior change almost inevitable.</p>
+
+    <h2>How to know it worked</h2>
+    <p>Ask three questions later, not on the last afternoon. Did behavior change? Can the team run the method without you? Are problems actually getting solved faster and with more alignment? Everything else is theater.</p>
+
+    <div class="cta-box panel">
+      <h2 style="color:var(--text)">Want a workshop that changes Monday, not just the mood?</h2>
+      <p>Let's design one built to shift behavior instead of just impressing people.</p>
+      <a href="https://cal.com/brumbarger" target="_blank" rel="noopener" class="btn">Book a call &rarr;</a>
+      <div class="related">Related: <a href="../services/creative-problem-solving-workshops.html">Creative Problem-Solving Workshops</a> &middot; <a href="../blog/how-to-run-a-problem-reframing-workshop.html">How to run a problem-reframing workshop</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap frow">
+    <div>&copy; <span id="yr"></span> Struinova Innovation &middot; Indianapolis, USA &middot; working across North America, Europe, and Africa</div>
+    <div><a href="mailto:ron@struinova.com">ron@struinova.com</a> &middot; <a href="tel:+13174904376">317.490.4376</a> &middot; <a href="https://linkedin.com/in/brumbarger" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://cal.com/brumbarger" target="_blank" rel="noopener">cal.com/brumbarger</a></div>
+  </div>
+</footer>
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+const menuBtn = document.getElementById('menuBtn');
+if(menuBtn){const navEl=document.getElementById('topnav');menuBtn.onclick=()=>navEl.classList.toggle('open');document.querySelectorAll('nav .navlinks a').forEach(a=>{a.addEventListener('click',()=>navEl.classList.remove('open'));});}
+</script>
+</body>
+</html>
